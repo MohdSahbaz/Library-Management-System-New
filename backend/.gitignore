@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Temporary build files
+/dist
+/build
+
+# IDE or editor specific
+.vscode/
+.idea/
+
+# Mac system files
+.DS_Store
