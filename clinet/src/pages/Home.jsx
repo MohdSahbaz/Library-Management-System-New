@@ -16,7 +16,7 @@ const Home = () => {
           <h1 className="text-4xl font-bold mb-4 animate-float">
             Welcome to LMS
           </h1>
-          <p className="text-lg mb-6">
+          <p className="text-lg mb-6 bg-emerald-50/[0.5] rounded-sm">
             Your one-stop solution for managing and accessing books, resources,
             and more.
           </p>
