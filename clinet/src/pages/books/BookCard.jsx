@@ -7,8 +7,10 @@ import {
 } from "react-icons/pi";
 import "../../styles/scroll.css";
 import Loader from "../../components/common/loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 const BookCard = () => {
+  const navigate = useNavigate();
   const { latestBooks, recommendedBooks, loader } = useContext(BookContext);
   const [toggle, setToggle] = useState(true);
   const scrollRef = useRef(null);
@@ -24,7 +26,10 @@ const BookCard = () => {
   };
 
   const BookCard = ({ book }) => (
-    <div className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:scale-105 hover:cursor-pointer transition-all duration-300 ease-out">
+    <div
+      onClick={() => navigate(`/book/${book.title}`)}
+      className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:scale-105 hover:cursor-pointer transition-all duration-300 ease-out"
+    >
       <img
         src={book.imageUrl || "/fallback.jpg"}
         alt={book.title || "Book cover"}
