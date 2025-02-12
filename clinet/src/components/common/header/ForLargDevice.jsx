@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
+import { useState } from "react";
 
 const ForLargeDevice = () => {
+  const navigate = useNavigate();
+  const [searchKey, setSearchKey] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/search/${searchKey}`);
+  };
+
   return (
     <div className="md:flex justify-between items-center bg-emerald-200 px-6 py-2 shadow-md hidden sticky top-0 z-50">
       {/* Left Section: Navigation Links */}
@@ -29,14 +38,22 @@ const ForLargeDevice = () => {
       {/* Right Section: Search and Buttons */}
       <div className="flex items-center space-x-6">
         {/* Search Bar */}
-        <div className="flex items-center bg-white px-3 py-2 rounded-md shadow-sm focus-within:ring focus-within:ring-emerald-300">
+        <form
+          onSubmit={handleSearch}
+          className="flex items-center bg-white px-3 py-2 rounded-md shadow-sm focus-within:ring focus-within:ring-emerald-300"
+        >
           <input
             type="search"
+            value={searchKey}
+            required
+            onChange={(e) => setSearchKey(e.target.value)}
             placeholder="Search book..."
             className="outline-none text-gray-700 w-48 placeholder:text-gray-500 placeholder:font-medium"
           />
-          <IoIosSearch className="text-2xl text-emerald-600 ml-2 cursor-pointer hover:text-emerald-700" />
-        </div>
+          <button type="submit">
+            <IoIosSearch className="text-2xl text-emerald-600 ml-2 cursor-pointer hover:text-emerald-700" />
+          </button>
+        </form>
 
         {/* Sign In */}
         <Link

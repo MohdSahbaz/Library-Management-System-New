@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Books from "./pages/books/Book";
 import { BookProvider } from "./context/BookContext";
+import SearchBook from "./pages/books/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             <Books />
           </BookProvider>
         ),
+      },
+      {
+        path: "search/:searchKey",
+        element: <SearchBook />,
       },
     ],
   },

@@ -1,12 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { useState, useEffect, useRef } from "react";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 
 const ForSmallDevice = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const menuRef = useRef(null);
+  const [searchKey, setSearchKey] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/search/${searchKey}`);
+  };
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -37,14 +44,22 @@ const ForSmallDevice = () => {
       {/* Right Section: Search and Buttons */}
       <div className="flex items-center space-x-2">
         {/* Search Bar */}
-        <div className="w-30 flex items-center bg-white px-3 py-2 rounded-md shadow-sm focus-within:ring focus-within:ring-emerald-300">
+        <form
+          onSubmit={handleSearch}
+          className="w-30 flex items-center bg-white px-3 py-2 rounded-md shadow-sm focus-within:ring focus-within:ring-emerald-300"
+        >
           <input
             type="search"
+            value={searchKey}
+            onChange={(e) => setSearchKey(e.target.value)}
+            required
             placeholder="Search book..."
             className="w-32 outline-none text-gray-700 md:w-48 placeholder:text-gray-500 placeholder:font-medium"
           />
-          <IoIosSearch className="text-2xl text-emerald-600 ml-2 cursor-pointer hover:text-emerald-700" />
-        </div>
+          <button type="submit">
+            <IoIosSearch className="text-2xl text-emerald-600 ml-2 cursor-pointer hover:text-emerald-700" />
+          </button>
+        </form>
 
         {/* Mobile Menu Button */}
         <button
