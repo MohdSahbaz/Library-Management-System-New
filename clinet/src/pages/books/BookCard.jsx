@@ -28,12 +28,12 @@ const BookCard = () => {
   const BookCard = ({ book }) => (
     <div
       onClick={() => navigate(`/book/${book.title}`)}
-      className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:scale-105 hover:cursor-pointer transition-all duration-300 ease-out"
+      className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:cursor-pointer group"
     >
       <img
         src={book.imageUrl || "/fallback.jpg"}
         alt={book.title || "Book cover"}
-        className="h-48 object-cover"
+        className="h-48 object-cover group-hover:scale-105 transition-all duration-300 ease-out rounded-sm"
       />
       <h1>{book.title}</h1>
       <p className="text-sm text-gray-600">{book.genre}</p>

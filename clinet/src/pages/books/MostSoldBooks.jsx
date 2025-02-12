@@ -9,7 +9,7 @@ const MostSoldBooks = () => {
 
   return (
     <div className="bg-emerald-50 px-6 py-4">
-      <h1 className="text-lg mb-4">Most Sold Books</h1>
+      <h1 className="text-lg mb-4">Most Read Books</h1>
 
       {loader ? (
         <Loader />
@@ -36,7 +36,7 @@ const MostSoldBooks = () => {
                     <img
                       src={book.imageUrl}
                       alt={book.title}
-                      className="w-12 h-18 object-cover rounded-md group-hover:scale-150 transition-all duration-300 ease-out"
+                      className="w-12 h-18 object-cover rounded-sm group-hover:scale-150 transition-all duration-300 ease-out"
                     />
                     <div className="pl-4">
                       <h2 className="text-md font-semibold">{book.title}</h2>
