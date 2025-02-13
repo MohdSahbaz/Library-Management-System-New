@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../components/animations/animations.css";
+import { MdArrowOutward } from "react-icons/md";
 
 const Home = () => {
   return (
@@ -22,9 +23,9 @@ const Home = () => {
           </p>
           <Link
             to="/books"
-            className="bg-emerald-900 text-white font-semibold px-6 py-2 rounded-md hover:bg-emerald-700 transition duration-200"
+            className="bg-emerald-900 text-white px-6 py-2 rounded-md hover:bg-emerald-700 transition duration-200"
           >
-            Explore Library
+            Explore Library <MdArrowOutward className="inline-block text-lg" />
           </Link>
         </div>
       </section>
