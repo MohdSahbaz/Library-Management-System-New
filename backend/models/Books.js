@@ -24,6 +24,10 @@ const booksSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    salesCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
