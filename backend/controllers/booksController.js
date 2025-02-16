@@ -40,6 +40,59 @@ const getMostReadBook = async (req, res) => {
   }
 };
 
-const getSearchBook = async (req, res) => {};
+const getSearchBook = async (req, res) => {
+  try {
+    const { query, page = 1, limit = 10 } = req.body; // Get search query, page, and limit
 
-module.exports = { getLatestBooks, recommendateBooks, getMostReadBook };
+    if (!query) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+
+    const pageNumber = parseInt(page, 10) || 1; // Convert page to number (default: 1)
+    const limitNumber = parseInt(limit, 10) || 10; // Convert limit to number (default: 10)
+    const skip = (pageNumber - 1) * limitNumber; // Calculate how many results to skip
+
+    // Search books by title, genre, and author
+    const books = await Books.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { genre: { $regex: query, $options: "i" } },
+        { author: { $regex: query, $options: "i" } },
+      ],
+    })
+      .skip(skip) // Skip previous pages' results
+      .limit(limitNumber) // Limit results per page
+      .exec();
+
+    // Get total number of matched books (for pagination info)
+    const totalBooks = await Books.countDocuments({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { genre: { $regex: query, $options: "i" } },
+        { author: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    if (books.length === 0) {
+      return res.status(404).json({ message: "No books found" });
+    }
+
+    // Send paginated response
+    res.status(200).json({
+      totalBooks, // Total matching books
+      totalPages: Math.ceil(totalBooks / limitNumber), // Total pages
+      currentPage: pageNumber, // Current page number
+      books, // Books for this page
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+module.exports = {
+  getLatestBooks,
+  recommendateBooks,
+  getMostReadBook,
+  getSearchBook,
+};
