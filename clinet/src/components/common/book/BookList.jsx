@@ -17,7 +17,7 @@ const BookList = ({ books, loader }) => {
               <tr className="bg-emerald-100 border-b shadow-md">
                 <th className="pl-4 py-2">Title</th>
                 <th className="pl-4 py-2">Genre</th>
-                <th className="pl-4 py-2 hidden md:table-cell">Status</th>
+                <th className="pl-4 py-2 hidden md:table-cell">Readers</th>
               </tr>
             </thead>
           )}
@@ -25,7 +25,9 @@ const BookList = ({ books, loader }) => {
             {books && books.length > 0 ? (
               books.map((book, index) => (
                 <tr
-                  onClick={() => navigate(`/book/${book.title}`)}
+                  onClick={() =>
+                    navigate(`/book/${book.title.replace(/\s+/g, "-")}`)
+                  }
                   key={book.id}
                   className={`${
                     index % 2 === 0 ? "bg-emerald-100/[0.5]" : "bg-emerald-50"
@@ -44,7 +46,7 @@ const BookList = ({ books, loader }) => {
                   </td>
                   <td className="pl-4 py-3">{book.genre || "Unknown Genre"}</td>
                   <td className="pl-4 py-3 hidden md:table-cell text-gray-500">
-                    {book.status || "Not Available"}
+                    {book.salesCount || "Unknown"}
                   </td>
                 </tr>
               ))

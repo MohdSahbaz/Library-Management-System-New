@@ -27,7 +27,7 @@ const BookCard = () => {
 
   const BookCard = ({ book }) => (
     <div
-      onClick={() => navigate(`/book/${book.title}`)}
+      onClick={() => navigate(`/book/${book.title.replace(/\s+/g, "-")}`)}
       className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:cursor-pointer group"
     >
       <img
