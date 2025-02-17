@@ -14,7 +14,7 @@ const Home = () => {
         }}
       >
         <div className="max-w-4xl mx-auto bg-emerald-50/[0.5] p-6 rounded-lg shadow-xl">
-          <h1 className="text-4xl font-bold mb-4 animate-float">
+          <h1 className="text-4xl font-bold mb-4 animate-float italic">
             Welcome to LMS
           </h1>
           <p className="text-lg mb-6 bg-emerald-50/[0.5] rounded-sm">

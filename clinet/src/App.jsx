@@ -8,6 +8,7 @@ import { BookProvider } from "./context/BookContext";
 
 import SearchBook from "./pages/books/SearchPage";
 import { SearchBookProvider } from "./context/SearchBookContext";
+import SingleBook from "./components/common/book/SingleBook";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             <SearchBook />
           </SearchBookProvider>
         ),
+      },
+      {
+        path: "book/:title",
+        element: <SingleBook />,
       },
     ],
   },

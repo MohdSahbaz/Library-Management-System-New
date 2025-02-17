@@ -13,11 +13,11 @@ const SearchBook = () => {
   }, [query]);
 
   return (
-    <div className="bg-emerald-50 p-4">
+    <div className="bg-emerald-50 md:p-4">
       <BookList
         books={searchBook}
         loader={loader}
-        heading={`Searching for ${query}`}
+        heading={`Searching for "${query}"`}
       />
     </div>
   );

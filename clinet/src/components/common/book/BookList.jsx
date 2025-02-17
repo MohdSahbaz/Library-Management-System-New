@@ -28,7 +28,7 @@ const BookList = ({ books, loader, heading }) => {
                   onClick={() =>
                     navigate(`/book/${book.title.replace(/\s+/g, "-")}`)
                   }
-                  key={book.id}
+                  key={book._id}
                   className={`${
                     index % 2 === 0 ? "bg-emerald-100/[0.5]" : "bg-emerald-50"
                   } hover:bg-emerald-200/[0.5] transition-colors cursor-pointer border-b shadow-md group`}
