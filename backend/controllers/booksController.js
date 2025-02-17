@@ -70,13 +70,8 @@ const getSearchBook = async (req, res) => {
         { title: { $regex: query, $options: "i" } },
         { genre: { $regex: query, $options: "i" } },
         { author: { $regex: query, $options: "i" } },
-        { description: { $regex: query, $options: "i" } },
       ],
     });
-
-    if (books.length === 0) {
-      return res.status(404).json({ message: "No books found" });
-    }
 
     // Send paginated response
     res.status(200).json({
