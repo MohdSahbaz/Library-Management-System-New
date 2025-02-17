@@ -2,9 +2,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Header from "./components/common/header/Header";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+
 import Books from "./pages/books/Book";
 import { BookProvider } from "./context/BookContext";
+
 import SearchBook from "./pages/books/SearchPage";
+import { SearchBookProvider } from "./context/SearchBookContext";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +27,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "search/:searchKey",
-        element: <SearchBook />,
+        path: "search/:query",
+        element: (
+          <SearchBookProvider>
+            <SearchBook />
+          </SearchBookProvider>
+        ),
       },
     ],
   },

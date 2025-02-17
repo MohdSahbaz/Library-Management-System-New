@@ -4,7 +4,13 @@ import BookList from "../../components/common/book/BookList";
 
 const MostSoldBooks = () => {
   const { mostReadBooks, loader } = useContext(BookContext);
-  return <BookList books={mostReadBooks} loader={loader} />;
+  return (
+    <BookList
+      books={mostReadBooks}
+      loader={loader}
+      heading={`Most Read Books`}
+    />
+  );
 };
 
 export default MostSoldBooks;

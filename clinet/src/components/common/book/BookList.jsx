@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Loader from "../loader/Loader";
 
-const BookList = ({ books, loader }) => {
+const BookList = ({ books, loader, heading }) => {
   const navigate = useNavigate();
 
   return (
     <div className="bg-emerald-50 px-6 py-4">
-      <h1 className="text-lg mb-4">Most Read Books</h1>
+      <h1 className="text-lg mb-4">{heading}</h1>
 
       {loader ? (
         <Loader />
