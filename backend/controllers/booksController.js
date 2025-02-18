@@ -85,9 +85,30 @@ const getSearchBook = async (req, res) => {
   }
 };
 
+const getBookById = async (req, res) => {
+  try {
+    const { bookId } = req.params; // Get bookId
+
+    if (!bookId) {
+      return res.status(400).json({ message: "Book ID is required" });
+    }
+
+    const book = await Books.findById(bookId); // Find book by ID
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getLatestBooks,
   recommendateBooks,
   getMostReadBook,
   getSearchBook,
+  getBookById,
 };
