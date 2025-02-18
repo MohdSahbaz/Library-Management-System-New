@@ -26,7 +26,9 @@ const BookList = ({ books, loader, heading }) => {
               books.map((book, index) => (
                 <tr
                   onClick={() =>
-                    navigate(`/book/${book.title.replace(/\s+/g, "-")}`)
+                    navigate(`/book/${book.title.replace(/\s+/g, "-")}`, {
+                      state: { bookId: book._id },
+                    })
                   }
                   key={book._id}
                   className={`${
