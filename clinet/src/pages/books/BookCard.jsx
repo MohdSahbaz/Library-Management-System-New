@@ -8,6 +8,7 @@ import {
 import "../../styles/scroll.css";
 import Loader from "../../components/common/loader/Loader";
 import { useNavigate } from "react-router-dom";
+import "../../components/animations/animations.css";
 
 const BookCard = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const BookCard = () => {
           state: { bookId: book._id },
         })
       }
-      className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:cursor-pointer group"
+      className="bg-white px-4 py-2 w-[156px] flex flex-col flex-shrink-0 hover:cursor-pointer group fade-in"
     >
       <img
         src={book.imageUrl || "/fallback.jpg"}

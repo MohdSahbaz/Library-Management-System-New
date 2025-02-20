@@ -5,7 +5,7 @@ const BookList = ({ books, loader, heading }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-emerald-50 px-6 py-4">
+    <div className="bg-emerald-50 px-6 py-4 fade-in">
       <h1 className="text-lg mb-4">{heading}</h1>
 
       {loader ? (

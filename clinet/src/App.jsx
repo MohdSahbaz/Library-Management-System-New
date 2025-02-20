@@ -37,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "book/:title",
-        element: <SingleBook />,
+        element: (
+          <BookProvider>
+            <SingleBook />
+          </BookProvider>
+        ),
       },
     ],
   },
