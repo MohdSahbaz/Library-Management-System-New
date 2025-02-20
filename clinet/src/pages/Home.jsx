@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../components/animations/animations.css";
 import { MdArrowOutward } from "react-icons/md";
+import { FaBookOpen, FaUserCircle, FaGlobe } from "react-icons/fa";
 
 const Home = () => {
   return (
@@ -32,23 +33,26 @@ const Home = () => {
 
       {/* Features Section */}
       <section className="py-12 px-6 zoom-in bg-emerald-100">
-        <h2 className="text-2xl font-bold text-center mb-8">Features</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Our Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-white shadow-md rounded-lg p-6 text-center">
+          <div className="bg-emerald-50 shadow-lg rounded-lg p-6 text-center transform hover:scale-105 transition duration-300">
+            <FaBookOpen className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Vast Collection</h3>
             <p className="text-gray-700">
               Access thousands of books, journals, and research materials in one
               place.
             </p>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-6 text-center">
+          <div className="bg-emerald-50 shadow-lg rounded-lg p-6 text-center transform hover:scale-105 transition duration-300">
+            <FaUserCircle className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">User Profiles</h3>
             <p className="text-gray-700">
               Manage your borrowed books, track due dates, and view
               recommendations.
             </p>
           </div>
-          <div className="bg-white shadow-md rounded-lg p-6 text-center">
+          <div className="bg-emerald-50 shadow-lg rounded-lg p-6 text-center transform hover:scale-105 transition duration-300">
+            <FaGlobe className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Online Access</h3>
             <p className="text-gray-700">
               Browse and borrow books from anywhere with our online platform.

@@ -34,13 +34,13 @@ const SingleBook = () => {
   }, [bookId]);
 
   return (
-    <>
+    <div className="min-h-[calc(100vh-56px)] bg-emerald-50">
       <div
         className={`flex justify-center items-center bg-emerald-50 p-6 fade-in`}
       >
         {loader && <Loader />}
         {error && <h1>{error}</h1>}
-        {book && !error && (
+        {book && !error && !loader && (
           <div className="bg-emerald-100/[0.5] shadow-md rounded-sm overflow-hidden flex flex-col md:flex-row w-full max-w-8xl">
             {/* Left: Book Image */}
             <div className="w-full md:w-1/3 p-4">
@@ -93,7 +93,7 @@ const SingleBook = () => {
         )}
       </div>
       <MostSoldBooks />
-    </>
+    </div>
   );
 };
 

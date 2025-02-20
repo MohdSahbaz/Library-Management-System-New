@@ -9,6 +9,9 @@ import { BookProvider } from "./context/BookContext";
 import SearchBook from "./pages/books/SearchPage";
 import { SearchBookProvider } from "./context/SearchBookContext";
 import SingleBook from "./components/common/book/SingleBook";
+import About from "./components/common/AboutUs";
+import Footer from "./components/common/Footer";
+import Contact from "./components/common/Contact";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,14 @@ const router = createBrowserRouter([
             <SingleBook />
           </BookProvider>
         ),
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

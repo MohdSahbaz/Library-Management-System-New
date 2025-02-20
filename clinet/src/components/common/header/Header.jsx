@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
 import ForLargeDevice from "./ForLargDevice";
 import ForSmallDevice from "./ForSmallDevice";
+import Footer from "../Footer";
 
 const Header = () => {
   return (
-    <div className="font-serif bg-gray-100 text-emerald-900">
+    <div className="bg-gray-100 text-emerald-900">
       {/* Header Section for larger device*/}
       <ForLargeDevice />
 
@@ -13,6 +14,7 @@ const Header = () => {
 
       {/* Outlet Section */}
       <Outlet />
+      <Footer />
     </div>
   );
 };

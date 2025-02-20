@@ -1,0 +1,93 @@
+import { useEffect } from "react";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaBook,
+} from "react-icons/fa";
+import "../animations/animations.css";
+
+const Contact = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-[calc(100vh-56px)] bg-emerald-50 flex flex-col items-center py-10 px-4 fade-in">
+      <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
+
+      <div className="max-w-4xl w-full bg-emerald-100 text-gray-900 p-6 rounded-lg shadow-lg">
+        {/* Contact Information */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h2 className="text-xl font-semibold text-emerald-800 flex items-center">
+              <FaBook className="mr-2" /> Get in Touch
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Have any questions? Reach out to us and we’ll be happy to assist
+              you.
+            </p>
+            <div className="mt-4 space-y-3">
+              <p className="flex items-center text-gray-700">
+                <FaMapMarkerAlt className="text-emerald-700 mr-2" /> Mumbai,
+                India
+              </p>
+              <p className="flex items-center text-gray-700">
+                <FaPhone className="text-emerald-700 mr-2" /> +913 456 7890
+              </p>
+              <p className="flex items-center text-gray-700">
+                <FaEnvelope className="text-emerald-700 mr-2" /> contact@lms.com
+              </p>
+            </div>
+
+            {/* Social Media */}
+            <div className="mt-4 flex space-x-4">
+              <a href="#" className="text-emerald-700 hover:text-emerald-900">
+                <FaFacebookF size={24} />
+              </a>
+              <a href="#" className="text-emerald-700 hover:text-emerald-900">
+                <FaTwitter size={24} />
+              </a>
+              <a href="#" className="text-emerald-700 hover:text-emerald-900">
+                <FaInstagram size={24} />
+              </a>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <form className="flex flex-col space-y-4">
+            <input
+              type="text"
+              placeholder="Your Name"
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
+            />
+            <textarea
+              rows="4"
+              placeholder="Your Message"
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
+            ></textarea>
+            <button
+              type="submit"
+              className="bg-emerald-700 text-white py-2 rounded-md hover:bg-emerald-900 transition"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Contact;
