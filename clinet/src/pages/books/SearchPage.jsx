@@ -9,6 +9,7 @@ const SearchBook = () => {
     useContext(SearchBookContext);
 
   useEffect(() => {
+    window.scroll(0, 0);
     fetchBooks(query); // Fetch books when query changes
   }, [query]);
 
