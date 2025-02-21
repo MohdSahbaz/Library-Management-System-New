@@ -1,7 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
+
 const connectDB = require("./config/db");
+
 const booksRouter = require("./routes/booksRoutes");
+const userRouter = require("./routes/userRoute");
 
 const app = express();
 
@@ -18,9 +22,10 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/books", booksRouter);
+app.use("/api/user", userRouter);
 
 // Server setup
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
