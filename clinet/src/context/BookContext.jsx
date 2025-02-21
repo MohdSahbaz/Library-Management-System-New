@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+const bookApiUrl = import.meta.env.VITE_API_URL_BOOK;
 
 const BookContext = createContext();
 
@@ -16,9 +17,9 @@ const BookProvider = ({ children }) => {
       try {
         const [latestResponse, recommendedResponse, mostReadResponse] =
           await Promise.all([
-            axios.get("http://localhost:8080/api/books/latest"),
-            axios.get("http://localhost:8080/api/books/recommend"),
-            axios.get("http://localhost:8080/api/books/mostreadbooks"),
+            axios.get(`${bookApiUrl}/latest`),
+            axios.get(`${bookApiUrl}/recommend`),
+            axios.get(`${bookApiUrl}/mostreadbooks`),
           ]);
         setLatestBooks(latestResponse.data);
         setRecommendedBooks(recommendedResponse.data);

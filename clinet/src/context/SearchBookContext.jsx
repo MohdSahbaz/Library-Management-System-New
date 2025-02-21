@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+const bookApiUrl = import.meta.env.VITE_API_URL_BOOK;
 
 const SearchBookContext = createContext();
 
@@ -18,10 +19,7 @@ const SearchBookProvider = ({ children }) => {
     setError(null); // Reset error before fetching
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/books/search",
-        { query }
-      );
+      const response = await axios.post(`${bookApiUrl}/search`, { query });
       setSearchBook(response.data.books);
     } catch (err) {
       setError("Failed to fetch book data. Please try again later.");

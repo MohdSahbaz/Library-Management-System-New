@@ -9,7 +9,7 @@ const AuthPage = () => {
 
   return (
     <div className="min-h-screen flex items-start justify-center bg-emerald-50 pt-5">
-      <div className="bg-emerald-100 shadow-lg rounded-lg overflow-hidden max-w-md w-full m-5">
+      <div className="bg-emerald-100/[0.5] shadow-lg rounded-lg overflow-hidden max-w-md w-full m-5">
         {/* Toggle Buttons */}
         <div className="flex">
           <button
