@@ -48,36 +48,4 @@ const sendOTP = async (req, res) => {
   }
 };
 
-const verifyOTP = async (req, res) => {
-  const { email, otp } = req.body;
-
-  if (!email || !otp)
-    return res.status(400).json({ message: "All fields are required" });
-
-  try {
-    // Find OTP record
-    const otpRecord = await Otp.findOne({ email, otp });
-
-    if (!otpRecord) {
-      return res
-        .status(400)
-        .json({ message: "OTP expired. Please request a new one." });
-    }
-
-    if (otpRecord.otp !== otp) {
-      return res.status(400).json({ message: "Invalid OTP" });
-    }
-
-    // OTP verified, delete it from DB
-    await Otp.deleteOne({ email });
-
-    res.status(200).json({ message: "OTP verified successfully" });
-  } catch (error) {
-    console.error("Error verifying OTP:", error);
-    res
-      .status(500)
-      .json({ message: "Something went wrong. Please try again." });
-  }
-};
-
-module.exports = { sendOTP, verifyOTP };
+module.exports = { sendOTP };
