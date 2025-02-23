@@ -1,46 +1,92 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const userApiUrl = import.meta.env.VITE_API_URL_USER;
+const otpApiUrl = import.meta.env.VITE_API_URL_OTP;
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
-    phone: "",
+    phoneNumber: "",
+    city: "",
+    otp: "",
   });
 
-  const [otpSent, setOtpSent] = useState(false);
-  const [otp, setOtp] = useState("");
+  const [error, setError] = useState(null);
+  const [otpError, setOtpError] = useState(null);
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [canSendOtp, setCanSendOtp] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Sign Up Data", formData);
-    setOtpSent(true); // Simulate OTP sent
+  const handleSendOtp = async () => {
+    if (!canSendOtp) return;
+
+    setError(null);
+    setIsSendingOtp(true);
+    setCanSendOtp(false);
+    setTimeLeft(120); // 2 minutes countdown
+
+    try {
+      const response = await axios.post(`${otpApiUrl}/sendotp`, {
+        email: formData.email,
+      });
+      setOtpError(response?.data?.message);
+      setShowOtpInput(true);
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "Failed to send OTP. Please try again.";
+      setOtpError(errorMessage);
+      setCanSendOtp(true); // Allow retry if error occurs
+    } finally {
+      setIsSendingOtp(false);
+    }
   };
 
-  const handleOTPSubmit = (e) => {
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setCanSendOtp(true);
+    }
+  }, [timeLeft]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Entered OTP:", otp);
+    setError(null);
+    try {
+      await axios.post(`${userApiUrl}/signup`, { ...formData });
+      navigate("/profile");
+    } catch (error) {
+      setError(error?.response?.data?.message || "Please try again.");
+    }
   };
 
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
 
-  return !otpSent ? (
+  return (
     <form onSubmit={handleSubmit} className="space-y-4 slide-in-right">
+      <h1 className="text-center mb-6">Create an account to get started</h1>
+
       <div>
-        <h1 className="text-center mb-6">Create an account to get started</h1>
         <label className="block text-sm font-medium">Full Name</label>
         <input
           type="text"
-          name="username"
-          value={formData.username}
+          name="name"
+          value={formData.name}
           onChange={handleChange}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your full name"
@@ -50,16 +96,52 @@ const SignUp = () => {
 
       <div>
         <label className="block text-sm font-medium">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
-          placeholder="Enter your email"
-          required
-        />
+        <div className="flex gap-2">
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+            placeholder="Enter your email"
+            required
+          />
+          <button
+            type="button"
+            onClick={handleSendOtp}
+            disabled={!canSendOtp}
+            className={`px-4 py-2 bg-emerald-900 text-emerald-50 rounded-md transition duration-300 flex items-center justify-center ${
+              !canSendOtp
+                ? "bg-gray-400 cursor-not-allowed"
+                : "hover:bg-emerald-800"
+            }`}
+          >
+            {isSendingOtp ? (
+              <span className="animate-spin border-2 border-t-transparent border-white rounded-full h-5 w-5"></span>
+            ) : timeLeft > 0 ? (
+              `Retry in ${timeLeft}s`
+            ) : (
+              "Send OTP"
+            )}
+          </button>
+        </div>
+        <p className="text-red-500">{otpError}</p>
       </div>
+
+      {showOtpInput && (
+        <div>
+          <label className="block text-sm font-medium">Enter OTP</label>
+          <input
+            type="text"
+            name="otp"
+            value={formData.otp}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+            placeholder="Enter OTP"
+            required
+          />
+        </div>
+      )}
 
       <div>
         <label className="block text-sm font-medium">Password</label>
@@ -78,11 +160,24 @@ const SignUp = () => {
         <label className="block text-sm font-medium">Phone Number</label>
         <input
           type="number"
-          name="phone"
-          value={formData.phone}
+          name="phoneNumber"
+          value={formData.phoneNumber}
           onChange={handleChange}
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your phone number"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium">City</label>
+        <input
+          type="text"
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          placeholder="Enter your city"
           required
         />
       </div>
@@ -94,32 +189,14 @@ const SignUp = () => {
         Register
       </button>
 
+      {error && <p className="text-red-600 text-center">{error}</p>}
+
       <p className="text-center mt-4">
         Already have an account?{" "}
         <Link to="/signin" className="text-blue-600 hover:underline">
           Sign in
         </Link>
       </p>
-    </form>
-  ) : (
-    // OTP Form
-    <form onSubmit={handleOTPSubmit} className="space-y-4 slide-in-bottom">
-      <label className="block text-sm font-medium text-gray-700">OTP</label>
-      <input
-        type="text"
-        name="otp"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
-        placeholder="Enter OTP"
-        required
-      />
-      <button
-        type="submit"
-        className="w-full py-2 bg-emerald-900 text-emerald-50 rounded-md hover:bg-emerald-800 transition duration-300"
-      >
-        Verify OTP
-      </button>
     </form>
   );
 };
