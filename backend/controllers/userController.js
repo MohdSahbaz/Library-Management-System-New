@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-const { verifyOTP } = require("./otpController");
 const Otp = require("../models/Otp");
 
 const signUp = async (req, res) => {
@@ -52,8 +51,6 @@ const signUp = async (req, res) => {
       .json({ message: "Internal Server Error", error: error.message });
   }
 };
-
-module.exports = signUp;
 
 const signIn = async (req, res) => {
   res.send("Enter signIn Details");
