@@ -22,6 +22,7 @@ const SignUp = () => {
   const [isSendingOtp, setIsSendingOtp] = useState(false);
   const [canSendOtp, setCanSendOtp] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track form submission
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,11 +66,15 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsSubmitting(true); // Start loading on submit
+
     try {
       await axios.post(`${userApiUrl}/signup`, { ...formData });
       navigate("/profile");
     } catch (error) {
       setError(error?.response?.data?.message || "Please try again.");
+    } finally {
+      setIsSubmitting(false); // Stop loading
     }
   };
 
@@ -112,7 +117,7 @@ const SignUp = () => {
             disabled={!canSendOtp}
             className={`px-4 py-2 bg-emerald-900 text-emerald-50 rounded-md transition duration-300 flex items-center justify-center ${
               !canSendOtp
-                ? "bg-gray-400 cursor-not-allowed"
+                ? "bg-emerald-700 cursor-not-allowed"
                 : "hover:bg-emerald-800"
             }`}
           >
@@ -184,9 +189,18 @@ const SignUp = () => {
 
       <button
         type="submit"
-        className="w-full py-2 bg-emerald-900 text-emerald-50 rounded-md hover:bg-emerald-800 transition duration-300"
+        disabled={isSubmitting}
+        className={`w-full py-2 text-emerald-50 rounded-md flex items-center justify-center transition duration-300 ${
+          isSubmitting
+            ? "bg-emerald-700 cursor-not-allowed"
+            : "bg-emerald-900 hover:bg-emerald-800"
+        }`}
       >
-        Register
+        {isSubmitting ? (
+          <span className="animate-spin border-2 border-t-transparent border-white rounded-full h-5 w-5"></span>
+        ) : (
+          "Register"
+        )}
       </button>
 
       {error && <p className="text-red-600 text-center">{error}</p>}

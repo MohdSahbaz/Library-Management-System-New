@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const userApiUrl = import.meta.env.VITE_API_URL_USER;
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,9 +18,19 @@ const SignIn = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Sign In Data", formData);
+    setError(null);
+    setIsSubmitting(true);
+
+    try {
+      await axios.post(`${userApiUrl}/signin`, { ...formData });
+      navigate("/profile");
+    } catch (error) {
+      setError(error?.response?.data?.message || "Invalid credentials.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -23,10 +39,11 @@ const SignIn = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 slide-in-left">
+      <h1 className="text-center mb-6">
+        Welcome back! Please enter your details
+      </h1>
+
       <div>
-        <h1 className="text-center mb-6">
-          Welcome back! Please enter your details
-        </h1>
         <label className="block text-sm font-medium">Email</label>
         <input
           type="email"
@@ -54,10 +71,21 @@ const SignIn = () => {
 
       <button
         type="submit"
-        className="w-full py-2 bg-emerald-900 text-emerald-50 rounded-md hover:bg-emerald-800 transition duration-300"
+        disabled={isSubmitting}
+        className={`w-full py-2 text-emerald-50 rounded-md flex items-center justify-center transition duration-300 ${
+          isSubmitting
+            ? "bg-emerald-700 cursor-not-allowed"
+            : "bg-emerald-900 hover:bg-emerald-800"
+        }`}
       >
-        Sign In
+        {isSubmitting ? (
+          <span className="animate-spin border-2 border-t-transparent border-white rounded-full h-5 w-5"></span>
+        ) : (
+          "Sign In"
+        )}
       </button>
+
+      {error && <p className="text-red-600 text-center">{error}</p>}
 
       <p className="text-center mt-4">
         Don't have an account?{" "}
