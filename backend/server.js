@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 
 const booksRouter = require("./routes/booksRoutes");
 const userRouter = require("./routes/userRoute");
+const otpRouter = require("./routes/otpRoute");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/books", booksRouter);
 app.use("/api/user", userRouter);
+app.use("/api/otp", otpRouter);
 
 // Server setup
 const PORT = process.env.PORT || 8080;
