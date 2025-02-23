@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const Otp = require("../models/Otp");
+const generateToken = require("../utils/generateToken");
+const matchPassword = require("../utils/matchPassword");
 
 const signUp = async (req, res) => {
   try {
@@ -53,7 +55,31 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
-  res.send("Enter signIn Details");
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    const isPassowrdValid = await matchPassword(password, user.password);
+
+    if (!user || !isPassowrdValid) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.json({
+      token: generateToken(user),
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
 
-module.exports = { signUp, signIn };
+const profile = async (req, res) => {
+  res.json({ message: "Protected Route", user: req.user });
+};
+
+module.exports = { signUp, signIn, profile };
