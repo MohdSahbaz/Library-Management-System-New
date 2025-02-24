@@ -17,6 +17,7 @@ const ForSmallDevice = () => {
 
   // Close menu when clicking outside
   useEffect(() => {
+    setIsLogin;
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
@@ -28,6 +29,15 @@ const ForSmallDevice = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setIsLogin(!!localStorage.getItem("token"));
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
 
   return (
     <div className="md:hidden flex justify-between items-center bg-emerald-200 px-6 py-2 shadow-md sticky top-0 z-50">
@@ -101,7 +111,10 @@ const ForSmallDevice = () => {
             Contact
           </Link>
           {isLogin ? (
-            <button className="text-red-500 font-medium hover:text-red-600 transition px-6">
+            <button
+              onClick={handleLogout}
+              className="text-red-500 font-medium hover:text-red-600 transition px-6"
+            >
               Logout
             </button>
           ) : (

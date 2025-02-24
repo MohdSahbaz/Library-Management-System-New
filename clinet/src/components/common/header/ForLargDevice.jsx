@@ -1,15 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ForLargeDevice = () => {
   const navigate = useNavigate();
   const [searchKey, setSearchKey] = useState("");
+  const [isUserLogin, setIsUserLogin] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/search/${searchKey}`);
   };
+
+  useEffect(() => {
+    setIsUserLogin(!!localStorage.getItem("token"));
+  });
 
   return (
     <div className="md:flex justify-between items-center bg-emerald-200 px-6 py-2 shadow-md hidden sticky top-0 z-50">
@@ -56,20 +61,31 @@ const ForLargeDevice = () => {
         </form>
 
         {/* Sign In */}
-        <Link
-          to={"/signin"}
-          className="text-emerald-700 font-medium hover:text-emerald-800 transition"
-        >
-          Sign In
-        </Link>
+        {!isUserLogin ? (
+          <>
+            <Link
+              to={"/signin"}
+              className="text-emerald-700 font-medium hover:text-emerald-800 transition"
+            >
+              Sign In
+            </Link>
 
-        {/* Sign Up */}
-        <Link
-          to={"/signup"}
-          className="bg-emerald-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-emerald-700 transition"
-        >
-          Sign Up
-        </Link>
+            {/* Sign Up */}
+            <Link
+              to={"/signup"}
+              className="bg-emerald-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-emerald-700 transition"
+            >
+              Sign Up
+            </Link>
+          </>
+        ) : (
+          <Link
+            to={"/profile"}
+            className="bg-emerald-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-emerald-700 transition"
+          >
+            Profile
+          </Link>
+        )}
       </div>
     </div>
   );

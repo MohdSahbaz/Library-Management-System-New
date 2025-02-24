@@ -24,9 +24,14 @@ const SignIn = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`${userApiUrl}/signin`, { ...formData });
-      navigate("/profile");
+      const response = await axios.post(`${userApiUrl}/signin`, formData);
+
+      const { token } = response.data;
+      localStorage.setItem("token", token); // Store token
+
+      navigate("/profile"); // Redirect after login
     } catch (error) {
+      console.error("Login Error:", error.response?.data || error.message);
       setError(error?.response?.data?.message || "Invalid credentials.");
     } finally {
       setIsSubmitting(false);

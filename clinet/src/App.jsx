@@ -12,6 +12,9 @@ import SingleBook from "./components/common/book/SingleBook";
 import About from "./components/common/AboutUs";
 import Contact from "./components/common/Contact";
 import AuthPage from "./pages/auth/AuthPage";
+import ProfilePage from "./pages/profile/ProfilePage";
+import History from "./pages/profile/History";
+import Favorite from "./pages/profile/Favorite";
 
 const router = createBrowserRouter([
   {
@@ -47,19 +50,23 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/signin",
+        path: "signin",
         element: <AuthPage />,
       },
       {
-        path: "/signup",
+        path: "signup",
         element: <AuthPage />,
       },
       {
-        path: "/about",
+        path: "profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "about",
         element: <About />,
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <Contact />,
       },
     ],
