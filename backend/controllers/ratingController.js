@@ -30,14 +30,9 @@ const getAverageRating = async (req, res) => {
 
     const ratings = await Rating.find({ bookId });
 
-    if (ratings.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No ratings found for this book" });
-    }
-
     const averageRating =
-      ratings.reduce((sum, rating) => sum + rating.rating, 0) / ratings.length;
+      ratings.reduce((sum, rating) => sum + rating.rating, 0) /
+        ratings.length || 0;
 
     res.status(200).json({ averageRating: averageRating.toFixed(1) });
   } catch (error) {
