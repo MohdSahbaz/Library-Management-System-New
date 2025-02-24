@@ -46,7 +46,7 @@ const BookCard = () => {
   );
 
   return (
-    <div className="bg-emerald-50 px-6 py-4">
+    <div className="bg-emerald-50 py-4">
       <div className="space-x-14 mb-6">
         <button
           className={`${

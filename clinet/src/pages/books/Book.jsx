@@ -8,7 +8,7 @@ const Books = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="min-h-[calc(100vh-56px)] bg-emerald-50">
+    <div className="min-h-[calc(100vh-56px)] bg-emerald-50 px-6">
       <BookCard />
       <MostSoldBooks />
     </div>

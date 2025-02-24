@@ -6,6 +6,7 @@ import axios from "axios";
 import Loader from "../loader/Loader";
 import MostSoldBooks from "../../../pages/books/MostSoldBooks";
 import "../../animations/animations.css";
+import ReviewAndRating from "./ReviewAndRating";
 
 const bookApiUrl = import.meta.env.VITE_API_URL_BOOK;
 const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
@@ -110,10 +111,8 @@ const SingleBook = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-56px)] bg-emerald-50">
-      <div
-        className={`flex justify-center items-center bg-emerald-50 p-6 fade-in`}
-      >
+    <div className="min-h-[calc(100vh-56px)] bg-emerald-50 p-6">
+      <div className={`flex justify-center items-center bg-emerald-50 fade-in`}>
         {loader && <Loader />}
         {error && <h1>{error}</h1>}
         {book && !error && !loader && (
@@ -193,6 +192,7 @@ const SingleBook = () => {
           </div>
         )}
       </div>
+      {book && <ReviewAndRating bookId={book._id} />}
       <MostSoldBooks />
     </div>
   );
