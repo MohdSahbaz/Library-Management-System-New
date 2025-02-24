@@ -5,10 +5,12 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 
-const booksRouter = require("./routes/booksRoutes");
-const authRouter = require("./routes/authRoute");
-const otpRouter = require("./routes/otpRoute");
-const borrowRouter = require("./routes/borrowRoute");
+const booksRoutes = require("./routes/booksRoutes");
+const authRoutes = require("./routes/authRoute");
+const otpRoutes = require("./routes/otpRoute");
+const borrowRoutes = require("./routes/borrowRoute");
+const ratingRoutes = require("./routes/ratingRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 const calculateFine = require("./cronsJob/calculateFine");
 const removeUnconfirmedBorrows = require("./cronsJob/removePendingBook");
@@ -35,10 +37,12 @@ cron.schedule("0 0 * * *", () => {
 });
 
 // Routes
-app.use("/api/books", booksRouter);
-app.use("/api/user", authRouter);
-app.use("/api/otp", otpRouter);
-app.use("/api/borrow", borrowRouter);
+app.use("/api/books", booksRoutes);
+app.use("/api/user", authRoutes);
+app.use("/api/otp", otpRoutes);
+app.use("/api/borrow", borrowRoutes);
+app.use("/api/ratings", ratingRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 // Server setup
 const PORT = process.env.PORT || 8080;
