@@ -65,7 +65,7 @@ const ForLargeDevice = () => {
           <>
             <Link
               to={"/signin"}
-              className="text-emerald-700 font-medium hover:text-emerald-800 transition"
+              className="text-emerald-700 font-medium border px-5 py-2 border-transparent hover:border-emerald-900 hover:bg-emerald-800 hover:text-emerald-50 transition duration-300"
             >
               Sign In
             </Link>
@@ -73,7 +73,7 @@ const ForLargeDevice = () => {
             {/* Sign Up */}
             <Link
               to={"/signup"}
-              className="bg-emerald-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-emerald-700 transition"
+              className="bg-emerald-600 text-white px-5 py-2 rounded-sm shadow-md hover:bg-emerald-800 transition duration-300"
             >
               Sign Up
             </Link>
@@ -81,7 +81,7 @@ const ForLargeDevice = () => {
         ) : (
           <Link
             to={"/profile"}
-            className="bg-emerald-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-emerald-700 transition"
+            className="bg-emerald-600 text-white px-5 py-2 rounded-sm shadow-md hover:bg-emerald-700 transition duration-300"
           >
             Profile
           </Link>

@@ -90,30 +90,33 @@ const ForSmallDevice = () => {
           {isLogin && (
             <Link
               to={"/profile"}
-              className="hover:text-emerald-600 transition px-6"
+              className="px-6 w-full bg-emerald-800 py-2 text-emerald-50 transition-all duration-300 hover:bg-emerald-600"
             >
               Profile
             </Link>
           )}
-          <Link to={"/"} className="hover:text-emerald-600 transition px-6">
+          <Link
+            to={"/"}
+            className="hover:text-emerald-600 transition px-6 w-full"
+          >
             Home
           </Link>
           <Link
             to={"/about"}
-            className="hover:text-emerald-600 transition px-6"
+            className="hover:text-emerald-600 transition px-6 w-full"
           >
             About
           </Link>
           <Link
             to={"/contact"}
-            className="hover:text-emerald-600 transition px-6"
+            className="hover:text-emerald-600 transition px-6 w-full"
           >
             Contact
           </Link>
           {isLogin ? (
             <button
               onClick={handleLogout}
-              className="text-red-500 font-medium hover:text-red-600 transition px-6"
+              className="text-red-500 font-medium hover:text-red-600 transition px-6 w-full"
             >
               Logout
             </button>
@@ -122,14 +125,14 @@ const ForSmallDevice = () => {
               {/* Sign In */}
               <Link
                 to={"/signin"}
-                className="text-emerald-700 font-medium hover:text-emerald-800 transition px-6"
+                className="text-emerald-700 font-medium border px-6 w-full py-2 border-transparent hover:border-emerald-900 hover:bg-emerald-800 hover:text-emerald-50 transition duration-300"
               >
                 Sign In
               </Link>
               {/* Sign Up */}
               <Link
                 to={"/signup"}
-                className="bg-emerald-600 mx-2 text-white py-2 rounded-lg shadow-md hover:bg-emerald-700 transition px-6"
+                className="bg-emerald-600 text-white py-2 w-full hover:bg-emerald-800 transition px-6"
               >
                 Sign Up
               </Link>
