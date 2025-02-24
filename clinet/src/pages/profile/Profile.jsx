@@ -11,6 +11,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scroll(0, 0);
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");

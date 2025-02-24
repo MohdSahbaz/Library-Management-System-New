@@ -30,11 +30,17 @@ const getAverageRating = async (req, res) => {
 
     const ratings = await Rating.find({ bookId });
 
-    const averageRating =
-      ratings.reduce((sum, rating) => sum + rating.rating, 0) /
-        ratings.length || 0;
+    const totalRatings = ratings.length; // Count total ratings
 
-    res.status(200).json({ averageRating: averageRating.toFixed(1) });
+    const averageRating =
+      totalRatings > 0
+        ? ratings.reduce((sum, rating) => sum + rating.rating, 0) / totalRatings
+        : 0;
+
+    res.status(200).json({
+      averageRating: averageRating.toFixed(1), // Keep one decimal place
+      totalRatings, // Send total number of ratings
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }

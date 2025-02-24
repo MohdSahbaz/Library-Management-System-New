@@ -52,13 +52,13 @@ const About = () => {
           <div className="mt-6 flex gap-4">
             <Link
               to="/contact"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white px-4 py-2 rounded-sm hover:bg-blue-700 transition"
             >
               Contact Us
             </Link>
             <Link
               to="/books"
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+              className="bg-green-600 text-white px-4 py-2 rounded-sm hover:bg-green-700 transition"
             >
               Visit Library
             </Link>

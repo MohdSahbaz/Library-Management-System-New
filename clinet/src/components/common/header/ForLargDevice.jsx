@@ -45,7 +45,7 @@ const ForLargeDevice = () => {
         {/* Search Bar */}
         <form
           onSubmit={handleSearch}
-          className="flex items-center bg-white px-3 py-2 rounded-md shadow-sm focus-within:ring focus-within:ring-emerald-300"
+          className="flex items-center bg-white px-3 py-2 rounded-sm shadow-sm focus-within:ring focus-within:ring-emerald-300"
         >
           <input
             type="search"

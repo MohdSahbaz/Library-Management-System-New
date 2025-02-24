@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import "../components/animations/animations.css";
 import { MdArrowOutward } from "react-icons/md";
 import { FaBookOpen, FaUserCircle, FaGlobe } from "react-icons/fa";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div className="min-h-[calc(100vh-56px)] bg-gradient-to-tr from-neutral-50 to-emerald-100 bounce">
       {/* Hero Section */}
@@ -14,8 +18,8 @@ const Home = () => {
           backgroundPosition: "center",
         }}
       >
-        <div className="max-w-4xl mx-auto bg-emerald-50/[0.5] p-6 rounded-lg shadow-xl">
-          <h1 className="text-4xl font-bold mb-4 animate-float italic">
+        <div className="max-w-4xl mx-auto bg-emerald-50/[0.5] p-6 rounded-sm shadow-xl">
+          <h1 className="text-4xl font-bold mb-4 animate-float animate-bounce">
             Welcome to LMS
           </h1>
           <p className="text-lg mb-6 bg-emerald-50/[0.5] rounded-sm">
@@ -24,7 +28,7 @@ const Home = () => {
           </p>
           <Link
             to="/books"
-            className="bg-emerald-900 text-white px-6 py-2 rounded-md hover:bg-emerald-700 transition duration-200"
+            className="bg-emerald-900 text-white px-6 py-2 rounded-sm hover:bg-emerald-700 transition duration-200"
           >
             Explore Library <MdArrowOutward className="inline-block text-lg" />
           </Link>
@@ -35,7 +39,7 @@ const Home = () => {
       <section className="py-12 px-6 zoom-in bg-emerald-100">
         <h2 className="text-3xl font-bold text-center mb-8">Our Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-emerald-50 shadow-lg rounded-lg p-6 text-center transform hover:scale-105 transition duration-300">
+          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300">
             <FaBookOpen className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Vast Collection</h3>
             <p className="text-gray-700">
@@ -43,7 +47,7 @@ const Home = () => {
               place.
             </p>
           </div>
-          <div className="bg-emerald-50 shadow-lg rounded-lg p-6 text-center transform hover:scale-105 transition duration-300">
+          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300">
             <FaUserCircle className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">User Profiles</h3>
             <p className="text-gray-700">
@@ -51,7 +55,7 @@ const Home = () => {
               recommendations.
             </p>
           </div>
-          <div className="bg-emerald-50 shadow-lg rounded-lg p-6 text-center transform hover:scale-105 transition duration-300">
+          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300">
             <FaGlobe className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Online Access</h3>
             <p className="text-gray-700">

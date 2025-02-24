@@ -19,7 +19,7 @@ const Contact = () => {
     <div className="min-h-[calc(100vh-56px)] bg-emerald-50 flex flex-col items-center py-10 px-4 fade-in">
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
 
-      <div className="max-w-4xl w-full bg-emerald-100 text-gray-900 p-6 rounded-lg shadow-lg">
+      <div className="max-w-4xl w-full bg-emerald-100 text-gray-900 p-6 rounded-sm shadow-lg">
         {/* Contact Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -62,24 +62,24 @@ const Contact = () => {
             <input
               type="text"
               placeholder="Your Name"
-              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-gray-300 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
             <input
               type="email"
               placeholder="Your Email"
-              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-gray-300 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
             <textarea
               rows="4"
               placeholder="Your Message"
-              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-gray-300 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             ></textarea>
             <button
               type="submit"
-              className="bg-emerald-700 text-white py-2 rounded-md hover:bg-emerald-900 transition"
+              className="bg-emerald-700 text-white py-2 rounded-sm hover:bg-emerald-900 transition"
             >
               Send Message
             </button>
