@@ -11,7 +11,7 @@ import ReviewAndRating from "./ReviewAndRating";
 const bookApiUrl = import.meta.env.VITE_API_URL_BOOK;
 const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
 
-const SingleBook = () => {
+const SingleBook = ({ averageRating }) => {
   const location = useLocation();
   const bookId = location.state?.bookId;
   const [book, setBook] = useState(null);

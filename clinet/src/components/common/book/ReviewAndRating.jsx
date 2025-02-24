@@ -159,7 +159,7 @@ const ReviewAndRating = ({ bookId }) => {
         {user && (
           <div className="mt-4">
             <textarea
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md border-emerald-700 bg-transparent focus:outline-emerald-300 "
               rows="3"
               placeholder="Write your review..."
               value={comment}
@@ -175,7 +175,7 @@ const ReviewAndRating = ({ bookId }) => {
             {reviewError && <p className="text-red-600 mt-2">{reviewError}</p>}
           </div>
         )}
-        <div className="mt-6">
+        <div className="mt-6 max-h-48 overflow-y-auto">
           {loading ? (
             <p>Loading reviews...</p>
           ) : reviews.length > 0 ? (
