@@ -12,7 +12,21 @@ const borrowBook = async (req, res) => {
         .json({ message: "User ID and Book ID are required" });
     }
 
-    // Check if the book is available
+    // 🔹 Check if the user has already borrowed this specific book
+    const existingBorrow = await Borrow.findOne({
+      userId,
+      bookId,
+      status: { $in: ["pending", "borrowed"] }, // Pending or currently borrowed
+    });
+
+    if (existingBorrow) {
+      return res.status(400).json({
+        message:
+          "You have already borrowed this book. Please return it before borrowing again.",
+      });
+    }
+
+    // 🔹 Check if the book is available
     const book = await Books.findById(bookId);
     if (!book || book.copiesAvailable < 1) {
       return res
@@ -20,7 +34,7 @@ const borrowBook = async (req, res) => {
         .json({ message: "Book not available for borrowing" });
     }
 
-    // Create a borrow request (Pending approval)
+    // 🔹 Create a borrow request (Pending approval)
     const borrowRecord = new Borrow({
       userId,
       bookId,
@@ -29,6 +43,7 @@ const borrowBook = async (req, res) => {
     });
 
     await borrowRecord.save();
+
     res.status(201).json({
       message: "Borrow request created, waiting for confirmation",
       borrowRecord,
