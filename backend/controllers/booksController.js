@@ -1,4 +1,5 @@
 const Books = require("../models/Books");
+const Borrow = require("../models/Borrow");
 
 // Get latest books by creation date
 const getLatestBooks = async (req, res) => {
@@ -105,10 +106,24 @@ const getBookById = async (req, res) => {
   }
 };
 
+// 📌 Get Borrowed Books for a User
+const getUserBorrowedBooks = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const borrowedBooks = await Borrow.find({ userId }).populate("bookId");
+
+    res.status(200).json(borrowedBooks);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   getLatestBooks,
   recommendateBooks,
   getMostReadBook,
   getSearchBook,
   getBookById,
+  getUserBorrowedBooks,
 };

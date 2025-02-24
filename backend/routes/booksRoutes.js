@@ -5,6 +5,7 @@ const {
   getMostReadBook,
   getSearchBook,
   getBookById,
+  getUserBorrowedBooks,
 } = require("../controllers/booksController");
 
 const router = express.Router();
@@ -13,5 +14,6 @@ router.get("/recommend", recommendateBooks);
 router.get("/mostreadbooks", getMostReadBook);
 router.post("/search", getSearchBook);
 router.get("/book/:bookId", getBookById);
+router.get("/user/:userId", getUserBorrowedBooks);
 
 module.exports = router;
