@@ -88,6 +88,27 @@ const SingleBook = () => {
     }
   };
 
+  useEffect(() => {
+    if (borrowError) {
+      const timer = setTimeout(() => {
+        setBorrowError(null);
+      }, 10000); // 10 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [borrowError]);
+
+  const handleDownload = () => {
+    if (book?.downloadUrl) {
+      const link = document.createElement("a");
+      link.href = book.downloadUrl;
+      link.setAttribute("download", book.title || "Book.pdf");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   return (
     <div className="min-h-[calc(100vh-56px)] bg-emerald-50">
       <div
@@ -139,20 +160,30 @@ const SingleBook = () => {
                 <button
                   disabled={borrowLoader}
                   onClick={handleBorrow}
-                  className={`text-white px-4 py-2 rounded-sm transition duration-300
-                      ${
-                        borrowLoader
-                          ? "bg-blue-900 cursor-not-allowed"
-                          : "bg-blue-600 hover:bg-blue-800"
-                      } `}
+                  className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
+                    ${
+                      borrowLoader
+                        ? "bg-blue-900 cursor-not-allowed"
+                        : "bg-blue-600 hover:bg-blue-800"
+                    } `}
                 >
                   {borrowLoader ? (
-                    <span className="animate-spin border-2 border-t-transparent border-white rounded-full h-5 w-5"></span>
+                    <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
                   ) : (
                     "Borrow"
                   )}
                 </button>
-                <button className="bg-green-600 text-white px-4 py-2 rounded-sm hover:bg-green-700 transition">
+
+                <button
+                  disabled={!book?.downloadUrl}
+                  onClick={handleDownload}
+                  className={`text-white px-4 py-2 rounded-sm transition
+                    ${
+                      !book?.downloadUrl
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700 cursor-pointer"
+                    }`}
+                >
                   Download
                 </button>
               </div>
