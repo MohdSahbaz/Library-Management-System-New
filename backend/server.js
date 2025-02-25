@@ -44,7 +44,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/borrow", borrowRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/overdue", overdueRoutes);
+app.use("/api/activity", overdueRoutes);
 
 // Server setup
 const PORT = process.env.PORT || 8080;

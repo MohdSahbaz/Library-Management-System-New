@@ -69,4 +69,32 @@ const getUserUnreturnedBooks = async (req, res) => {
   }
 };
 
-module.exports = { getOverdueBook, getUserUnreturnedBooks };
+const getHistory = async (req, res) => {
+  try {
+    // Get the authenticated user's id
+    const userId = req.user.id;
+
+    // Find all borrow records for the user
+    const historyRecords = await Borrow.find({ userId })
+      .populate("bookId", "title imageUrl _id") // populate only the title and imageUrl of the book
+      .select("borrowDate dueDate status bookId")
+      .lean();
+
+    // Format the records to match the unreturned response format
+    const formattedHistory = historyRecords.map((record) => ({
+      _id: record.bookId._id,
+      title: record.bookId.title,
+      imageUrl: record.bookId.imageUrl,
+      borrowDate: record.borrowDate,
+      dueDate: record.dueDate,
+      status: record.status,
+    }));
+
+    res.status(200).json(formattedHistory);
+  } catch (error) {
+    console.error("Error fetching borrow history:", error);
+    res.status(500).json({ message: "Error fetching borrow history", error });
+  }
+};
+
+module.exports = { getOverdueBook, getUserUnreturnedBooks, getHistory };
