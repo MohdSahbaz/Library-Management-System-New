@@ -13,8 +13,6 @@ import About from "./components/common/AboutUs";
 import Contact from "./components/common/Contact";
 import AuthPage from "./pages/auth/AuthPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import History from "./pages/profile/History";
-import Favorite from "./pages/profile/Favorite";
 
 const router = createBrowserRouter([
   {

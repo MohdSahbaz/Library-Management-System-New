@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Profile from "./Profile";
 import History from "./History";
-import Favorite from "./Favorite";
 import Unreturned from "./Unreturned";
+import Overdue from "./Overdue";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -53,14 +53,14 @@ const ProfilePage = () => {
                   Unreturned
                 </button>
                 <button
-                  onClick={() => setActiveActivity("favorite")}
+                  onClick={() => setActiveActivity("overdue")}
                   className={`flex-1 py-2 px-2 text-center rounded-none ${
-                    activeActivity === "favorite"
+                    activeActivity === "overdue"
                       ? "bg-emerald-700 text-emerald-50 hover:bg-emerald-600"
                       : "bg-emerald-200 text-gray-800 hover:bg-emerald-300"
                   } transition-all`}
                 >
-                  Favorite
+                  Overdue
                 </button>
                 <button
                   onClick={() => setActiveActivity("history")}
@@ -76,7 +76,7 @@ const ProfilePage = () => {
 
               {/* Render Selected Activity */}
               {activeActivity === "unreturned" && <Unreturned />}
-              {activeActivity === "favorite" && <Favorite />}
+              {activeActivity === "overdue" && <Overdue />}
               {activeActivity === "history" && <History />}
             </div>
           )}
