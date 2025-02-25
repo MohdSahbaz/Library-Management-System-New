@@ -2,29 +2,40 @@ const Borrow = require("../models/Borrow");
 
 const getOverdueBook = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user.id;
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    // Find overdue books for the specific user where status is "overdue"
-    const overdueBooks = await Borrow.find({
+    // Fetch all overdue books and populate full book details
+    const overdueRecords = await Borrow.find({
       userId,
       status: "overdue",
-    })
-      .populate("bookId", "title author")
-      .select("bookId dueDate fine");
+    }).populate("bookId");
 
-    // Calculate total fine for the user
+    // Merge book details directly into overdueBooks array
+    const overdueBooks = overdueRecords.map((record) => ({
+      _id: record.bookId._id,
+      record_id: record._id,
+      title: record.bookId.title,
+      author: record.bookId.author,
+      genre: record.bookId.genre,
+      imageUrl: record.bookId.imageUrl,
+      salesCount: record.bookId.salesCount,
+      borrowDate: record.borrowDate,
+      returnDate: record.returnDate,
+      dueDate: record.dueDate,
+      status: record.status,
+      fine: record.fine,
+    }));
+
+    // Calculate total fine
     const totalFine = overdueBooks.reduce((sum, book) => sum + book.fine, 0);
 
-    // Send response
     res.status(200).json({ userId, overdueBooks, totalFine });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching overdue books", error: error.message });
+    res.status(500).json({ message: "Error fetching overdue books", error });
   }
 };
 
