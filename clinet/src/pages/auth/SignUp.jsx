@@ -70,7 +70,7 @@ const SignUp = () => {
 
     try {
       await axios.post(`${userApiUrl}/signup`, { ...formData });
-      navigate("/login");
+      navigate("/profile");
     } catch (error) {
       setError(error?.response?.data?.message || "Please try again.");
     } finally {
