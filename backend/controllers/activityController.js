@@ -1,6 +1,6 @@
 const Borrow = require("../models/Borrow");
 
-const getOverdueBook = async (req, res) => {
+const getUserOverdueBooks = async (req, res) => {
   try {
     const userId = req.user.id;
 
@@ -39,14 +39,14 @@ const getOverdueBook = async (req, res) => {
   }
 };
 
-const getUserUnreturnedBooks = async (req, res) => {
+const getUserBorroedBooks = async (req, res) => {
   try {
     const userId = req.user.id; // Get user ID from request
 
     // Find unreturned books for this user
     const unreturnedBooks = await Borrow.find({
       userId: userId, // Filter by user
-      status: { $in: ["pending", "unreturned"] }, // Only pending or unreturned
+      status: { $in: ["pending", "borrowed"] }, // Only pending or unreturned
     })
       .populate("bookId", "title imageUrl _id") // Get book title & imageUrl
       .select("borrowDate dueDate status bookId") // Select required fields
@@ -69,7 +69,7 @@ const getUserUnreturnedBooks = async (req, res) => {
   }
 };
 
-const getHistory = async (req, res) => {
+const getUserHistoryBooks = async (req, res) => {
   try {
     // Get the authenticated user's id
     const userId = req.user.id;
@@ -97,4 +97,8 @@ const getHistory = async (req, res) => {
   }
 };
 
-module.exports = { getOverdueBook, getUserUnreturnedBooks, getHistory };
+module.exports = {
+  getUserOverdueBooks,
+  getUserBorroedBooks,
+  getUserHistoryBooks,
+};

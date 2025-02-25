@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../../components/common/loader/Loader";
 
-const UnreturnedBookList = ({ books, loader, heading }) => {
+const BorrowedBookList = ({ books, loader, heading }) => {
   const navigate = useNavigate();
 
   return (
@@ -56,17 +56,17 @@ const UnreturnedBookList = ({ books, loader, heading }) => {
                       : "text-red-600"
                   }`}
                 >
-                  Status: {book.status === "pending" ? "Pending" : "Unreturned"}
+                  Status: {book.status === "pending" ? "Pending" : "Borrowed"}
                 </p>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-600 py-4">No unreturned books</p>
+        <p className="text-center text-gray-600 py-4">No books found</p>
       )}
     </div>
   );
 };
 
-export default UnreturnedBookList;
+export default BorrowedBookList;

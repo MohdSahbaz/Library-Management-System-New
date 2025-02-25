@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Profile from "./Profile";
 import History from "./activity/history/History";
-import Unreturned from "./activity/unreturn/Unreturned";
 import Overdue from "./activity/overdue/Overdue";
+import Borrowed from "./activity/borrowed/Borrowed";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("profile");
-  const [activeActivity, setActiveActivity] = useState("unreturned");
+  const [activeActivity, setActiveActivity] = useState("borrowed");
 
   return (
     <div className="min-h-[calc(100vh-56px)] flex items-start justify-center bg-emerald-50 pt-5">
@@ -43,14 +43,14 @@ const ProfilePage = () => {
             <div className="slide-in-right fade-in">
               <div className="flex mb-4 bg-emerald-200 rounded-md justify-center">
                 <button
-                  onClick={() => setActiveActivity("unreturned")}
+                  onClick={() => setActiveActivity("borrowed")}
                   className={`flex-1 py-2 rounded-sm px-2 text-center rounded-r-none border-x-2 border-emerald-900 ${
-                    activeActivity === "unreturned"
+                    activeActivity === "borrowed"
                       ? "bg-emerald-700 text-emerald-50 hover:bg-emerald-600"
                       : "bg-emerald-200 text-gray-800 hover:bg-emerald-300"
                   } transition-all duration-300`}
                 >
-                  Unreturned
+                  Borrowed
                 </button>
                 <button
                   onClick={() => setActiveActivity("overdue")}
@@ -75,7 +75,7 @@ const ProfilePage = () => {
               </div>
 
               {/* Render Selected Activity */}
-              {activeActivity === "unreturned" && <Unreturned />}
+              {activeActivity === "borrowed" && <Borrowed />}
               {activeActivity === "overdue" && <Overdue />}
               {activeActivity === "history" && <History />}
             </div>

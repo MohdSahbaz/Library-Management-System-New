@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import BookList from "./UnreturnedBookList";
+import BookList from "./BorrowedBookList";
 import { jwtDecode } from "jwt-decode";
 
 const unreturnedApiUrl = import.meta.env.VITE_API_URL_ACTIVITY;
 
-const Unreturned = () => {
+const Borrowed = () => {
   const [unreturnedBooks, setUnreturnedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   let user;
@@ -29,7 +29,7 @@ const Unreturned = () => {
   const fetchUnreturnedBooks = async () => {
     try {
       const response = await axios.post(
-        `${unreturnedApiUrl}/unreturned`,
+        `${unreturnedApiUrl}/borrowed`,
         { userId: user.id },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -50,4 +50,4 @@ const Unreturned = () => {
   );
 };
 
-export default Unreturned;
+export default Borrowed;
