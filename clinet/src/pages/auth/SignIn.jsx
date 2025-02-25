@@ -55,7 +55,7 @@ const SignIn = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your email"
           required
         />
@@ -68,7 +68,7 @@ const SignIn = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your password"
           required
         />
@@ -77,7 +77,7 @@ const SignIn = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full py-2 text-emerald-50 rounded-md flex items-center justify-center transition duration-300 ${
+        className={`w-full py-2 text-emerald-50 rounded-sm flex items-center justify-center transition duration-300 ${
           isSubmitting
             ? "bg-emerald-700 cursor-not-allowed"
             : "bg-emerald-900 hover:bg-emerald-800"

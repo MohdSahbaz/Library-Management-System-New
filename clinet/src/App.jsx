@@ -13,6 +13,7 @@ import About from "./components/common/AboutUs";
 import Contact from "./components/common/Contact";
 import AuthPage from "./pages/auth/AuthPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import UpdateProfile from "./pages/auth/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "edit-profile",
+        element: <UpdateProfile />,
       },
       {
         path: "about",

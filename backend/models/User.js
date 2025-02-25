@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   phoneNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   city: {
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   dateOfJoin: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

@@ -63,10 +63,13 @@ const signIn = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     const isPassowrdValid = await matchPassword(password, user.password);
 
-    if (!user || !isPassowrdValid) {
+    if (!isPassowrdValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
@@ -89,4 +92,50 @@ const profile = async (req, res) => {
   }
 };
 
-module.exports = { signUp, signIn, profile };
+const updateProfile = async (req, res) => {
+  try {
+    const { name, email, password, phoneNumber, city, imageUrl, otp } =
+      req.body;
+    const userId = req.user.id;
+
+    // Check if OTP is provided
+    if (!otp) {
+      return res.status(400).json({ message: "OTP is required" });
+    }
+
+    // Find the user by ID
+    let user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check OTP validity
+    const otpUser = await Otp.findOne({ email: user.email });
+    if (!otpUser || otpUser.otp !== otp) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Update fields if provided
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (city) user.city = city;
+    if (imageUrl) user.imageUrl = imageUrl;
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+    }
+
+    // Save updated user
+    await user.save();
+
+    // Delete OTP entry
+    await Otp.deleteMany({ email: user.email });
+
+    res.status(200).json({ message: "Profile updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { signUp, signIn, profile, updateProfile };

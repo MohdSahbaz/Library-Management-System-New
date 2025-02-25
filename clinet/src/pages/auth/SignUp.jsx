@@ -93,7 +93,7 @@ const SignUp = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your full name"
           required
         />
@@ -107,7 +107,7 @@ const SignUp = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+            className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
             placeholder="Enter your email"
             required
           />
@@ -115,7 +115,7 @@ const SignUp = () => {
             type="button"
             onClick={handleSendOtp}
             disabled={!canSendOtp}
-            className={`px-4 py-2 bg-emerald-900 text-emerald-50 rounded-md transition duration-300 flex items-center justify-center ${
+            className={`px-4 py-2 bg-emerald-900 text-emerald-50 rounded-sm transition duration-300 flex items-center justify-center ${
               !canSendOtp
                 ? "bg-emerald-700 cursor-not-allowed"
                 : "hover:bg-emerald-800"
@@ -141,7 +141,7 @@ const SignUp = () => {
             name="otp"
             value={formData.otp}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+            className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
             placeholder="Enter OTP"
             required
           />
@@ -155,7 +155,7 @@ const SignUp = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Create a password"
           required
         />
@@ -168,7 +168,7 @@ const SignUp = () => {
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your phone number"
           required
         />
@@ -181,7 +181,7 @@ const SignUp = () => {
           name="city"
           value={formData.city}
           onChange={handleChange}
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+          className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your city"
           required
         />
@@ -190,7 +190,7 @@ const SignUp = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full py-2 text-emerald-50 rounded-md flex items-center justify-center transition duration-300 ${
+        className={`w-full py-2 text-emerald-50 rounded-sm flex items-center justify-center transition duration-300 ${
           isSubmitting
             ? "bg-emerald-700 cursor-not-allowed"
             : "bg-emerald-900 hover:bg-emerald-800"
