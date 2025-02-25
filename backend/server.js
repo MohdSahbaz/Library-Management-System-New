@@ -11,7 +11,7 @@ const otpRoutes = require("./routes/otpRoute");
 const borrowRoutes = require("./routes/borrowRoute");
 const ratingRoutes = require("./routes/ratingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
-const overdueRoutes = require("./routes/overdueBookRoutes");
+const overdueRoutes = require("./routes/activityRoutes");
 
 const calculateFine = require("./cronsJob/calculateFine");
 const removeUnconfirmedBorrows = require("./cronsJob/removePendingBook");

@@ -39,4 +39,34 @@ const getOverdueBook = async (req, res) => {
   }
 };
 
-module.exports = { getOverdueBook };
+const getUserUnreturnedBooks = async (req, res) => {
+  try {
+    const userId = req.user.id; // Get user ID from request
+
+    // Find unreturned books for this user
+    const unreturnedBooks = await Borrow.find({
+      userId: userId, // Filter by user
+      status: { $in: ["pending", "unreturned"] }, // Only pending or unreturned
+    })
+      .populate("bookId", "title imageUrl _id") // Get book title & imageUrl
+      .select("borrowDate dueDate status bookId") // Select required fields
+      .lean();
+
+    // Format response
+    const formattedBooks = unreturnedBooks.map((book) => ({
+      _id: book.bookId._id,
+      title: book.bookId.title,
+      imageUrl: book.bookId.imageUrl,
+      borrowDate: book.borrowDate,
+      dueDate: book.dueDate,
+      status: book.status,
+    }));
+
+    res.status(200).json(formattedBooks);
+  } catch (error) {
+    console.error("Error fetching unreturned books:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { getOverdueBook, getUserUnreturnedBooks };

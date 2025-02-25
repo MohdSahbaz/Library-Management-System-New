@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Profile from "./Profile";
-import History from "./History";
-import Unreturned from "./Unreturned";
-import Overdue from "./Overdue";
+import History from "./activity/history/History";
+import Unreturned from "./activity/unreturn/Unreturned";
+import Overdue from "./activity/overdue/Overdue";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("profile");

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import BookList from "../../components/common/book/OverdueBookList";
+import BookList from "./OverdueBookList";
 import { jwtDecode } from "jwt-decode";
 
 const overdueApiUrl = import.meta.env.VITE_API_URL_OVERDUE;
