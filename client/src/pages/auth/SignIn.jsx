@@ -29,7 +29,7 @@ const SignIn = () => {
       const { token } = response.data;
       localStorage.setItem("token", token); // Store token
 
-      navigate("/profile"); // Redirect after login
+      navigate("/profile");
     } catch (error) {
       console.error("Login Error:", error.response?.data || error.message);
       setError(error?.response?.data?.message || "Invalid credentials.");
