@@ -14,7 +14,7 @@ const SearchBook = () => {
   }, [query]);
 
   return (
-    <div className="bg-emerald-50 md:p-4 min-h-[calc(100vh-56px)]">
+    <div className="bg-emerald-50 md:p-4 min-h-[calc(100vh-56px)] p-2">
       <BookList
         books={searchBook}
         loader={loader}
