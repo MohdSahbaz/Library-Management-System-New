@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound";
-import Home from "./pages/dashboard/Home";
 import Sidebar from "./components/common/sidebar/Sidebar";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Books from "./pages/books/Book";
 import Users from "./pages/users/Users";
 
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />,
+        element: <Dashboard />,
       },
       {
         path: "books",

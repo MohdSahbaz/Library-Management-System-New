@@ -1,8 +1,11 @@
+import Header from "../../components/common/Header";
+
 const Users = () => {
   return (
-    <div>
-      <h1>Users</h1>
-    </div>
+    <>
+      <Header pageName={"Users"} />
+      <div className=""></div>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ const ForSmallDevice = () => {
   const location = useLocation(); // Get the current route
 
   return (
-    <div className="md:hidden flex justify-between bg-emerald-200 p-3 fixed bottom-0 left-0 right-0 shadow-lg">
+    <div className="md:hidden flex border-t border-emerald-900 justify-between bg-emerald-200 p-3 fixed bottom-0 left-0 right-0 shadow-lg">
       {/* Navigation Icons */}
       <nav className="flex space-x-3 overflow-x-auto pb-4">
         <NavIcon

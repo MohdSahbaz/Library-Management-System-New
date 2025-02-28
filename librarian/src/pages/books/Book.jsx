@@ -1,8 +1,11 @@
+import Header from "../../components/common/Header";
+
 const Books = () => {
   return (
-    <div>
-      <h1>Books</h1>
-    </div>
+    <>
+      <Header pageName={"Books"} />
+      <div className=""></div>
+    </>
   );
 };
 
