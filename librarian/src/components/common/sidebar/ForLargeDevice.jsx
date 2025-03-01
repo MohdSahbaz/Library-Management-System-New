@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, BookOpen, Users } from "lucide-react";
+import "../../../styles/scroll.css";
 
 const ForLargeDevice = () => {
   const location = useLocation(); // Get the current route
 
   return (
-    <div className="hidden md:flex flex-col border-r border-emerald-900 bg-emerald-200 text-emerald-900 p-5 min-h-screen w-52 shadow-lg">
+    <div className="hidden scrollbar-hide sticky top-0 overflow-y-auto md:flex flex-col border-r border-emerald-900 bg-emerald-200 text-emerald-900 p-5 h-screen w-52 shadow-lg">
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-3">
         <NavItem

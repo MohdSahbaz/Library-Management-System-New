@@ -9,7 +9,7 @@ const Sidebar = () => {
         <ForLargeDevice />
         <ForSmallDevice />
       </div>
-      <div className="flex-grow">
+      <div className="flex-grow pb-24">
         <Outlet />
       </div>
     </div>
