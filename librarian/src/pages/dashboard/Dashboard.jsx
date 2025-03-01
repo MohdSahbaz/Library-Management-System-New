@@ -21,7 +21,7 @@ const Dashboard = () => {
     <>
       <Header pageName={"Dashboard"} />
       <div className="px-5">
-        <h1 className="pt-5 text-xl">Books Detail</h1>
+        <h1 className="pt-5 text-xl">Books data</h1>
         <div className="flex gap-3 w-full flex-wrap text-white">
           <Card
             icon={<Library size={20} />}
@@ -48,13 +48,22 @@ const Dashboard = () => {
             to={"overdue"}
           />
         </div>
-        <h1 className="pt-5 text-xl">Users Detail</h1>
+        <h1 className="pt-5 text-xl">Users data</h1>
         <div className="flex gap-3 w-full flex-wrap text-white">
           <Card
             icon={<Users size={20} />}
             title={"Total"}
             total={"1k"}
             to={"/users"}
+          />
+        </div>
+        <h1 className="pt-5 text-xl">Librarian data</h1>
+        <div className="flex gap-3 w-full flex-wrap text-white">
+          <Card
+            icon={<Users size={20} />}
+            title={"Total"}
+            total={"1"}
+            to={"/librarian"}
           />
         </div>
       </div>

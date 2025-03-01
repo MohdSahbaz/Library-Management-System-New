@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+
 import NotFound from "./pages/NotFound";
 import Sidebar from "./components/common/sidebar/Sidebar";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -9,35 +11,32 @@ import Borrowed from "./pages/books/Borrowed";
 import Overdue from "./pages/books/Overdue";
 
 import Users from "./pages/users/Users";
+import Signin from "./pages/auth/signin";
+import Librarian from "./pages/librarian/Librarian";
+import Logout from "./pages/auth/Logout";
 
 const router = createBrowserRouter([
   {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
     path: "/",
-    element: <Sidebar />,
+    element: <ProtectedRoute />, // Protect all routes inside
     children: [
       {
-        path: "",
-        element: <Dashboard />,
-      },
-      {
-        path: "books",
-        element: <Books />,
-      },
-      {
-        path: "pending",
-        element: <Pending />,
-      },
-      {
-        path: "borrowed",
-        element: <Borrowed />,
-      },
-      {
-        path: "overdue",
-        element: <Overdue />,
-      },
-      {
-        path: "users",
-        element: <Users />,
+        path: "/",
+        element: <Sidebar />,
+        children: [
+          { path: "", element: <Dashboard /> },
+          { path: "books", element: <Books /> },
+          { path: "pending", element: <Pending /> },
+          { path: "borrowed", element: <Borrowed /> },
+          { path: "overdue", element: <Overdue /> },
+          { path: "users", element: <Users /> },
+          { path: "librarian", element: <Librarian /> },
+          { path: "logout", element: <Logout /> },
+        ],
       },
     ],
   },

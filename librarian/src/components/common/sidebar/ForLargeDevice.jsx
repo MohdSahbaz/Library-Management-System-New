@@ -6,6 +6,8 @@ import {
   CheckCircle,
   AlertTriangle,
   Users,
+  LogOut,
+  GraduationCap,
 } from "lucide-react";
 import "../../../styles/scroll.css";
 
@@ -50,6 +52,18 @@ const ForLargeDevice = () => {
           to="/users"
           icon={<Users size={20} />}
           label="Users"
+          currentPath={location.pathname}
+        />
+        <NavItem
+          to="/librarian"
+          icon={<GraduationCap size={20} />}
+          label="Librarian"
+          currentPath={location.pathname}
+        />
+        <NavItem
+          to="/logout"
+          icon={<LogOut size={20} />}
+          label="Logout"
           currentPath={location.pathname}
         />
       </nav>

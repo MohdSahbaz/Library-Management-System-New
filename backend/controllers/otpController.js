@@ -93,4 +93,6 @@ const sendUpdateOTP = async (req, res) => {
   }
 };
 
+
+
 module.exports = { sendOTP, sendUpdateOTP };

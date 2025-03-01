@@ -12,6 +12,7 @@ const borrowRoutes = require("./routes/borrowRoute");
 const ratingRoutes = require("./routes/ratingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const overdueRoutes = require("./routes/activityRoutes");
+const librarianRoutes = require("./routes/librarianRoutes");
 
 const calculateFine = require("./cronsJob/calculateFine");
 const removeUnconfirmedBorrows = require("./cronsJob/removePendingBook");
@@ -37,7 +38,7 @@ cron.schedule("0 0 * * *", () => {
   calculateFine();
 });
 
-// Routes
+// Common and User Routes
 app.use("/api/books", booksRoutes);
 app.use("/api/user", authRoutes);
 app.use("/api/otp", otpRoutes);
@@ -45,6 +46,9 @@ app.use("/api/borrow", borrowRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/activity", overdueRoutes);
+
+// Librarian Routes
+app.use("/api/librarian", librarianRoutes);
 
 // Server setup
 const PORT = process.env.PORT || 8080;
