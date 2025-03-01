@@ -14,6 +14,9 @@ import Users from "./pages/users/Users";
 import Signin from "./pages/auth/Signin";
 import Librarian from "./pages/librarian/Librarian";
 import Logout from "./pages/auth/Logout";
+import SearchResults from "./pages/books/SearchResults";
+import { BookProvider } from "./context/BookContext";
+import { SearchBookProvider } from "./context/SearchBookContext";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +32,22 @@ const router = createBrowserRouter([
         element: <Sidebar />,
         children: [
           { path: "", element: <Dashboard /> },
-          { path: "books", element: <Books /> },
+          {
+            path: "books",
+            element: (
+              <BookProvider>
+                <Books />
+              </BookProvider>
+            ),
+          },
+          {
+            path: "search",
+            element: (
+              <SearchBookProvider>
+                <SearchResults />{" "}
+              </SearchBookProvider>
+            ),
+          },
           { path: "pending", element: <Pending /> },
           { path: "borrowed", element: <Borrowed /> },
           { path: "overdue", element: <Overdue /> },
