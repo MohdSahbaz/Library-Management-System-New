@@ -46,10 +46,10 @@ const BookList = ({ books, loader, heading }) => {
                       <p className="text-gray-500">{book.author}</p>
                     </div>
                   </td>
-                  <td className="pl-4 py-3">
+                  <td className="pl-4 py-3 hidden md:table-cell">
                     {book.copiesAvailable || "Unknown Genre"}
                   </td>
-                  <td className="pl-4 py-3 hidden md:table-cell text-gray-500">
+                  <td className="pl-4 py-3  text-gray-500">
                     {new Date(book.createdAt).toLocaleDateString("en-GB") ||
                       "Unknown"}
                   </td>
