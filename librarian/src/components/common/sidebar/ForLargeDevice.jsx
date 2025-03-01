@@ -1,5 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, BookOpen, Users } from "lucide-react";
+import {
+  LayoutDashboard,
+  BookOpen,
+  Hourglass,
+  CheckCircle,
+  AlertTriangle,
+  Users,
+} from "lucide-react";
 import "../../../styles/scroll.css";
 
 const ForLargeDevice = () => {
@@ -19,6 +26,24 @@ const ForLargeDevice = () => {
           to="/books"
           icon={<BookOpen size={20} />}
           label="Books"
+          currentPath={location.pathname}
+        />
+        <NavItem
+          to="/pending"
+          icon={<Hourglass size={20} />}
+          label="Pending"
+          currentPath={location.pathname}
+        />
+        <NavItem
+          to="/borrowed"
+          icon={<CheckCircle size={20} />}
+          label="Borrowed"
+          currentPath={location.pathname}
+        />
+        <NavItem
+          to="/overdue"
+          icon={<AlertTriangle size={20} />}
+          label="Overdue"
           currentPath={location.pathname}
         />
         <NavItem

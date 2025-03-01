@@ -1,7 +1,16 @@
 import { useEffect } from "react";
 import Header from "../../components/common/Header";
 import Card from "./Card";
-import { BookOpen, Users } from "lucide-react";
+import {
+  AlertTriangle,
+  BookOpen,
+  CheckCircle,
+  Hourglass,
+  HourglassIcon,
+  Library,
+  LucideHourglass,
+  Users,
+} from "lucide-react";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -11,17 +20,42 @@ const Dashboard = () => {
   return (
     <>
       <Header pageName={"Dashboard"} />
-      <div className="min-h-[calc(100vh-85px)] px-5">
-        <h1 className="mt-5 text-xl">Books Detail</h1>
+      <div className="px-5">
+        <h1 className="pt-5 text-xl">Books Detail</h1>
         <div className="flex gap-3 w-full flex-wrap text-white">
-          <Card icon={<BookOpen size={20} />} title={"Total"} total={"1k"} />
-          <Card icon={<BookOpen size={20} />} title={"Pending"} total={20} />
-          <Card icon={<BookOpen size={20} />} title={"Borrowed"} total={500} />
-          <Card icon={<BookOpen size={20} />} title={"Overdue"} total={10} />
+          <Card
+            icon={<Library size={20} />}
+            title={"Total"}
+            total={"1k"}
+            to={"/books"}
+          />
+          <Card
+            icon={<LucideHourglass size={20} />}
+            title={"Pending"}
+            total={20}
+            to={"/pending"}
+          />
+          <Card
+            icon={<CheckCircle size={20} />}
+            title={"Borrowed"}
+            total={500}
+            to={"/borrowed"}
+          />
+          <Card
+            icon={<AlertTriangle size={20} />}
+            title={"Overdue"}
+            total={10}
+            to={"overdue"}
+          />
         </div>
-        <h1 className="mt-5 text-xl">Users Detail</h1>
+        <h1 className="pt-5 text-xl">Users Detail</h1>
         <div className="flex gap-3 w-full flex-wrap text-white">
-          <Card icon={<Users size={20} />} title={"Total"} total={"1k"} />
+          <Card
+            icon={<Users size={20} />}
+            title={"Total"}
+            total={"1k"}
+            to={"/users"}
+          />
         </div>
       </div>
     </>

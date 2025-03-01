@@ -2,7 +2,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Sidebar from "./components/common/sidebar/Sidebar";
 import Dashboard from "./pages/dashboard/Dashboard";
+
 import Books from "./pages/books/Book";
+import Pending from "./pages/books/Pending";
+import Borrowed from "./pages/books/Borrowed";
+import Overdue from "./pages/books/Overdue";
+
 import Users from "./pages/users/Users";
 
 const router = createBrowserRouter([
@@ -17,6 +22,18 @@ const router = createBrowserRouter([
       {
         path: "books",
         element: <Books />,
+      },
+      {
+        path: "pending",
+        element: <Pending />,
+      },
+      {
+        path: "borrowed",
+        element: <Borrowed />,
+      },
+      {
+        path: "overdue",
+        element: <Overdue />,
       },
       {
         path: "users",

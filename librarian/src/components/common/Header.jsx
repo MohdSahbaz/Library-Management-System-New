@@ -7,7 +7,7 @@ const Header = ({ pageName }) => {
 
   return (
     <>
-      <div className="flex justify-between bg-emerald-200 md:px-10 p-2 sticky top-0 border-b border-emerald-900">
+      <div className="flex justify-between bg-emerald-200 shadow-lg md:px-10 p-2 sticky top-0 border-b border-emerald-900">
         <div>
           <h1 className="font-bold">{pageName}</h1>
           <p className="text-emerald-500">{currentDate}</p>
