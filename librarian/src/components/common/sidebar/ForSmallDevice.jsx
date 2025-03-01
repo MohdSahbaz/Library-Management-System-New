@@ -6,6 +6,8 @@ import {
   CheckCircle,
   AlertTriangle,
   Users,
+  GraduationCap,
+  LogOut,
 } from "lucide-react";
 
 const ForSmallDevice = () => {
@@ -46,6 +48,18 @@ const ForSmallDevice = () => {
         <NavIcon
           to="/users"
           icon={<Users size={20} />}
+          currentPath={location.pathname}
+        />
+        <NavIcon
+          to="/librarian"
+          icon={<GraduationCap size={20} />}
+          label="Librarian"
+          currentPath={location.pathname}
+        />
+        <NavIcon
+          to="/logout"
+          icon={<LogOut size={20} />}
+          label="Logout"
           currentPath={location.pathname}
         />
       </nav>
