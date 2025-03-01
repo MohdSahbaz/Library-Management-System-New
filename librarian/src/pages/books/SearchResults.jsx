@@ -23,7 +23,7 @@ const SearchResults = () => {
   return (
     <>
       <Header pageName={"Search Book"} />
-      <div className="container mx-auto px-4 pb-4">
+      <div className="container mx-auto px-2 pb-4">
         <BookList
           books={searchBook}
           loader={loader}
