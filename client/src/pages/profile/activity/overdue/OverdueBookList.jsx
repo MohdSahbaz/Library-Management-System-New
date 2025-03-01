@@ -10,18 +10,17 @@ const BookList = ({ books, loader, heading }) => {
   return (
     <div className="fade-in px-2 md:px-6">
       <h1 className="text-lg md:text-xl font-semibold mb-4">{heading}</h1>
+      {/* ✅ Total Fine Section */}
+
+      <div className="mb-6 p-4 bg-emerald-300/[0.5] shadow-md rounded-sm text-center">
+        <h2 className="text-lg font-semibold">Total Fine Amount:</h2>
+        <p className="text-red-500 text-xl font-bold">₹{totalFine}</p>
+      </div>
 
       {loader ? (
         <Loader />
       ) : books && books.length > 0 ? (
         <>
-          {/* ✅ Total Fine Section */}
-          {totalFine > 0 && (
-            <div className="mb-6 p-4 bg-emerald-300/[0.5] shadow-md rounded-sm text-center">
-              <h2 className="text-lg font-semibold">Total Fine Amount:</h2>
-              <p className="text-red-500 text-xl font-bold">₹{totalFine}</p>
-            </div>
-          )}
           <div className="space-y-4">
             {books.map((book) => (
               <div

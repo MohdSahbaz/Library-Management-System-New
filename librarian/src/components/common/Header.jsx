@@ -1,5 +1,3 @@
-import { Divider } from "@mui/material";
-
 const Header = ({ pageName }) => {
   const currentDate = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",

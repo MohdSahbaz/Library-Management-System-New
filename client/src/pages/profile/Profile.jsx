@@ -42,11 +42,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 rounded-2xl fade-in">
+    <div className="max-w-md mx-auto px-6 rounded-2xl fade-in">
       {loading ? (
         <Loader />
       ) : user ? (
-        <div className="space-y-4">
+        <div className="space-y-2">
           <h1 className="text-3xl font-bold text-center text-emerald-900">
             Profile
           </h1>
@@ -61,7 +61,17 @@ const Profile = () => {
             <strong>Name:</strong> {user.name}
           </p>
           <p>
+            <strong>Phone:</strong> {user.phoneNumber}
+          </p>
+          <p>
             <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>City:</strong> {user.city}
+          </p>
+          <p>
+            <strong>Date of Join:</strong>{" "}
+            {new Date(user.dateOfJoin).toLocaleDateString("en-GB")}
           </p>
 
           <div className="flex space-x-4 mt-6">
