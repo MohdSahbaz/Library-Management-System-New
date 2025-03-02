@@ -4,7 +4,9 @@ const Pending = () => {
   return (
     <>
       <Header pageName={"Pending"} />
-      <div></div>
+      <div className="container mx-auto pb-6 px-2">
+        {/* <BookList books={latestBooks} loader={loader} heading="Latest Books" /> */}
+      </div>
     </>
   );
 };

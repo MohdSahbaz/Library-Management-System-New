@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import BookList from "./BookList";
 import Header from "../../components/common/Header";
 import { SearchBookContext } from "../../context/SearchBookContext";
+import SearchInput from "./SearchInput";
 
 const SearchResults = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const SearchResults = () => {
   return (
     <>
       <Header pageName={"Search Book"} />
+      <SearchInput />
       <div className="container mx-auto px-2 pb-4">
         <BookList
           books={searchBook}

@@ -2,19 +2,26 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 
 import NotFound from "./pages/NotFound";
+
 import Sidebar from "./components/common/sidebar/Sidebar";
+
 import Dashboard from "./pages/dashboard/Dashboard";
 
 import Books from "./pages/books/Book";
 import Pending from "./pages/books/Pending";
 import Borrowed from "./pages/books/Borrowed";
 import Overdue from "./pages/books/Overdue";
+import AddBook from "./pages/books/AddBook";
 
 import Users from "./pages/users/Users";
+
 import Signin from "./pages/auth/Signin";
-import Librarian from "./pages/librarian/Librarian";
 import Logout from "./pages/auth/Logout";
+
+import Librarian from "./pages/librarian/Librarian";
+
 import SearchResults from "./pages/books/SearchResults";
+
 import { BookProvider } from "./context/BookContext";
 import { SearchBookProvider } from "./context/SearchBookContext";
 
@@ -39,6 +46,10 @@ const router = createBrowserRouter([
                 <Books />
               </BookProvider>
             ),
+          },
+          {
+            path: "add-book",
+            element: <AddBook />,
           },
           {
             path: "search",

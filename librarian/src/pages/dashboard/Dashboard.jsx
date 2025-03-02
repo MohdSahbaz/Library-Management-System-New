@@ -20,7 +20,7 @@ const Dashboard = () => {
   return (
     <>
       <Header pageName={"Dashboard"} />
-      <div className="px-5">
+      <div className="md:px-6 p-2">
         <h1 className="pt-5 text-xl">Books data</h1>
         <div className="flex gap-3 w-full flex-wrap text-white">
           <Card
