@@ -105,8 +105,52 @@ const returnBook = async (req, res) => {
   }
 };
 
+// 📌 Get All Pending Borrow Requests
+const getPendingBorrows = async (req, res) => {
+  try {
+    const pendingBorrows = await Borrow.find({ status: "pending" })
+      .select("_id userId bookId status borrowDate dueDate fine")
+      .lean();
+
+    res.status(200).json(pendingBorrows);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// 📌 Get All Borrowed Books
+const getBorrowedBooks = async (req, res) => {
+  try {
+    const borrowedBooks = await Borrow.find({ status: "borrowed" })
+      .select("_id userId bookId status borrowDate dueDate fine")
+      .lean();
+
+    res.status(200).json(borrowedBooks);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// 📌 Get All Overdue Books
+const getOverdueBooks = async (req, res) => {
+  try {
+    const overdueBooks = await Borrow.find({
+      status: "overdue",
+    })
+      .select("_id userId bookId status borrowDate dueDate fine")
+      .lean();
+
+    res.status(200).json(overdueBooks);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   borrowBook,
   confirmBorrow,
   returnBook,
+  getPendingBorrows,
+  getBorrowedBooks,
+  getOverdueBooks,
 };

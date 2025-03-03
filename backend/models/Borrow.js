@@ -17,11 +17,11 @@ const borrowSchema = new mongoose.Schema(
       default: Date.now,
     },
     returnDate: {
-      type: Date, // Date when the book was actually returned
+      type: Date,
     },
     dueDate: {
       type: Date,
-      default: () => new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from borrow date
+      default: () => new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     },
     status: {
       type: String,
@@ -30,7 +30,11 @@ const borrowSchema = new mongoose.Schema(
     },
     fine: {
       type: Number,
-      default: 0, // Fine starts at 0
+      default: 0,
+    },
+    expiresAt: {
+      type: Date,
+      index: { expires: 0 }, // TTL index for automatic deletion
     },
   },
   { timestamps: true }
