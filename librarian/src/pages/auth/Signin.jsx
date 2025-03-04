@@ -29,7 +29,7 @@ const SignIn = () => {
       const response = await axios.post(`${librarianApiUrl}/signin`, formData);
 
       const { token } = response.data;
-      localStorage.setItem("token", token); // Store token
+      localStorage.setItem("librarianToken", token); // Store token
       console.log(token);
 
       navigate("/");

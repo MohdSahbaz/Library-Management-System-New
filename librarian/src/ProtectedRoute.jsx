@@ -5,7 +5,7 @@ const ProtectedRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Start with null
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("librarianToken");
     setIsAuthenticated(!!token);
   }, []); // Run only on mount
 

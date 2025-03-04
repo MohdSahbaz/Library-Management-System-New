@@ -109,10 +109,23 @@ const returnBook = async (req, res) => {
 const getPendingBorrows = async (req, res) => {
   try {
     const pendingBorrows = await Borrow.find({ status: "pending" })
-      .select("_id userId bookId status borrowDate dueDate fine")
+      .populate("userId", "name")
+      .populate("bookId", "title imageUrl")
+      .select("_id userId bookId status borrowDate")
       .lean();
 
-    res.status(200).json(pendingBorrows);
+    const pendingBooks = pendingBorrows.map((books) => ({
+      _id: books._id,
+      userId: books.userId._id,
+      userName: books.userId.name,
+      bookId: books.bookId._id,
+      title: books.bookId.title,
+      imageUrl: books.bookId.imageUrl,
+      status: books.status,
+      borrowDate: books.borrowDate,
+    }));
+
+    res.status(200).json(pendingBooks);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -121,9 +134,23 @@ const getPendingBorrows = async (req, res) => {
 // 📌 Get All Borrowed Books
 const getBorrowedBooks = async (req, res) => {
   try {
-    const borrowedBooks = await Borrow.find({ status: "borrowed" })
-      .select("_id userId bookId status borrowDate dueDate fine")
+    const pendingBorrows = await Borrow.find({ status: "borrowed" })
+      .populate("userId", "name")
+      .populate("bookId", "title imageUrl")
+      .select("_id userId bookId status borrowDate dueDate")
       .lean();
+
+    const borrowedBooks = pendingBorrows.map((books) => ({
+      _id: books._id,
+      userId: books.userId._id,
+      userName: books.userId.name,
+      bookId: books.bookId._id,
+      title: books.bookId.title,
+      imageUrl: books.bookId.imageUrl,
+      status: books.status,
+      borrowDate: books.borrowDate,
+      dueDate: books.dueDate,
+    }));
 
     res.status(200).json(borrowedBooks);
   } catch (error) {
