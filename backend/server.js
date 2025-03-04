@@ -13,6 +13,7 @@ const ratingRoutes = require("./routes/ratingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const overdueRoutes = require("./routes/activityRoutes");
 const librarianRoutes = require("./routes/librarianRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const calculateFine = require("./cronsJob/calculateFine");
 const removeUnconfirmedBorrows = require("./cronsJob/removePendingBook");
@@ -49,6 +50,7 @@ app.use("/api/activity", overdueRoutes);
 
 // Librarian Routes
 app.use("/api/librarian", librarianRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Server setup
 const PORT = process.env.PORT || 8080;

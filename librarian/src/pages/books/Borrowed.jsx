@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/common/loader/Loader";
 
-const pendingApiUrl = import.meta.env.VITE_API_URL_BORROW;
+const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
 
 const Borrowed = () => {
   const [pendingBook, setPendingBook] = useState(null);
@@ -16,7 +16,7 @@ const Borrowed = () => {
 
     const getData = async () => {
       try {
-        const response = await axios.get(`${pendingApiUrl}/borrowed`, {
+        const response = await axios.get(`${borrowApiUrl}/borrowed`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPendingBook(response.data);

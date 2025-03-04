@@ -161,13 +161,52 @@ const getBorrowedBooks = async (req, res) => {
 // 📌 Get All Overdue Books
 const getOverdueBooks = async (req, res) => {
   try {
-    const overdueBooks = await Borrow.find({
-      status: "overdue",
-    })
-      .select("_id userId bookId status borrowDate dueDate fine")
+    const pendingBorrows = await Borrow.find({ status: "overdue" })
+      .populate("userId", "name")
+      .populate("bookId", "title imageUrl")
+      .select("_id userId bookId status fine borrowDate dueDate")
       .lean();
 
-    res.status(200).json(overdueBooks);
+    const borrowedBooks = pendingBorrows.map((books) => ({
+      _id: books._id,
+      userId: books.userId._id,
+      userName: books.userId.name,
+      bookId: books.bookId._id,
+      title: books.bookId.title,
+      imageUrl: books.bookId.imageUrl,
+      status: books.status,
+      fine: books.fine,
+      borrowDate: books.borrowDate,
+      dueDate: books.dueDate,
+    }));
+
+    res.status(200).json(borrowedBooks);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const cancelBorrow = async (req, res) => {
+  try {
+    const { borrowId } = req.body;
+
+    // Check if the borrow request exists
+    const borrowRecord = await Borrow.findById(borrowId);
+    if (!borrowRecord) {
+      return res.status(404).json({ message: "Borrow record not found" });
+    }
+
+    // Only allow canceling if it's still "pending"
+    if (borrowRecord.status !== "pending") {
+      return res
+        .status(400)
+        .json({ message: "Only pending requests can be canceled" });
+    }
+
+    // Delete the borrow request
+    await Borrow.findByIdAndDelete(borrowId);
+
+    res.status(200).json({ message: "Borrow request canceled successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -180,4 +219,5 @@ module.exports = {
   getPendingBorrows,
   getBorrowedBooks,
   getOverdueBooks,
+  cancelBorrow,
 };

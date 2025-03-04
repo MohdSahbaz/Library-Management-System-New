@@ -21,6 +21,7 @@ const SingleBook = ({ averageRating }) => {
   const [borrowLoader, setBorrowLoader] = useState(false);
 
   const fetchBookDetails = async () => {
+    setBorrowError(null);
     setLoader(true);
     setError(null);
     try {

@@ -4,40 +4,88 @@ import Header from "../../components/common/Header";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/common/loader/Loader";
 
-const pendingApiUrl = import.meta.env.VITE_API_URL_BORROW;
+const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
 
 const Pending = () => {
   const [pendingBook, setPendingBook] = useState(null); // Initialize state properly
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
+  const [confirmingBook, setConfirmingBook] = useState(null); // Track which book is being confirmed
+  const [cancellingBook, setCancellingBook] = useState(null); // Track which book is being canceled
+
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastType, setToastType] = useState(null); // 'success' or 'error'
 
   useEffect(() => {
-    const token = localStorage.getItem("librarianToken"); // ✅ Retrieve token
+    const token = localStorage.getItem("librarianToken"); // Retrieve token
 
     const getData = async () => {
       try {
-        const response = await axios.get(`${pendingApiUrl}/pending`, {
+        const response = await axios.get(`${borrowApiUrl}/pending`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setPendingBook(response.data); // ✅ Save data in state
+        setPendingBook(response.data); // Save data in state
       } catch (error) {
         console.error("Error fetching pending books:", error);
       } finally {
-        setLoader(false); // ✅ Stop loader after fetching
+        setLoader(false); // Stop loader after fetching
       }
     };
 
-    getData(); // ✅ Call the function correctly
-  }, []); // ✅ Empty dependency array to ensure it runs only once
+    getData();
+  }, []);
 
-  const handleConfirm = (bookId) => {
-    console.log("Confirmed book:", bookId);
-    // Implement confirm action (e.g., API call)
+  const handleConfirm = async (borrowId) => {
+    const token = localStorage.getItem("librarianToken"); // Retrieve token
+    try {
+      setConfirmingBook(borrowId); // Set loading for this book
+      await axios.put(
+        `${borrowApiUrl}/confirm`,
+        { borrowId },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Remove confirmed book from the pending list
+      setPendingBook((prev) => prev.filter((book) => book._id !== borrowId));
+      showToast("Book confirmed successfully!", "success"); // Show success message
+    } catch (error) {
+      showToast("Failed to confirm book.", "error"); // Show error message
+    } finally {
+      setConfirmingBook(null); // Reset confirming book state
+    }
   };
 
-  const handleCancel = (bookId) => {
-    console.log("Canceled book:", bookId);
-    // Implement cancel action (e.g., API call)
+  const handleCancel = async (borrowId) => {
+    const token = localStorage.getItem("librarianToken"); // Retrieve token
+    try {
+      setCancellingBook(borrowId); // Set loading state for this book
+      await axios.put(
+        `${borrowApiUrl}/cancel`,
+        { borrowId },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Remove canceled book from the pending list
+      setPendingBook((prev) => prev.filter((book) => book._id !== borrowId));
+      showToast("Book request canceled!", "success"); // Show success message
+    } catch (error) {
+      showToast("Failed to cancel book request.", "error"); // Show error message
+    } finally {
+      setCancellingBook(null); // Reset canceling book state
+    }
+  };
+
+  const showToast = (message, type) => {
+    setToastMessage(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2000); // Hide after 2 seconds
   };
 
   if (loader) {
@@ -54,6 +102,15 @@ const Pending = () => {
   return (
     <>
       <Header pageName="Pending" />
+      {toastMessage && (
+        <div
+          className={`fixed top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
+          ${toastType === "success" ? "bg-green-500" : "bg-red-500"}`}
+        >
+          {toastMessage}
+        </div>
+      )}
+
       <div className="mx-auto pb-6 md:px-6 p-2 fade-in">
         <h1 className="text-lg mb-4">Pending Books</h1>
 
@@ -114,18 +171,38 @@ const Pending = () => {
                   </p>
 
                   {/* Action Buttons */}
-                  <div className="mt-4 flex space-x-4">
+                  <div className="mt-4 flex md:gap-8 gap-4 w-full flex-wrap">
                     <button
+                      disabled={confirmingBook === book._id}
                       onClick={() => handleConfirm(book._id)}
-                      className="bg-green-500 text-white py-2 px-4 rounded-sm hover:bg-green-600 transition"
+                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
+                        ${
+                          confirmingBook === book._id
+                            ? "bg-blue-900 cursor-not-allowed"
+                            : "bg-green-500 hover:bg-green-600"
+                        } `}
                     >
-                      Confirm
+                      {confirmingBook === book._id ? (
+                        <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
+                      ) : (
+                        "Confirm"
+                      )}
                     </button>
                     <button
+                      disabled={cancellingBook === book._id}
                       onClick={() => handleCancel(book._id)}
-                      className="bg-red-500 text-white py-2 px-4 rounded-sm hover:bg-red-600 transition"
+                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
+                      ${
+                        cancellingBook === book._id
+                          ? "bg-red-900 cursor-not-allowed"
+                          : "bg-red-500 hover:bg-red-600"
+                      } `}
                     >
-                      Cancel
+                      {cancellingBook === book._id ? (
+                        <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
+                      ) : (
+                        "Cancel"
+                      )}
                     </button>
                   </div>
                 </div>

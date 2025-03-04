@@ -6,6 +6,7 @@ const {
   getPendingBorrows,
   getBorrowedBooks,
   getOverdueBooks,
+  cancelBorrow,
 } = require("../controllers/borrowController");
 const { default: protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -15,6 +16,8 @@ router.post("/borrow", protect, borrowBook);
 
 // 📌 Librarian confirms borrow request
 router.put("/confirm", protect, confirmBorrow);
+
+router.put("/cancel", protect, cancelBorrow);
 
 // 📌 User returns a borrowed book
 router.put("/return", protect, returnBook);
