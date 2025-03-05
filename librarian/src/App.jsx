@@ -24,6 +24,7 @@ import SearchResults from "./pages/books/SearchResults";
 
 import { BookProvider } from "./context/BookContext";
 import { SearchBookProvider } from "./context/SearchBookContext";
+import SingleBook from "./components/common/SingleBook";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
                 <Books />
               </BookProvider>
             ),
+          },
+          {
+            path: "book/:bookName",
+            element: <SingleBook />,
           },
           {
             path: "add-book",

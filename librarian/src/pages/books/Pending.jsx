@@ -128,7 +128,7 @@ const Pending = () => {
                   className="w-20 h-28 object-cover rounded-sm shadow-md mr-4 cursor-pointer hover:scale-110 transition-all duration-300"
                   onClick={() =>
                     navigate(`/book/${book.title.replace(/\s+/g, "-")}`, {
-                      state: { bookId: book._id },
+                      state: { bookId: book.bookId },
                     })
                   }
                 />
@@ -150,7 +150,7 @@ const Pending = () => {
                     className="text-base font-semibold cursor-pointer hover:text-emerald-600"
                     onClick={() =>
                       navigate(`/book/${book.title.replace(/\s+/g, "-")}`, {
-                        state: { bookId: book._id },
+                        state: { bookId: book.bookId },
                       })
                     }
                   >
