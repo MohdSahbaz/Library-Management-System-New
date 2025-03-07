@@ -52,7 +52,7 @@ const SignIn = () => {
       <Header pageName={"Sign In"} />
       <form
         onSubmit={handleSubmit}
-        className="fade-in flex justify-center bg-black min-h-screen"
+        className="fade-in flex justify-center bg-black min-h-screen md:pt-10"
       >
         <div className="max-w-md w-full m-5 space-y-4">
           <div>
