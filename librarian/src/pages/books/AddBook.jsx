@@ -12,7 +12,7 @@ const AddBook = () => {
     copiesAvailable: 1,
   });
 
-  const [imageOption, setImageOption] = useState("url"); // Default to URL
+  const [imageOption, setImageOption] = useState("url");
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +30,6 @@ const AddBook = () => {
 
     let imageUrl = book.imageUrl;
 
-    // If the user chooses file upload, send it to backend/cloud storage
     if (imageOption === "file" && imageFile) {
       const formData = new FormData();
       formData.append("file", imageFile);
@@ -43,7 +42,7 @@ const AddBook = () => {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
-        imageUrl = uploadResponse.data.imageUrl; // Assuming backend returns the uploaded image URL
+        imageUrl = uploadResponse.data.imageUrl;
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Image upload failed. Please try again.");
@@ -52,7 +51,6 @@ const AddBook = () => {
       }
     }
 
-    // Send book data with image URL
     try {
       await axios.post("http://localhost:8080/api/book/add-book", {
         ...book,
@@ -86,12 +84,15 @@ const AddBook = () => {
     <>
       <Header pageName="Add Book" />
       <div className="md:px-6 p-2 py-4">
-        <h1 className="text-xl font-semibold mb-4">Add Book Details</h1>
+        <h1 className="text-xl font-semibold text-gray-200 mb-4">
+          Add Book Details
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Image Upload Option */}
           <div>
-            <label className="font-semibold">Choose Image Upload Method:</label>
-            <div className="flex gap-4 mt-2">
+            <label className="font-semibold text-gray-300">
+              Choose Image Upload Method:
+            </label>
+            <div className="flex gap-4 mt-2 text-gray-400">
               <label>
                 <input
                   type="radio"
@@ -115,7 +116,6 @@ const AddBook = () => {
             </div>
           </div>
 
-          {/* Image Input Based on Selection */}
           {imageOption === "url" ? (
             <input
               type="text"
@@ -124,7 +124,7 @@ const AddBook = () => {
               value={book.imageUrl}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
             />
           ) : (
             <input
@@ -132,7 +132,7 @@ const AddBook = () => {
               accept="image/*"
               onChange={handleImageChange}
               required
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
             />
           )}
 
@@ -143,7 +143,7 @@ const AddBook = () => {
             value={book.title}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
           />
           <input
             type="text"
@@ -152,14 +152,14 @@ const AddBook = () => {
             value={book.author}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
           />
           <textarea
             name="description"
             placeholder="Description"
             value={book.description}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
           />
           <input
             type="text"
@@ -167,7 +167,7 @@ const AddBook = () => {
             placeholder="Genre"
             value={book.genre}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
           />
           <input
             type="number"
@@ -176,13 +176,13 @@ const AddBook = () => {
             value={book.copiesAvailable}
             onChange={handleChange}
             min="1"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
           />
           <button
             type="submit"
-            className={`bg-blue-500 text-white px-4 py-2 rounded ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`bg-gray-700 text-white px-4 py-2 rounded ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-600"
+            } transition`}
             disabled={loading}
           >
             {loading ? "Adding..." : "Add Book"}

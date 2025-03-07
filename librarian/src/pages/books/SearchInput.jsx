@@ -10,27 +10,29 @@ const SearchInput = () => {
   useEffect(() => {
     setLoading(false);
   }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/search?book=${encodeURIComponent(searchTerm)}`);
     console.log("Searching for:", searchTerm);
   };
+
   return (
-    <div className="container mx-auto pt-6 px-2">
+    <div className="container mx-auto py-6 px-2">
       <form
         onSubmit={handleSearch}
-        className="flex items-center border rounded-sm overflow-hidden focus-within:ring-2 focus-within:ring-emerald-500 border-emerald-900"
+        className="flex items-center border rounded-sm overflow-hidden focus-within:ring-2 focus-within:ring-gray-500 border-gray-700"
       >
         <input
           type="search"
           placeholder="Search for books..."
-          className="w-full px-4 py-2 rounded-sm focus:outline-none focus:ring-2 bg-transparent focus:ring-emerald-500"
+          className="w-full px-4 py-2 rounded-sm focus:outline-none focus:ring-2 bg-transparent focus:ring-gray-500 text-gray-200 placeholder-gray-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
           type="submit"
-          className="px-4 py-3 bg-emerald-500 text-white hover:bg-emerald-600 transition"
+          className="px-4 py-3 bg-gray-700 text-gray-200 hover:bg-gray-600 transition"
         >
           <Search size={20} />
         </button>

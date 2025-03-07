@@ -20,7 +20,6 @@ const Overdue = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPendingBook(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching overdue books:", error);
       } finally {
@@ -58,7 +57,7 @@ const Overdue = () => {
             {pendingBook.map((book) => (
               <div
                 key={book._id}
-                className="bg-emerald-200/[0.5] rounded-sm shadow-md p-4 flex items-start hover:bg-emerald-100 transition"
+                className="bg-gray-800/[0.5] rounded-sm shadow-md p-4 flex items-start hover:bg-gray-700 transition"
               >
                 {/* Book Image */}
                 <img
@@ -75,7 +74,7 @@ const Overdue = () => {
                 {/* Book/User Details */}
                 <div className="flex-1">
                   <h2
-                    className="text-lg font-semibold cursor-pointer hover:text-emerald-600"
+                    className="text-lg font-semibold cursor-pointer hover:text-gray-300"
                     onClick={() =>
                       navigate(`/users/${book.userName.replace(/\s+/g, "-")}`, {
                         state: { userId: book.userId },
@@ -86,7 +85,7 @@ const Overdue = () => {
                   </h2>
 
                   <h2
-                    className="text-base font-semibold cursor-pointer hover:text-emerald-600"
+                    className="text-base font-semibold cursor-pointer hover:text-gray-300"
                     onClick={() =>
                       navigate(`/book/${book.title.replace(/\s+/g, "-")}`, {
                         state: { bookId: book.bookId },
@@ -95,18 +94,18 @@ const Overdue = () => {
                   >
                     Book: {book.title}
                   </h2>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-400 text-sm">
                     <strong>Fine:</strong> {book.fine}
                   </p>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-400 text-sm">
                     <strong>Borrow Date:</strong>{" "}
                     {new Date(book.borrowDate).toLocaleDateString("en-GB")}
                   </p>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-400 text-sm">
                     <strong>Due Date:</strong>{" "}
                     {new Date(book.dueDate).toLocaleDateString("en-GB")}
                   </p>
-                  <p className="text-red-600 text-sm font-semibold mt-2">
+                  <p className="text-red-400 text-sm font-semibold mt-2">
                     Status: Overdue
                   </p>
 
@@ -114,7 +113,7 @@ const Overdue = () => {
                   <div className="mt-4">
                     <button
                       onClick={() => handleClear(book._id)}
-                      className="bg-blue-500 text-white py-2 px-4 rounded-sm hover:bg-blue-600 transition"
+                      className="bg-gray-600 text-white py-2 px-4 rounded-sm hover:bg-gray-500 transition"
                     >
                       Clear
                     </button>
@@ -124,7 +123,7 @@ const Overdue = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-600 py-4">
+          <p className="text-center text-gray-400 py-4">
             No overdue books found.
           </p>
         )}

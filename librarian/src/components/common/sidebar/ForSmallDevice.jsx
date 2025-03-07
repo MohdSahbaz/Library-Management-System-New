@@ -11,11 +11,10 @@ import {
 } from "lucide-react";
 
 const ForSmallDevice = () => {
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
 
   return (
-    <div className="md:hidden flex border-t border-emerald-900 justify-between bg-emerald-200 p-3 fixed bottom-0 left-0 right-0 shadow-lg">
-      {/* Navigation Icons */}
+    <div className="md:hidden flex border-t border-gray-700 bg-gradient-to-t from-black via-gray-900 to-gray-800 text-gray-300 justify-between p-3 fixed bottom-0 left-0 right-0 shadow-lg">
       <nav className="flex space-x-3 overflow-x-auto pb-4">
         <NavIcon
           to="/"
@@ -30,19 +29,16 @@ const ForSmallDevice = () => {
         <NavIcon
           to="/pending"
           icon={<Hourglass size={20} />}
-          label="Pending"
           currentPath={location.pathname}
         />
         <NavIcon
           to="/borrowed"
           icon={<CheckCircle size={20} />}
-          label="Borrowed"
           currentPath={location.pathname}
         />
         <NavIcon
           to="/overdue"
           icon={<AlertTriangle size={20} />}
-          label="Overdue"
           currentPath={location.pathname}
         />
         <NavIcon
@@ -53,13 +49,11 @@ const ForSmallDevice = () => {
         <NavIcon
           to="/librarian"
           icon={<GraduationCap size={20} />}
-          label="Librarian"
           currentPath={location.pathname}
         />
         <NavIcon
           to="/logout"
           icon={<LogOut size={20} />}
-          label="Logout"
           currentPath={location.pathname}
         />
       </nav>
@@ -73,8 +67,8 @@ const NavIcon = ({ to, icon, currentPath }) => (
     to={to}
     className={`flex justify-center items-center p-2 rounded-md transition-all duration-300 ${
       currentPath === to
-        ? "bg-emerald-700 text-emerald-50"
-        : "hover:bg-emerald-400 bg-emerald-300 text-emerald-900"
+        ? "bg-gradient-to-t from-gray-100 via-gray-300 to-gray-200 text-black border border-gray-400 font-bold shadow-lg hover:from-gray-200 hover:via-gray-400 hover:to-gray-300"
+        : "bg-gradient-to-l from-gray-800 via-gray-700 to-black border border-gray-600 text-gray-300 font-medium hover:from-gray-700 hover:via-gray-600 hover:to-gray-500 hover:text-white"
     }`}
   >
     {icon}

@@ -14,7 +14,7 @@ const Books = () => {
     <>
       <Header pageName={"Books"} />
       <SearchInput />
-      <div className="mx-auto pb-6 md:px-6 px-2 ">
+      <div className="mx-auto pb-6 md:px-6 px-2">
         <BookList books={latestBooks} loader={loader} heading="Latest Books" />
       </div>
       <div
@@ -23,7 +23,7 @@ const Books = () => {
       >
         <DiamondPlus
           size={40}
-          className="cursor-pointer bg-emerald-900 text-emerald-50 p-2 rounded-full"
+          className="cursor-pointer bg-gray-800 text-gray-100 p-2 rounded-full hover:bg-gray-700 transition"
         />
       </div>
     </>

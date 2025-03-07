@@ -9,6 +9,9 @@ const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
 const Borrowed = () => {
   const [pendingBook, setPendingBook] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [returningBook, setReturningBook] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastType, setToastType] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,9 +33,32 @@ const Borrowed = () => {
     getData();
   }, []);
 
-  const handleReturn = (bookId) => {
-    console.log("Returned book:", bookId);
-    // Implement return action (e.g., API call)
+  const handleReturn = async (borrowId) => {
+    const token = localStorage.getItem("librarianToken");
+    try {
+      setReturningBook(borrowId);
+      await axios.put(
+        `${borrowApiUrl}/return`,
+        { borrowId },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setPendingBook((prev) => prev.filter((book) => book._id !== borrowId));
+      showToast("Book returned successfully!", "success");
+    } catch (error) {
+      showToast("Failed to return book.", "error");
+    } finally {
+      setReturningBook(null);
+    }
+  };
+
+  const showToast = (message, type) => {
+    setToastMessage(message);
+    setToastType(type);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2000);
   };
 
   if (loader) {
@@ -49,6 +75,15 @@ const Borrowed = () => {
   return (
     <>
       <Header pageName={"Borrowed"} />
+      {toastMessage && (
+        <div
+          className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
+          ${toastType === "success" ? "bg-gray-700" : "bg-gray-900"}`}
+        >
+          {toastMessage}
+        </div>
+      )}
+
       <div className="mx-auto pb-6 md:px-6 p-2 fade-in">
         <h1 className="text-lg mb-4">Borrowed Books</h1>
 
@@ -57,9 +92,8 @@ const Borrowed = () => {
             {pendingBook.map((book) => (
               <div
                 key={book._id}
-                className="bg-emerald-200/[0.5] rounded-sm shadow-md p-4 flex items-start hover:bg-emerald-100 transition"
+                className="bg-gray-800/[0.5] rounded-sm shadow-md p-4 flex items-start hover:bg-gray-700 transition"
               >
-                {/* Book Image */}
                 <img
                   src={book.imageUrl}
                   alt={book.title}
@@ -71,10 +105,9 @@ const Borrowed = () => {
                   }
                 />
 
-                {/* Book/User Details */}
                 <div className="flex-1">
                   <h2
-                    className="text-lg font-semibold cursor-pointer hover:text-emerald-600"
+                    className="text-lg font-semibold cursor-pointer hover:text-gray-300"
                     onClick={() =>
                       navigate(`/users/${book.userName.replace(/\s+/g, "-")}`, {
                         state: { userId: book.userId },
@@ -85,7 +118,7 @@ const Borrowed = () => {
                   </h2>
 
                   <h2
-                    className="text-base font-semibold cursor-pointer hover:text-emerald-600"
+                    className="text-base font-semibold cursor-pointer hover:text-gray-300"
                     onClick={() =>
                       navigate(`/book/${book.title.replace(/\s+/g, "-")}`, {
                         state: { bookId: book.bookId },
@@ -94,32 +127,41 @@ const Borrowed = () => {
                   >
                     Book: {book.title}
                   </h2>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-400 text-sm">
                     <strong>Borrow Date:</strong>{" "}
                     {new Date(book.borrowDate).toLocaleDateString("en-GB")}
                   </p>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-400 text-sm">
                     <strong>Due Date:</strong>{" "}
                     {new Date(book.dueDate).toLocaleDateString("en-GB")}
                   </p>
                   <p
                     className={`text-sm font-semibold mt-2 ${
                       book.status === "borrowed"
-                        ? "text-yellow-600"
-                        : "text-red-600"
+                        ? "text-gray-300"
+                        : "text-gray-400"
                     }`}
                   >
                     Status:{" "}
                     {book.status === "borrowed" ? "Borrowed" : "Returned"}
                   </p>
 
-                  {/* Return Button */}
                   <div className="mt-4">
                     <button
+                      disabled={returningBook === book._id}
                       onClick={() => handleReturn(book._id)}
-                      className="bg-blue-500 text-white py-2 px-4 rounded-sm hover:bg-blue-600 transition"
+                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
+                        ${
+                          returningBook === book._id
+                            ? "bg-gray-600 cursor-not-allowed"
+                            : "bg-gray-500 hover:bg-gray-400"
+                        } `}
                     >
-                      Return
+                      {returningBook === book._id ? (
+                        <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
+                      ) : (
+                        "Return"
+                      )}
                     </button>
                   </div>
                 </div>
@@ -127,7 +169,7 @@ const Borrowed = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-600 py-4">
+          <p className="text-center text-gray-400 py-4">
             No borrowed books found.
           </p>
         )}

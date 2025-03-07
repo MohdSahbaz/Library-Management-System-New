@@ -14,7 +14,6 @@ function SingleBook() {
   const [singleBook, setSingleBook] = useState(null);
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(null);
-  console.log(bookId);
 
   useEffect(() => {
     const getData = async () => {
@@ -52,7 +51,7 @@ function SingleBook() {
     return (
       <>
         <Header pageName="Book Detail" />
-        <div className="container mx-auto p-6 text-center text-red-600">
+        <div className="container mx-auto p-6 text-center text-red-500">
           {error}
         </div>
       </>
@@ -62,33 +61,33 @@ function SingleBook() {
   return (
     <>
       <Header pageName="Book Detail" />
-      <div className="mx-auto max-w-4xl p-6 bg-emerald-100/[0.5] shadow-lg rounded-lg mt-10 fade-in">
+      <div className="mx-auto max-w-4xl p-6 bg-gradient-to-br from-black via-gray-900 to-gray-800 shadow-lg rounded-lg mt-10 text-gray-300">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           {/* Book Image */}
           <div>
             <img
               src={singleBook?.imageUrl}
               alt={singleBook?.title}
-              className="w-full h-auto rounded-lg shadow-md border-4 border-emerald-500 max-w-48"
+              className="w-full h-auto rounded-lg shadow-md border-4 border-gray-600 max-w-48"
             />
           </div>
 
           {/* Book Details */}
           <div>
-            <h1 className="text-3xl font-bold text-emerald-800">
+            <h1 className="text-3xl font-bold text-white">
               {singleBook?.title}
             </h1>
-            <p className="text-lg text-emerald-700 mt-2">
+            <p className="text-lg text-gray-400 mt-2">
               by {singleBook?.author}
             </p>
-            <p className="mt-4 text-emerald-900">{singleBook?.description}</p>
-            <p className="mt-2 text-emerald-800 font-semibold">
+            <p className="mt-4 text-gray-300">{singleBook?.description}</p>
+            <p className="mt-2 text-gray-400 font-semibold">
               Genre: {singleBook?.genre}
             </p>
-            <p className="mt-2 text-emerald-800 font-semibold">
+            <p className="mt-2 text-gray-400 font-semibold">
               Copies Available: {singleBook?.copiesAvailable}
             </p>
-            <p className="mt-2 text-emerald-800 font-semibold">
+            <p className="mt-2 text-gray-400 font-semibold">
               Sales Count: {singleBook?.salesCount}
             </p>
           </div>
@@ -98,12 +97,12 @@ function SingleBook() {
             <div className="flex flex-col gap-4">
               <Edit
                 size={40}
-                className="cursor-pointer bg-blue-600 text-emerald-50 p-2 rounded-full"
+                className="cursor-pointer bg-gray-700 text-white p-2 rounded-full hover:bg-gray-600"
                 onClick={() => navigate(`/edit-book/${bookId}`)}
               />
               <Trash2
                 size={40}
-                className="cursor-pointer bg-red-600 text-emerald-50 p-2 rounded-full"
+                className="cursor-pointer bg-red-700 text-white p-2 rounded-full hover:bg-red-600"
                 onClick={() => console.log("Delete book:", bookId)}
               />
             </div>

@@ -53,8 +53,8 @@ const Dashboard = () => {
     <>
       <Header pageName={"Dashboard"} />
       <div className="md:px-6 p-2">
-        <h1 className="pt-5 text-xl">Books data</h1>
-        <div className="flex gap-3 w-full flex-wrap text-white">
+        <h1 className="pt-5 text-xl text-white">Books Data</h1>
+        <div className="flex gap-3 w-full flex-wrap text-gray-200">
           <Card
             icon={<Library size={20} />}
             title={"Total Books"}
@@ -81,8 +81,8 @@ const Dashboard = () => {
           />
         </div>
 
-        <h1 className="pt-5 text-xl">Users data</h1>
-        <div className="flex gap-3 w-full flex-wrap text-white">
+        <h1 className="pt-5 text-xl text-white">Users Data</h1>
+        <div className="flex gap-3 w-full flex-wrap text-gray-200">
           <Card
             icon={<Users size={20} />}
             title={"Total Users"}
@@ -91,8 +91,8 @@ const Dashboard = () => {
           />
         </div>
 
-        <h1 className="pt-5 text-xl">Librarian data</h1>
-        <div className="flex gap-3 w-full flex-wrap text-white">
+        <h1 className="pt-5 text-xl text-white">Librarian Data</h1>
+        <div className="flex gap-3 w-full flex-wrap text-gray-200">
           <Card
             icon={<Users size={20} />}
             title={"Total Librarians"}

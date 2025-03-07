@@ -6,7 +6,7 @@ import Header from "../../components/common/Header";
 
 const librarianApiUrl = import.meta.env.VITE_API_URL_LIBRARIAN;
 
-const SignIn = () => {
+const   SignIn = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,16 +56,16 @@ const SignIn = () => {
       >
         <div className="max-w-md w-full m-5 space-y-4">
           <div>
-            <div className="bg-emerald-950 text-center py-2 text-white font-semibold text-xl mb-4">
+            <div className="bg-black text-center py-2 text-white font-semibold text-xl mb-4">
               <h1>LMS Librarian</h1>
             </div>
-            <h1 className="text-lg font-semibold text-gray-800">
-              Welcome, Chief Librarian! 📚
+            <h1 className="text-lg font-semibold text-white">
+              Welcome, Chief Librarian!
             </h1>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-400">
               Sign in to manage your library and keep things running smoothly.
             </p>
-            <label className="block text-sm font-medium mt-4">
+            <label className="block text-sm font-medium text-gray-300 mt-4">
               Email Address
             </label>
             <input
@@ -73,19 +73,21 @@ const SignIn = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+              className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-500 bg-transparent border-gray-700 placeholder-gray-500 text-white"
               placeholder="Enter your email address"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">Password</label>
+            <label className="block text-sm font-medium text-gray-300">
+              Password
+            </label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
+              className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-500 bg-transparent border-gray-700 placeholder-gray-500 text-white"
               placeholder="Enter your secure password"
               required
             />
@@ -93,19 +95,19 @@ const SignIn = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-2 text-emerald-50 rounded-sm flex items-center justify-center transition duration-300 ${
+            className={`w-full py-2 text-white rounded-sm flex items-center justify-center transition duration-300 ${
               isSubmitting
-                ? "bg-emerald-700 cursor-not-allowed"
-                : "bg-emerald-900 hover:bg-emerald-800"
+                ? "bg-gray-700 cursor-not-allowed"
+                : "bg-gray-900 hover:bg-gray-800"
             }`}
           >
             {isSubmitting ? (
               <span className="animate-spin border-2 border-t-transparent border-white rounded-full h-5 w-5"></span>
             ) : (
-              "Access the Library 🚀"
+              "Access the Library"
             )}
           </button>
-          {error && <p className="text-red-600 text-center">{error}</p>}
+          {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
       </form>
     </>

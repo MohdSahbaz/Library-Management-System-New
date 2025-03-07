@@ -14,7 +14,7 @@ const Logout = () => {
   return (
     <>
       <Header pageName="Logout" />
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center h-screen bg-black text-white">
         <Loader />
       </div>
     </>

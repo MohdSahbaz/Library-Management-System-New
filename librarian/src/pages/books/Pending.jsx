@@ -7,38 +7,35 @@ import Loader from "../../components/common/loader/Loader";
 const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
 
 const Pending = () => {
-  const [pendingBook, setPendingBook] = useState(null); // Initialize state properly
+  const [pendingBook, setPendingBook] = useState(null);
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
-  const [confirmingBook, setConfirmingBook] = useState(null); // Track which book is being confirmed
-  const [cancellingBook, setCancellingBook] = useState(null); // Track which book is being canceled
-
+  const [confirmingBook, setConfirmingBook] = useState(null);
+  const [cancellingBook, setCancellingBook] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
-  const [toastType, setToastType] = useState(null); // 'success' or 'error'
+  const [toastType, setToastType] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("librarianToken"); // Retrieve token
-
+    const token = localStorage.getItem("librarianToken");
     const getData = async () => {
       try {
         const response = await axios.get(`${borrowApiUrl}/pending`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setPendingBook(response.data); // Save data in state
+        setPendingBook(response.data);
       } catch (error) {
         console.error("Error fetching pending books:", error);
       } finally {
-        setLoader(false); // Stop loader after fetching
+        setLoader(false);
       }
     };
-
     getData();
   }, []);
 
   const handleConfirm = async (borrowId) => {
-    const token = localStorage.getItem("librarianToken"); // Retrieve token
+    const token = localStorage.getItem("librarianToken");
     try {
-      setConfirmingBook(borrowId); // Set loading for this book
+      setConfirmingBook(borrowId);
       await axios.put(
         `${borrowApiUrl}/confirm`,
         { borrowId },
@@ -46,21 +43,19 @@ const Pending = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      // Remove confirmed book from the pending list
       setPendingBook((prev) => prev.filter((book) => book._id !== borrowId));
-      showToast("Book confirmed successfully!", "success"); // Show success message
+      showToast("Book confirmed successfully!", "success");
     } catch (error) {
-      showToast("Failed to confirm book.", "error"); // Show error message
+      showToast("Failed to confirm book.", "error");
     } finally {
-      setConfirmingBook(null); // Reset confirming book state
+      setConfirmingBook(null);
     }
   };
 
   const handleCancel = async (borrowId) => {
-    const token = localStorage.getItem("librarianToken"); // Retrieve token
+    const token = localStorage.getItem("librarianToken");
     try {
-      setCancellingBook(borrowId); // Set loading state for this book
+      setCancellingBook(borrowId);
       await axios.put(
         `${borrowApiUrl}/cancel`,
         { borrowId },
@@ -68,30 +63,27 @@ const Pending = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      // Remove canceled book from the pending list
       setPendingBook((prev) => prev.filter((book) => book._id !== borrowId));
-      showToast("Book request canceled!", "success"); // Show success message
+      showToast("Book request canceled!", "success");
     } catch (error) {
-      showToast("Failed to cancel book request.", "error"); // Show error message
+      showToast("Failed to cancel book request.", "error");
     } finally {
-      setCancellingBook(null); // Reset canceling book state
+      setCancellingBook(null);
     }
   };
 
   const showToast = (message, type) => {
     setToastMessage(message);
     setToastType(type);
-
     setTimeout(() => {
       setToastMessage(null);
-    }, 2000); // Hide after 2 seconds
+    }, 2000);
   };
 
   if (loader) {
     return (
       <>
-        <Header pageName={"Pending"} />
+        <Header pageName="Pending" />
         <div className="container mx-auto pb-6 px-2">
           <Loader />
         </div>
@@ -104,24 +96,22 @@ const Pending = () => {
       <Header pageName="Pending" />
       {toastMessage && (
         <div
-          className={`fixed top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
-          ${toastType === "success" ? "bg-green-500" : "bg-red-500"}`}
+          className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300 ${
+            toastType === "success" ? "bg-gray-700" : "bg-gray-900"
+          }`}
         >
           {toastMessage}
         </div>
       )}
-
       <div className="mx-auto pb-6 md:px-6 p-2 fade-in">
-        <h1 className="text-lg mb-4">Pending Books</h1>
-
+        <h1 className="text-lg mb-4 text-white">Pending Books</h1>
         {pendingBook && pendingBook.length > 0 ? (
           <div className="space-y-4">
             {pendingBook.map((book) => (
               <div
                 key={book._id}
-                className="bg-emerald-200/[0.5] rounded-sm shadow-md p-4 flex items-start hover:bg-emerald-100 transition"
+                className="bg-gray-800 rounded-sm shadow-md p-4 flex items-start hover:bg-gray-700 transition text-white"
               >
-                {/* Book Image */}
                 <img
                   src={book.imageUrl}
                   alt={book.title}
@@ -132,11 +122,9 @@ const Pending = () => {
                     })
                   }
                 />
-
-                {/* Book/User Details */}
                 <div className="flex-1">
                   <h2
-                    className="text-lg font-semibold cursor-pointer hover:text-emerald-600"
+                    className="text-lg font-semibold cursor-pointer hover:text-gray-400"
                     onClick={() =>
                       navigate(`/users/${book.userName.replace(/\s+/g, "-")}`, {
                         state: { userId: book.userId },
@@ -145,9 +133,8 @@ const Pending = () => {
                   >
                     User: {book.userName}
                   </h2>
-
                   <h2
-                    className="text-base font-semibold cursor-pointer hover:text-emerald-600"
+                    className="text-base font-semibold cursor-pointer hover:text-gray-400"
                     onClick={() =>
                       navigate(`/book/${book.title.replace(/\s+/g, "-")}`, {
                         state: { bookId: book.bookId },
@@ -156,31 +143,28 @@ const Pending = () => {
                   >
                     Book: {book.title}
                   </h2>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-400 text-sm">
                     <strong>Requested:</strong>{" "}
                     {new Date(book.borrowDate).toLocaleDateString("en-GB")}
                   </p>
                   <p
                     className={`text-sm font-semibold mt-2 ${
                       book.status === "pending"
-                        ? "text-yellow-600"
-                        : "text-red-600"
+                        ? "text-yellow-500"
+                        : "text-red-500"
                     }`}
                   >
                     Status: {book.status === "pending" ? "Pending" : "Borrowed"}
                   </p>
-
-                  {/* Action Buttons */}
                   <div className="mt-4 flex md:gap-8 gap-4 w-full flex-wrap">
                     <button
                       disabled={confirmingBook === book._id}
                       onClick={() => handleConfirm(book._id)}
-                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
-                        ${
-                          confirmingBook === book._id
-                            ? "bg-blue-900 cursor-not-allowed"
-                            : "bg-green-500 hover:bg-green-600"
-                        } `}
+                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px] ${
+                        confirmingBook === book._id
+                          ? "bg-gray-600 cursor-not-allowed"
+                          : "bg-gray-500 hover:bg-gray-400"
+                      }`}
                     >
                       {confirmingBook === book._id ? (
                         <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
@@ -191,12 +175,11 @@ const Pending = () => {
                     <button
                       disabled={cancellingBook === book._id}
                       onClick={() => handleCancel(book._id)}
-                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
-                      ${
+                      className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px] ${
                         cancellingBook === book._id
-                          ? "bg-red-900 cursor-not-allowed"
-                          : "bg-red-500 hover:bg-red-600"
-                      } `}
+                          ? "bg-gray-600 cursor-not-allowed"
+                          : "bg-gray-500 hover:bg-gray-400"
+                      }`}
                     >
                       {cancellingBook === book._id ? (
                         <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
@@ -210,7 +193,7 @@ const Pending = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-600 py-4">
+          <p className="text-center text-gray-400 py-4">
             No pending books found.
           </p>
         )}
