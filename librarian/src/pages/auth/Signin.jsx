@@ -6,7 +6,7 @@ import Header from "../../components/common/Header";
 
 const librarianApiUrl = import.meta.env.VITE_API_URL_LIBRARIAN;
 
-const   SignIn = () => {
+const SignIn = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +52,7 @@ const   SignIn = () => {
       <Header pageName={"Sign In"} />
       <form
         onSubmit={handleSubmit}
-        className="fade-in flex justify-center md:mt-10"
+        className="fade-in flex justify-center bg-black min-h-screen"
       >
         <div className="max-w-md w-full m-5 space-y-4">
           <div>
