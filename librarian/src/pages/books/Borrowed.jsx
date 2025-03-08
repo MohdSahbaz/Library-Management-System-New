@@ -84,7 +84,7 @@ const Borrowed = () => {
         </div>
       )}
 
-      <div className="mx-auto pb-6 md:px-6 p-2 fade-in">
+      <div className="mx-auto pb-6 md:px-6 p-2 fade-in min-h-[calc(100vh-74px)]">
         <h1 className="text-lg mb-4">Borrowed Books</h1>
 
         {pendingBook && pendingBook.length > 0 ? (

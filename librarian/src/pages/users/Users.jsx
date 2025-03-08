@@ -4,7 +4,7 @@ const Users = () => {
   return (
     <>
       <Header pageName={"Users"} />
-      <div className=""></div>
+      <div className="fade-in min-h-[calc(100vh-74px)]"></div>
     </>
   );
 };
