@@ -53,11 +53,11 @@ const BookList = ({ books, loader, heading }) => {
                 <div className="mt-3 text-sm">
                   <p>
                     <strong>Borrowed:</strong>{" "}
-                    {new Date(book.borrowDate).toLocaleDateString()}
+                    {new Date(book.borrowDate).toLocaleDateString("en-GB")}
                   </p>
                   <p className="text-red-500">
                     <strong>Due:</strong>{" "}
-                    {new Date(book.dueDate).toLocaleDateString()}
+                    {new Date(book.dueDate).toLocaleDateString("en-GB")}
                   </p>
                   <p>
                     <strong>Fine:</strong> ₹{book.fine || 0}

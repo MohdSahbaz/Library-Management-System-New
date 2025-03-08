@@ -43,11 +43,11 @@ const BorrowedBookList = ({ books, loader, heading }) => {
                 </h2>
                 <p className="text-gray-600 text-sm">
                   <strong>Borrowed:</strong>{" "}
-                  {new Date(book.borrowDate).toLocaleDateString()}
+                  {new Date(book.borrowDate).toLocaleDateString("en-GB")}
                 </p>
                 <p className="text-red-500 text-sm">
                   <strong>Due:</strong>{" "}
-                  {new Date(book.dueDate).toLocaleDateString()}
+                  {new Date(book.dueDate).toLocaleDateString("en-GB")}
                 </p>
                 <p
                   className={`text-sm font-semibold mt-2 ${

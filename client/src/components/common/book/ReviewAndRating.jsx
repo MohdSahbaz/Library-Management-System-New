@@ -130,7 +130,7 @@ const ReviewAndRating = ({ bookId }) => {
   };
 
   return (
-    <div className="bg-emerald-100/[0.5] p-6 mt-8 rounded-sm shadow-lg mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="bg-emerald-100/[0.5] p-6 border-t border-black rounded-sm shadow-lg mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <h2 className="text-2xl font-semibold text-emerald-900">
           Rate This Book
