@@ -16,7 +16,7 @@ const dashboardDetailApiUrl = import.meta.env.VITE_Dashboard_Detail;
 const Dashboard = () => {
   const [dashboardDetail, setDashboardDetail] = useState(null);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("librarianToken"); // Ensure token is retrieved
+  const token = localStorage.getItem("librarianToken");
 
   useEffect(() => {
     const getData = async () => {
@@ -60,24 +60,32 @@ const Dashboard = () => {
             title={"Total Books"}
             total={dashboardDetail?.totalBooks || 0}
             to={"/books"}
+            bgCol={"bg-blue-800"}
+            bgColHov={"hover:bg-blue-700"}
           />
           <Card
             icon={<LucideHourglass size={20} />}
             title={"Pending"}
             total={dashboardDetail?.totalPending || 0}
             to={"/pending"}
+            bgCol={"bg-yellow-800"}
+            bgColHov={"hover:bg-yellow-700"}
           />
           <Card
             icon={<CheckCircle size={20} />}
             title={"Borrowed"}
             total={dashboardDetail?.totalBorrowed || 0}
             to={"/borrowed"}
+            bgCol={"bg-green-800"}
+            bgColHov={"hover:bg-green-700"}
           />
           <Card
             icon={<AlertTriangle size={20} />}
             title={"Overdue"}
             total={dashboardDetail?.totalOverdue || 0}
             to={"/overdue"}
+            bgCol={"bg-red-800"}
+            bgColHov={"hover:bg-red-700"}
           />
         </div>
 
@@ -88,6 +96,8 @@ const Dashboard = () => {
             title={"Total Users"}
             total={dashboardDetail?.totalUsers || "N/A"}
             to={"/users"}
+            bgCol={"bg-purple-800"}
+            bgColHov={"hover:bg-purple-700"}
           />
         </div>
 
@@ -98,6 +108,8 @@ const Dashboard = () => {
             title={"Total Librarians"}
             total={dashboardDetail?.totalLibrarians || "N/A"}
             to={"/librarian"}
+            bgCol={"bg-teal-800"}
+            bgColHov={"hover:bg-teal-700"}
           />
         </div>
       </div>

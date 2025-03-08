@@ -4,7 +4,7 @@ import ForSmallDevice from "./ForSmallDevice";
 
 const Sidebar = () => {
   return (
-    <div className="bg-gradient-to-l from-black via-gray-900 to-gray-800 flex text-gray-300">
+    <div className="bg-gradient-to-l bg-gray-900 flex text-gray-300">
       <div className="flex-shrink-0">
         <ForLargeDevice />
         <ForSmallDevice />

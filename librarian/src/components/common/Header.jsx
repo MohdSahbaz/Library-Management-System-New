@@ -6,15 +6,13 @@ const Header = ({ pageName }) => {
   }).format(new Date());
 
   return (
-    <div className="flex justify-between text-gray-300 bg-gradient-to-l from-black via-gray-900 to-gray-800 shadow-lg md:px-6 p-2 sticky top-0 border-b border-gray-700">
-      <div className="bg-gradient-to-l border border-gray-600 from-gray-900 via-gray-800 to-gray-700 px-5 py-1 text-white rounded-md">
+    <div className="flex justify-between text-gray-300 bg-gray-950 shadow-lg md:px-6 p-2 sticky top-0 border-b border-white/[0.5]">
+      <div className="bg-gray-800 hover:bg-gray-700 px-5 py-1 text-white rounded-sm transition-all duration-300]">
         <h1 className="font-bold">{pageName}</h1>
         <p className="text-gray-400">{currentDate}</p>
       </div>
-      <div>
-        <h1 className="px-5 py-2 bg-gradient-to-l from-gray-900 border border-gray-600 via-gray-800 to-gray-700 text-white font-bold rounded-md">
-          LMS
-        </h1>
+      <div className="flex items-center justify-center min-h-full bg-gray-800 text-white px-5 py-2 hover:bg-gray-700 transition-all duration-300">
+        <h1 className="font-bold rounded-sm">LMS</h1>
       </div>
     </div>
   );

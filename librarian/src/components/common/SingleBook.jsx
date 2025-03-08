@@ -61,7 +61,7 @@ function SingleBook() {
   return (
     <>
       <Header pageName="Book Detail" />
-      <div className="mx-auto max-w-4xl p-6 bg-gradient-to-br from-black via-gray-900 to-gray-800 shadow-lg rounded-lg mt-10 text-gray-300">
+      <div className="mx-auto max-w-4xl p-6 bg-gray-800 shadow-lg rounded-lg mt-10 text-gray-300">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           {/* Book Image */}
           <div>
@@ -96,12 +96,12 @@ function SingleBook() {
           <div className="fixed md:bottom-10 bottom-24 md:right-10 right-5">
             <div className="flex flex-col gap-4">
               <Edit
-                size={40}
+                size={50}
                 className="cursor-pointer bg-gray-700 text-white p-2 rounded-full hover:bg-gray-600"
                 onClick={() => navigate(`/edit-book/${bookId}`)}
               />
               <Trash2
-                size={40}
+                size={50}
                 className="cursor-pointer bg-red-700 text-white p-2 rounded-full hover:bg-red-600"
                 onClick={() => console.log("Delete book:", bookId)}
               />

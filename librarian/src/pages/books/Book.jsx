@@ -22,8 +22,8 @@ const Books = () => {
         onClick={() => navigate("/add-book")}
       >
         <DiamondPlus
-          size={40}
-          className="cursor-pointer bg-gray-800 text-gray-100 p-2 rounded-full hover:bg-gray-700 transition"
+          size={50}
+          className="cursor-pointer bg-blue-800 text-gray-100 p-2 rounded-full hover:bg-blue-700 transition"
         />
       </div>
     </>
