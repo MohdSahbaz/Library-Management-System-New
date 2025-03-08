@@ -38,6 +38,12 @@ const ForLargeDevice = () => {
         >
           Contact
         </Link>
+        <Link
+          to={"/books"}
+          className="text-gray-700 hover:text-emerald-700 transition"
+        >
+          Books
+        </Link>
       </div>
 
       {/* Right Section: Search and Buttons */}

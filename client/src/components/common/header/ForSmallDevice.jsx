@@ -102,6 +102,12 @@ const ForSmallDevice = () => {
             Home
           </Link>
           <Link
+            to={"/books"}
+            className="hover:text-emerald-600 transition px-6 w-full"
+          >
+            Books
+          </Link>
+          <Link
             to={"/about"}
             className="hover:text-emerald-600 transition px-6 w-full"
           >
