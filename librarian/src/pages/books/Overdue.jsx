@@ -9,6 +9,8 @@ const borrowApiUrl = import.meta.env.VITE_API_URL_BORROW;
 const Overdue = () => {
   const [pendingBook, setPendingBook] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastType, setToastType] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,9 +32,30 @@ const Overdue = () => {
     getData();
   }, []);
 
-  const handleClear = (bookId) => {
-    console.log("Cleared overdue book:", bookId);
-    // Implement clear action (e.g., API call)
+  const handleClear = async (book) => {
+    const token = localStorage.getItem("librarianToken");
+    try {
+      await axios.put(
+        `${borrowApiUrl}/clearoverdue`,
+        { userId: book.userId, bookId: book.bookId },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setPendingBook((prev) => prev.filter((b) => b._id !== book._id));
+      showToast("Book cleared successfully!", "success");
+    } catch (error) {
+      showToast("Failed to clear book.", "error");
+    }
+  };
+
+  const showToast = (message, type) => {
+    setToastMessage(message);
+    setToastType(type);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2000);
   };
 
   if (loader) {
@@ -49,6 +72,16 @@ const Overdue = () => {
   return (
     <>
       <Header pageName="Overdue" />
+
+      {toastMessage && (
+        <div
+          className={`fixed top-10 z-50 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
+          ${toastType === "success" ? "bg-gray-700" : "bg-red-600"}`}
+        >
+          {toastMessage}
+        </div>
+      )}
+
       <div className="mx-auto pb-6 md:px-6 p-2 fade-in min-h-[calc(100vh-74px)]">
         <h1 className="text-lg mb-4">Overdue Books</h1>
 
@@ -112,7 +145,7 @@ const Overdue = () => {
                   {/* Clear Button */}
                   <div className="mt-4">
                     <button
-                      onClick={() => handleClear(book._id)}
+                      onClick={() => handleClear(book)}
                       className="bg-gray-600 text-white py-2 px-4 rounded-sm hover:bg-gray-500 transition"
                     >
                       Clear

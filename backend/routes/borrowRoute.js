@@ -7,6 +7,7 @@ const {
   getBorrowedBooks,
   getOverdueBooks,
   cancelBorrow,
+  clearOverdue,
 } = require("../controllers/borrowController");
 const { default: protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -30,5 +31,8 @@ router.get("/borrowed", protect, getBorrowedBooks);
 
 // 📌 Get all overdue books
 router.get("/overdue", protect, getOverdueBooks);
+
+// 📌 clear(fine 0 and status borrowed) overdue books
+router.put("/clearoverdue", protect, clearOverdue);
 
 module.exports = router;
