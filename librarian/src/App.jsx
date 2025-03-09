@@ -13,12 +13,12 @@ import Borrowed from "./pages/books/Borrowed";
 import Overdue from "./pages/books/Overdue";
 import AddBook from "./pages/books/AddBook";
 
-import Users from "./pages/users/Users";
+import UsersList from "./pages/users/UsersList";
 
 import Signin from "./pages/auth/Signin";
 import Logout from "./pages/auth/Logout";
 
-import Librarian from "./pages/librarian/Librarian";
+import LibrariansList from "./pages/librarian/LibrariansList";
 
 import SearchResults from "./pages/books/SearchResults";
 
@@ -67,8 +67,8 @@ const router = createBrowserRouter([
           { path: "pending", element: <Pending /> },
           { path: "borrowed", element: <Borrowed /> },
           { path: "overdue", element: <Overdue /> },
-          { path: "users", element: <Users /> },
-          { path: "librarian", element: <Librarian /> },
+          { path: "users", element: <UsersList /> },
+          { path: "librarian", element: <LibrariansList /> },
           { path: "logout", element: <Logout /> },
         ],
       },
