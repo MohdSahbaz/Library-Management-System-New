@@ -77,7 +77,7 @@ const Borrowed = () => {
       <Header pageName={"Borrowed"} />
       {toastMessage && (
         <div
-          className={`fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
+          className={`fixed top-10 z-50 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
           ${toastType === "success" ? "bg-gray-700" : "bg-red-600"}`}
         >
           {toastMessage}
