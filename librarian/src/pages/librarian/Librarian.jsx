@@ -27,7 +27,7 @@ const Librarian = () => {
   return (
     <>
       <Header pageName={"Users"} />
-      <div className="p-6 fade-in">
+      <div className="p-6 fade-in min-h-[calc(100vh-74px)]">
         <h2 className="text-xl font-bold mb-4">Librarians</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {users.map((user) => (

@@ -13,7 +13,7 @@ const Books = () => {
   return (
     <>
       <Header pageName={"Books"} />
-      <SearchInput />
+      {!loader && <SearchInput />}
       <div className="mx-auto pb-6 md:px-6 px-2">
         <BookList books={latestBooks} loader={loader} heading="Latest Books" />
       </div>
