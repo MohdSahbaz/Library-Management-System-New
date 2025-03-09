@@ -106,7 +106,7 @@ const Pending = () => {
       <div className="mx-auto pb-6 md:px-6 p-2 fade-in min-h-[calc(100vh-74px)]">
         <h1 className="text-lg mb-4 text-white">Pending Books</h1>
         {pendingBook && pendingBook.length > 0 ? (
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-4">
             {pendingBook.map((book) => (
               <div
                 key={book._id}

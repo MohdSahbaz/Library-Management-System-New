@@ -86,7 +86,7 @@ const Overdue = () => {
         <h1 className="text-lg mb-4">Overdue Books</h1>
 
         {pendingBook && pendingBook.length > 0 ? (
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-4">
             {pendingBook.map((book) => (
               <div
                 key={book._id}
