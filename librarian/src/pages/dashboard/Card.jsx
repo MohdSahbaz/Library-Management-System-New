@@ -6,7 +6,7 @@ const Card = ({ icon, title, total, to, bgCol, bgColHov }) => {
       {to ? (
         <Link
           to={to}
-          className={`group hover:-translate-y-2 mt-2 cursor-pointer flex-1 basis-0 flex flex-col items-center p-6 px-4 ${bgCol} bg-gray-800 ${bgColHov} shadow-md rounded-sm text-center border border-gray-800 border-b-white/[0.5] border-b-2 transition-all duration-300`}
+          className={`group hover:-translate-y-2 mt-2 cursor-pointer flex-1 basis-0 flex flex-col items-center p-6 px-4 ${bgCol} ${bgColHov} shadow-md rounded-sm text-center border border-gray-800 border-b-white/[0.5] border-b-2 transition-all duration-300`}
         >
           <div className="flex items-center gap-2">
             <span className="text-4xl text-gray-300 group-hover:text-white transition-all duration-300">

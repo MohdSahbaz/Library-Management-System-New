@@ -78,4 +78,15 @@ const signUp = async (req, res) => {
   }
 };
 
-module.exports = { signIn, signUp };
+const getLibrarians = async (req, res) => {
+  try {
+    const users = await Librarian.find().select(
+      "_id name imageUrl phoneNumber dateOfJoin"
+    );
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { signIn, signUp, getLibrarians };
