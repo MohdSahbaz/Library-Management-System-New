@@ -149,4 +149,50 @@ const getUsers = async (req, res) => {
   }
 };
 
-module.exports = { signUp, signIn, profile, updateProfile, getUsers };
+const updatePassword = async (req, res) => {
+  try {
+    const { email, password, otp } = req.body;
+
+    // Validate request body
+    if (!email || !password || !otp) {
+      return res
+        .status(400)
+        .json({ message: "Email, OTP, and new password are required" });
+    }
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Verify OTP
+    const otpRecord = await Otp.findOne({ email });
+    if (!otpRecord || otpRecord.otp !== otp) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    // Save updated user password
+    await user.save();
+
+    // Delete OTP entry
+    await Otp.deleteMany({ email });
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = {
+  signUp,
+  signIn,
+  profile,
+  updateProfile,
+  getUsers,
+  updatePassword,
+};

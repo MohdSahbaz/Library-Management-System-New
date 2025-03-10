@@ -14,6 +14,7 @@ import Contact from "./components/common/Contact";
 import AuthPage from "./pages/auth/AuthPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import UpdateProfile from "./pages/auth/UpdateProfile";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <AuthPage />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
       },
       {
         path: "profile",

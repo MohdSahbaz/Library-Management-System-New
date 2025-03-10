@@ -211,6 +211,11 @@ const SignUp = () => {
           Sign in
         </Link>
       </p>
+      <p className="text-center mt-4">
+        <Link to="/reset-password" className="text-blue-600 hover:underline">
+          Forgot password?
+        </Link>
+      </p>
     </form>
   );
 };
