@@ -28,9 +28,9 @@ const Home = () => {
           </p>
           <Link
             to="/books"
-            className="bg-emerald-900 text-white px-6 py-2 rounded-sm hover:bg-emerald-700 transition duration-200"
+            className="inline-flex items-center gap-2 bg-emerald-900 text-white px-6 py-2 rounded-sm hover:bg-emerald-700 transition-transform hover:-translate-y-1 hover:scale-x-110 duration-200"
           >
-            Explore Library <MdArrowOutward className="inline-block text-lg" />
+            Explore Library <MdArrowOutward className="text-lg" />
           </Link>
         </div>
       </section>
@@ -39,7 +39,7 @@ const Home = () => {
       <section className="py-12 px-6 zoom-in bg-emerald-100">
         <h2 className="text-3xl font-bold text-center mb-8">Our Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300">
+          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300 hover:-translate-y-2">
             <FaBookOpen className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Vast Collection</h3>
             <p className="text-gray-700">
@@ -47,7 +47,7 @@ const Home = () => {
               place.
             </p>
           </div>
-          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300">
+          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300 hover:-translate-y-1">
             <FaUserCircle className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">User Profiles</h3>
             <p className="text-gray-700">
@@ -55,7 +55,7 @@ const Home = () => {
               recommendations.
             </p>
           </div>
-          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300">
+          <div className="bg-emerald-200 shadow-lg rounded-sm p-6 text-center transform hover:scale-105 transition duration-300 hover:-translate-y-1">
             <FaGlobe className="text-emerald-700 text-5xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Online Access</h3>
             <p className="text-gray-700">
