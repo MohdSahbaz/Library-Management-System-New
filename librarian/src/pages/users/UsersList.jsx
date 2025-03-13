@@ -3,9 +3,11 @@ import Header from "../../components/common/Header";
 import axios from "axios";
 const userApiUrl = import.meta.env.VITE_API_URL_USER;
 import userImage from "/profileimage.webp";
+import { useNavigate } from "react-router-dom";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -34,6 +36,11 @@ const UsersList = () => {
             <div
               key={user._id}
               className="bg-gray-800 p-4 rounded-sm text-center"
+              onClick={() => {
+                navigate(`/user/${user.name.replace(/\s+/g, "-")}`, {
+                  state: { userId: user._id },
+                });
+              }}
             >
               <img
                 src={user.imageUrl || userImage}

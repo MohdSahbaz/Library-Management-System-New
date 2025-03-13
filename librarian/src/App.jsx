@@ -25,6 +25,7 @@ import SearchResults from "./pages/books/SearchResults";
 import { BookProvider } from "./context/BookContext";
 import { SearchBookProvider } from "./context/SearchBookContext";
 import SingleBook from "./components/common/SingleBook";
+import User from "./pages/users/User";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
           { path: "borrowed", element: <Borrowed /> },
           { path: "overdue", element: <Overdue /> },
           { path: "users", element: <UsersList /> },
+          { path: "user/:userName", element: <User /> },
           { path: "librarian", element: <LibrariansList /> },
           { path: "logout", element: <Logout /> },
         ],
