@@ -3,7 +3,7 @@ import Header from "../../components/common/Header";
 import BookList from "./BookList";
 import SearchInput from "./SearchInput";
 import { BookContext } from "../../context/BookContext";
-import { DiamondPlus } from "lucide-react";
+import { IoIosAddCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 const Books = () => {
@@ -21,9 +21,10 @@ const Books = () => {
         className="fixed md:bottom-10 bottom-24 md:right-10 right-5"
         onClick={() => navigate("/add-book")}
       >
-        <DiamondPlus
+        <IoIosAddCircle
           size={50}
-          className="cursor-pointer bg-blue-800 text-gray-100 p-2 rounded-full hover:bg-blue-700 transition"
+          // color="blue"
+          className="cursor-pointer text-white rounded-full transition"
         />
       </div>
     </>

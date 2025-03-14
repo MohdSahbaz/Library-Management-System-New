@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
-import { FileEdit, Trash, XCircle } from "lucide-react";
+import { XCircle } from "lucide-react";
+import { MdDelete } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 import Loader from "./loader/Loader";
 
 const bookApiUrl = import.meta.env.VITE_API_URL_BOOK;
@@ -123,14 +125,15 @@ function SingleBook() {
           {/* Action Buttons */}
           <div className="fixed md:bottom-10 bottom-24 md:right-10 right-5">
             <div className="flex flex-col gap-4">
-              <FileEdit
+              <CiEdit
                 size={50}
-                className="cursor-pointer bg-green-700 text-white p-2 rounded-full hover:bg-green-600"
+                className="cursor-pointer bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-all duration-300"
                 onClick={() => navigate(`/edit-book/${bookId}`)}
               />
-              <Trash
+              <MdDelete
                 size={50}
-                className="cursor-pointer bg-red-700 text-white p-2 rounded-full hover:bg-red-600"
+                color="red"
+                className="cursor-pointer text-white p-2 rounded-full bg-white hover:bg-gray-300 transition-all duration-300"
                 onClick={handleDeleteClick} // Opens confirmation modal
               />
             </div>
