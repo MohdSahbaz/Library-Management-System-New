@@ -4,14 +4,19 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-2">
       <div className="bg-gray-900 text-white rounded-sm shadow-lg p-6 w-80">
         <h2 className="text-lg font-semibold text-gray-200 mb-4">
           Confirm Deletion
         </h2>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-400 text-sm mb-2">
           Are you sure you want to delete this user? This action cannot be
           undone.
+        </p>
+        <p className="text-red-400 text-sm font-semibold">
+          Warning: Deleting this user will permanently erase all their data,
+          including borrowed books, pending fines, and book history. This action
+          is irreversible.
         </p>
 
         <div className="mt-6 flex justify-end space-x-3">

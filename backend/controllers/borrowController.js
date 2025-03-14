@@ -1,5 +1,6 @@
 const Books = require("../models/Books");
 const Borrow = require("../models/Borrow");
+const User = require("../models/User");
 
 // 📌 Borrow a Book (User Request)
 const borrowBook = async (req, res) => {
@@ -10,6 +11,13 @@ const borrowBook = async (req, res) => {
       return res
         .status(400)
         .json({ message: "User ID and Book ID are required" });
+    }
+
+    const user = await User.findById({ _id: userId });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "Please login again or register" });
     }
 
     // 🔹 Check if the user has already borrowed this specific book

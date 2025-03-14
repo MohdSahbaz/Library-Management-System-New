@@ -207,9 +207,15 @@ const updatePassword = async (req, res) => {
   }
 };
 
+// Delete user and related data
 const deleteUser = async (req, res) => {
   try {
     const { userId } = req.params;
+
+    // Ensure userId is a valid ObjectId string
+    if (!userId || userId.length !== 24) {
+      return res.status(400).json({ message: "Invalid user ID format" });
+    }
 
     // Check if the user exists
     const user = await User.findById(userId);
@@ -217,25 +223,18 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Check if the user has any borrowed books that are not returned
-    const activeBorrowedBooks = await Borrow.find({
-      userId,
-      status: { $ne: "returned" }, // Not equal to "returned"
-    });
-
-    if (activeBorrowedBooks.length > 0) {
-      return res.status(400).json({
-        message:
-          "User cannot be deleted while having borrowed, pending or overdue books.",
-      });
-    }
+    // Delete related borrow records
+    await Borrow.deleteMany({ userId });
 
     // Delete the user
     await User.findByIdAndDelete(userId);
 
-    res.status(200).json({ message: "User deleted successfully." });
+    res
+      .status(200)
+      .json({ message: "User and related data deleted successfully." });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
+    console.error(error);
   }
 };
 
