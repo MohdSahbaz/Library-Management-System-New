@@ -8,6 +8,7 @@ import Overdue from "./activity/overdue/Overdue";
 import Borrowed from "./activity/borrowed/Borrowed";
 import Header from "../../components/common/Header";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+const userApiUrl = import.meta.env.VITE_API_URL_USER;
 
 const User = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -24,12 +25,15 @@ const User = () => {
 
   // Delete user function
   const handleDeleteUser = async () => {
+    const token = localStorage.getItem("librarianToken");
     try {
-      await axios.delete(`/api/users/${userId}`);
+      await axios.delete(`${userApiUrl}/delete-user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       navigate("/users"); // Redirect to user list after deletion
     } catch (error) {
       console.error("Error deleting user:", error);
-      alert("Failed to delete user.");
+      alert(error.response?.data?.message || "Failed to delete user.");
     }
   };
 

@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const Otp = require("../models/Otp");
 const generateToken = require("../utils/generateToken");
 const matchPassword = require("../utils/matchPassword");
+const Borrow = require("../models/Borrow");
 
 const signUp = async (req, res) => {
   try {
@@ -206,6 +207,38 @@ const updatePassword = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the user has any borrowed books that are not returned
+    const activeBorrowedBooks = await Borrow.find({
+      userId,
+      status: { $ne: "returned" }, // Not equal to "returned"
+    });
+
+    if (activeBorrowedBooks.length > 0) {
+      return res.status(400).json({
+        message:
+          "User cannot be deleted while having borrowed, pending or overdue books.",
+      });
+    }
+
+    // Delete the user
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({ message: "User deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -214,4 +247,5 @@ module.exports = {
   getUsers,
   updatePassword,
   getUserProfileForLibrarian,
+  deleteUser,
 };

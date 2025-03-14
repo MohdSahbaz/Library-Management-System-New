@@ -7,6 +7,7 @@ const {
   getUsers,
   updatePassword,
   getUserProfileForLibrarian,
+  deleteUser,
 } = require("../controllers/userController");
 const { default: protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -18,5 +19,6 @@ router.put("/update-profile", protect, updateProfile);
 router.put("/reset-password", updatePassword);
 router.get("/allusers", protect, getUsers);
 router.get("/get-user", protect, getUserProfileForLibrarian);
+router.delete("/delete-user/:userId", protect, deleteUser);
 
 module.exports = router;
