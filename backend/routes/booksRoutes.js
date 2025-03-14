@@ -6,6 +6,7 @@ const {
   getSearchBook,
   getBookById,
   getUserBorrowedBooks,
+  deleteBook,
 } = require("../controllers/booksController");
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.get("/recommend", recommendateBooks);
 router.get("/mostreadbooks", getMostReadBook);
 router.post("/search", getSearchBook);
 router.get("/book/:bookId", getBookById);
-router.get("/user/:userId", getUserBorrowedBooks);
+router.get("/user/:userId", getUserBorrowedBooks); // get user all borrowed book
+router.delete("/delete-book/:bookId", deleteBook);
 
 module.exports = router;

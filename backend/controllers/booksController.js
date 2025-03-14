@@ -119,6 +119,26 @@ const getUserBorrowedBooks = async (req, res) => {
   }
 };
 
+const deleteBook = async (req, res) => {
+  try {
+    const { bookId } = req.params;
+
+    if (!bookId) {
+      return res.status(400).json({ message: "Book ID is required" });
+    }
+
+    const book = await Books.findByIdAndDelete(bookId); // Find and delete the book
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json({ message: "Book deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getLatestBooks,
   recommendateBooks,
@@ -126,4 +146,5 @@ module.exports = {
   getSearchBook,
   getBookById,
   getUserBorrowedBooks,
+  deleteBook,
 };

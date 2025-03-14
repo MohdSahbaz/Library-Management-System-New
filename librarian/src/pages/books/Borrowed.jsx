@@ -160,7 +160,7 @@ const Borrowed = () => {
                       {returningBook === book._id ? (
                         <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
                       ) : (
-                        "Return"
+                        "Returned"
                       )}
                     </button>
                   </div>

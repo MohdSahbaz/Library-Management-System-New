@@ -149,6 +149,24 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getUserProfileForLibrarian = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 const updatePassword = async (req, res) => {
   try {
     const { email, password, otp } = req.body;
@@ -195,4 +213,5 @@ module.exports = {
   updateProfile,
   getUsers,
   updatePassword,
+  getUserProfileForLibrarian,
 };

@@ -33,7 +33,7 @@ const LibrariansList = () => {
           {users.map((user) => (
             <div
               key={user._id}
-              className="bg-gray-800 p-4 rounded-sm text-center"
+              className="bg-gray-800 p-4 rounded-sm text-center cursor-pointer"
             >
               <img
                 src={user.imageUrl || userImage}
