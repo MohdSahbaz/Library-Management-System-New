@@ -89,4 +89,23 @@ const getLibrarians = async (req, res) => {
   }
 };
 
-module.exports = { signIn, signUp, getLibrarians };
+const deleteLibrarian = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Check if the librarian exists
+    const librarian = await Librarian.findById(id);
+    if (!librarian) {
+      return res.status(404).json({ message: "Librarian not found" });
+    }
+
+    // Delete the librarian
+    await Librarian.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Librarian deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { signIn, signUp, getLibrarians, deleteLibrarian };
