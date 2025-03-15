@@ -57,8 +57,8 @@ Ensure you have the following installed:
    ```sh
    npm run dev
    ```
-**Note**
-Make sure to use the .env.example file as a reference to set up your .env file properly. This ensures all required environment variables are correctly configured before running the project.
+**Note:**
+ Make sure to use the .env.example file as a reference to set up your .env file properly. This ensures all required environment variables are correctly configured before running the project.
 
 ## Usage
 - Register/Login as a user.
