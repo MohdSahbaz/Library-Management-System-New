@@ -27,37 +27,42 @@ Ensure you have the following installed:
 ### Steps to Set Up
 1. **Clone the Repository**
    ```sh
-   git clone https://github.com/your-repo/lms.git
-   cd lms
+   git clone https://github.com/MohdSahbaz/Library-Management-System-New.git
+   cd Library-Management-System-New
    ```
 2. **Install Backend Dependencies**
    ```sh
    cd backend
    npm install
    ```
-3. **Set Up Environment Variables**
-   Create a `.env` file in the backend directory and add:
-   ```sh
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
-   ```
-4. **Start the Backend Server**
+3. **Start the Backend Server**
    ```sh
    npm run dev
    ```
-5. **Install Frontend Dependencies**
+4. **Install Client Dependencies**
    ```sh
-   cd ../frontend
+   cd ../Client
    npm install
    ```
-6. **Start the Frontend**
+5. **Start the Client**
    ```sh
-   npm start
+   npm run dev
    ```
+6. **Install Librarian Dependencies**
+    ```sh
+   cd ../Client
+   npm install
+   ```
+7. **Start the Librarian**
+   ```sh
+   npm run dev
+   ```
+**Note**
+Make sure to use the .env.example file as a reference to set up your .env file properly. This ensures all required environment variables are correctly configured before running the project.
 
 ## Usage
 - Register/Login as a user.
-- Admin can add, edit, or delete books.
+- Librarian can add, edit, delete books/user/librarian, etc.
 - Users can browse books and borrow available copies.
 - Books marked as 'borrowed' are tracked in the system until returned.
 
