@@ -6,10 +6,13 @@ import userImage from "/profileimage.webp";
 import Loader from "../../components/common/loader/Loader";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import DeleteLibrarianModal from "./DeleteLibrarianModal";
 
 const LibrariansList = () => {
   const [librarians, setLibrarians] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedLibrarian, setSelectedLibrarian] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,15 +33,23 @@ const LibrariansList = () => {
     fetchLibrarians();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (confirm("Are you sure you want to delete this librarian?")) {
+  const handleDelete = async () => {
+    if (selectedLibrarian) {
       try {
-        await axios.delete(`${librarianApiUrl}/librarian/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("librarianToken")}`,
-          },
-        });
-        setLibrarians(librarians.filter((librarian) => librarian._id !== id));
+        await axios.delete(
+          `${librarianApiUrl}/librarian/${selectedLibrarian._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("librarianToken")}`,
+            },
+          }
+        );
+        setLibrarians(
+          librarians.filter(
+            (librarian) => librarian._id !== selectedLibrarian._id
+          )
+        );
+        setIsModalOpen(false);
       } catch (error) {
         console.error("Error deleting librarian:", error);
       }
@@ -78,20 +89,20 @@ const LibrariansList = () => {
                     key={librarian._id}
                     className="bg-gray-900 text-white text-center"
                   >
-                    <td className="border border-gray-700 px-4 py-2 hidden sm:table-cell">
+                    <td className="border border-gray-700 px-1 py-2 hidden sm:table-cell">
                       <img
                         src={librarian.imageUrl || userImage}
                         alt={librarian.name}
                         className="w-12 h-12 rounded-full mx-auto"
                       />
                     </td>
-                    <td className="border border-gray-700 px-4 py-2">
+                    <td className="border border-gray-700 px-1 py-2">
                       {librarian.name}
                     </td>
-                    <td className="border border-gray-700 px-4 py-2">
-                      {/* {librarian.phoneNumber} */}1212121212
+                    <td className="border border-gray-700 px-1 py-2">
+                      {/* {librarian.phoneNumber || "N/A"} */} 9999999999
                     </td>
-                    <td className="border border-gray-700 px-4 py-2">
+                    <td className="border border-gray-700 px-1 py-2">
                       <div className="flex justify-center items-center gap-4">
                         <FaEdit
                           className="text-blue-500 cursor-pointer text-lg"
@@ -99,11 +110,13 @@ const LibrariansList = () => {
                             navigate(`/edit-librarian/${librarian._id}`)
                           }
                         />
-                        <div className="h-5 w-px bg-gray-500"></div>{" "}
-                        {/* Vertical Line */}
+                        <div className="h-5 w-px bg-gray-500"></div>
                         <FaTrash
                           className="text-red-500 cursor-pointer text-lg"
-                          onClick={() => handleDelete(librarian._id)}
+                          onClick={() => {
+                            setSelectedLibrarian(librarian);
+                            setIsModalOpen(true);
+                          }}
                         />
                       </div>
                     </td>
@@ -127,6 +140,13 @@ const LibrariansList = () => {
           />
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteLibrarianModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+      />
     </>
   );
 };
