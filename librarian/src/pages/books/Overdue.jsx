@@ -109,7 +109,7 @@ const Overdue = () => {
                   <h2
                     className="text-lg font-semibold cursor-pointer hover:text-gray-300"
                     onClick={() =>
-                      navigate(`/users/${book.userName.replace(/\s+/g, "-")}`, {
+                      navigate(`/user/${book.userName.replace(/\s+/g, "-")}`, {
                         state: { userId: book.userId },
                       })
                     }

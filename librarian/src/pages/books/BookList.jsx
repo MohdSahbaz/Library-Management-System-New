@@ -51,7 +51,7 @@ const BookList = ({ books, loader, heading }) => {
                     </div>
                   </td>
                   <td className="pl-4 py-3 hidden md:table-cell text-gray-300">
-                    {book.copiesAvailable || "Unknown Genre"}
+                    {book.copiesAvailable || 0}
                   </td>
                   <td className="pl-4 py-3 text-gray-400">
                     {new Date(book.createdAt).toLocaleDateString("en-GB") ||

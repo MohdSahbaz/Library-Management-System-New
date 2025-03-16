@@ -157,15 +157,15 @@ const SingleBook = ({ averageRating }) => {
 
               {/* Buttons */}
               <div className="mt-6 flex gap-4">
+                {/* Borrow Button */}
                 <button
-                  disabled={borrowLoader}
+                  disabled={borrowLoader || book?.availableCopies === 0}
                   onClick={handleBorrow}
-                  className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
-                    ${
-                      borrowLoader
-                        ? "bg-blue-900 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-800"
-                    } `}
+                  className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px] ${
+                    borrowLoader || book?.copiesAvailable === 0
+                      ? "bg-blue-900 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-800"
+                  } `}
                 >
                   {borrowLoader ? (
                     <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-white border-t-transparent"></span>
@@ -174,15 +174,15 @@ const SingleBook = ({ averageRating }) => {
                   )}
                 </button>
 
+                {/* Download Button */}
                 <button
                   disabled={!book?.downloadUrl}
                   onClick={handleDownload}
-                  className={`text-white px-4 py-2 rounded-sm transition
-                    ${
-                      !book?.downloadUrl
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-green-600 hover:bg-green-700 cursor-pointer"
-                    }`}
+                  className={`text-white px-4 py-2 rounded-sm transition ${
+                    !book?.downloadUrl
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-green-600 hover:bg-green-700 cursor-pointer"
+                  }`}
                 >
                   Download
                 </button>
