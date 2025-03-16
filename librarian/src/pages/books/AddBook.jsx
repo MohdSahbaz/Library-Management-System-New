@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import Header from "../../components/common/Header";
 
+const bookApiUrl = import.meta.env.VITE_API_URL_BOOK;
+
 const AddBook = () => {
   const [book, setBook] = useState({
     imageUrl: "",
@@ -12,50 +14,18 @@ const AddBook = () => {
     copiesAvailable: 1,
   });
 
-  const [imageOption, setImageOption] = useState("url");
-  const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
-    setImageFile(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    let imageUrl = book.imageUrl;
-
-    if (imageOption === "file" && imageFile) {
-      const formData = new FormData();
-      formData.append("file", imageFile);
-
-      try {
-        const uploadResponse = await axios.post(
-          "http://localhost:8080/api/upload",
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
-        imageUrl = uploadResponse.data.imageUrl;
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        alert("Image upload failed. Please try again.");
-        setLoading(false);
-        return;
-      }
-    }
-
     try {
-      await axios.post("http://localhost:8080/api/book/add-book", {
-        ...book,
-        imageUrl,
-      });
+      await axios.post(`${bookApiUrl}/add-book`, book);
 
       alert("Book added successfully!");
       setBook({
@@ -66,7 +36,6 @@ const AddBook = () => {
         genre: "",
         copiesAvailable: 1,
       });
-      setImageFile(null);
     } catch (error) {
       console.error(
         "Error adding book:",
@@ -83,106 +52,128 @@ const AddBook = () => {
   return (
     <>
       <Header pageName="Add Book" />
-      <div className="md:px-6 p-2 py-4">
-        <h1 className="text-xl font-semibold text-gray-200 mb-4">
-          Add Book Details
+      <div className="md:px-6 m-2 p-2 py-4 max-w-lg mx-auto bg-gray-950/[0.5] rounded-sm shadow-md">
+        <h1 className="text-2xl font-semibold text-gray-200 mb-6 text-center">
+          Add a New Book
         </h1>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="font-semibold text-gray-300">
-              Choose Image Upload Method:
+            <label
+              htmlFor="imageUrl"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Image URL
             </label>
-            <div className="flex gap-4 mt-2 text-gray-400">
-              <label>
-                <input
-                  type="radio"
-                  name="imageOption"
-                  value="url"
-                  checked={imageOption === "url"}
-                  onChange={() => setImageOption("url")}
-                />{" "}
-                Use Image URL
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="imageOption"
-                  value="file"
-                  checked={imageOption === "file"}
-                  onChange={() => setImageOption("file")}
-                />{" "}
-                Upload File
-              </label>
-            </div>
-          </div>
-
-          {imageOption === "url" ? (
             <input
               type="text"
+              id="imageUrl"
               name="imageUrl"
-              placeholder="Image URL"
+              placeholder="Enter image URL"
               value={book.imageUrl}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
-          ) : (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              required
-              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
-            />
-          )}
+          </div>
 
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={book.title}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="author"
-            placeholder="Author"
-            value={book.author}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
-          />
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={book.description}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="genre"
-            placeholder="Genre"
-            value={book.genre}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
-          />
-          <input
-            type="number"
-            name="copiesAvailable"
-            placeholder="Copies Available"
-            value={book.copiesAvailable}
-            onChange={handleChange}
-            min="1"
-            className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded"
-          />
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Enter book title"
+              value={book.title}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="author"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Author
+            </label>
+            <input
+              type="text"
+              id="author"
+              name="author"
+              placeholder="Enter author's name"
+              value={book.author}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Enter book description"
+              value={book.description}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm resize-none h-24 focus:outline-none focus:ring-2 focus:ring-gray-600"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="genre"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Genre
+            </label>
+            <input
+              type="text"
+              id="genre"
+              name="genre"
+              placeholder="Enter book genre"
+              value={book.genre}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="copiesAvailable"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Copies Available
+            </label>
+            <input
+              type="number"
+              id="copiesAvailable"
+              name="copiesAvailable"
+              placeholder="Enter number of copies"
+              value={book.copiesAvailable}
+              onChange={handleChange}
+              min="1"
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
+            />
+          </div>
+
           <button
             type="submit"
-            className={`bg-gray-700 text-white px-4 py-2 rounded ${
+            className={`w-full p-3 font-medium text-white bg-gray-700 rounded-sm transition ${
               loading ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-600"
-            } transition`}
+            }`}
             disabled={loading}
           >
             {loading ? "Adding..." : "Add Book"}

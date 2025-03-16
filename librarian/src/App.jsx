@@ -26,6 +26,7 @@ import { BookProvider } from "./context/BookContext";
 import { SearchBookProvider } from "./context/SearchBookContext";
 import SingleBook from "./components/common/SingleBook";
 import User from "./pages/users/User";
+import UpdateBook from "./pages/books/UpdateBook";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: "add-book",
             element: <AddBook />,
+          },
+          {
+            path: "edit-book/:title",
+            element: <UpdateBook />,
           },
           {
             path: "search",

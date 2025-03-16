@@ -139,6 +139,58 @@ const deleteBook = async (req, res) => {
   }
 };
 
+const addBook = async (req, res) => {
+  try {
+    const { imageUrl, title, author, description, genre, copiesAvailable } =
+      req.body;
+
+    if (!title || !author || !imageUrl) {
+      return res
+        .status(400)
+        .json({ message: "Title, author, and imageUrl are required" });
+    }
+
+    const newBook = new Books({
+      imageUrl,
+      title,
+      author,
+      description,
+      genre,
+      copiesAvailable: copiesAvailable || 1, // Default to 1 if not provided
+    });
+
+    await newBook.save();
+    res.status(201).json({ message: "Book added successfully", book: newBook });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+const updateBook = async (req, res) => {
+  try {
+    const { bookId } = req.params;
+    const updates = req.body;
+
+    if (!bookId) {
+      return res.status(400).json({ message: "Book ID is required" });
+    }
+
+    const updatedBook = await Books.findByIdAndUpdate(bookId, updates, {
+      new: true,
+    });
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Book updated successfully", book: updatedBook });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getLatestBooks,
   recommendateBooks,
@@ -147,4 +199,6 @@ module.exports = {
   getBookById,
   getUserBorrowedBooks,
   deleteBook,
+  addBook,
+  updateBook,
 };

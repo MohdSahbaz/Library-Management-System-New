@@ -111,14 +111,16 @@ function SingleBook() {
               by {singleBook?.author}
             </p>
             <p className="mt-4 text-gray-300">{singleBook?.description}</p>
-            <p className="mt-2 text-gray-400 font-semibold">
-              Genre: {singleBook?.genre}
+            <p className="mt-2 text-gray-400">
+              <b className="font-bold text-white">Genre:</b> {singleBook?.genre}
             </p>
-            <p className="mt-2 text-gray-400 font-semibold">
-              Copies Available: {singleBook?.copiesAvailable}
+            <p className="mt-2 text-gray-400">
+              <b className="font-bold text-white">Copies Available: </b>
+              {singleBook?.copiesAvailable}
             </p>
-            <p className="mt-2 text-gray-400 font-semibold">
-              Sales Count: {singleBook?.salesCount}
+            <p className="mt-2 text-gray-400">
+              <b className="font-bold text-white">Sales Count:</b>{" "}
+              {singleBook?.salesCount}
             </p>
           </div>
 
@@ -128,7 +130,14 @@ function SingleBook() {
               <CiEdit
                 size={50}
                 className="cursor-pointer bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-all duration-300"
-                onClick={() => navigate(`/edit-book/${bookId}`)}
+                onClick={() =>
+                  navigate(
+                    `/edit-book/${singleBook.title.replace(/\s+/g, "-")}`,
+                    {
+                      state: { bookId: singleBook._id },
+                    }
+                  )
+                }
               />
               <MdDelete
                 size={50}
