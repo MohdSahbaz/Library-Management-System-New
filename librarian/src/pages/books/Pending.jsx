@@ -32,13 +32,13 @@ const Pending = () => {
     getData();
   }, []);
 
-  const handleConfirm = async (borrowId) => {
+  const handleConfirm = async ({ borrowId, bookId }) => {
     const token = localStorage.getItem("librarianToken");
     try {
       setConfirmingBook(borrowId);
       await axios.put(
         `${borrowApiUrl}/confirm`,
-        { borrowId },
+        { borrowId, bookId },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -159,7 +159,12 @@ const Pending = () => {
                   <div className="mt-4 flex md:gap-8 gap-4 w-full flex-wrap">
                     <button
                       disabled={confirmingBook === book._id}
-                      onClick={() => handleConfirm(book._id)}
+                      onClick={() =>
+                        handleConfirm({
+                          borrowId: book._id,
+                          bookId: book.bookId,
+                        })
+                      }
                       className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px] ${
                         confirmingBook === book._id
                           ? "bg-gray-600 cursor-not-allowed"

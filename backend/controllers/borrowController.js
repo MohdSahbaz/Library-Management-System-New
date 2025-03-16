@@ -64,13 +64,25 @@ const borrowBook = async (req, res) => {
 // 📌 Confirm Borrowing (Librarian Approval)
 const confirmBorrow = async (req, res) => {
   try {
-    const { borrowId } = req.body;
+    const { borrowId, bookId } = req.body;
 
-    const borrowRecord = await Borrow.findById(borrowId);
+    // Find borrow record
+    const borrowRecord = await Borrow.findById({ _id: borrowId });
     if (!borrowRecord) {
       return res.status(404).json({ message: "Borrow record not found" });
     }
 
+    // Find book record
+    const book = await Books.findById({ _id: bookId });
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    if (book.availableCopies <= 0) {
+      return res.status(400).json({ message: "No available copies left" });
+    }
+
+    // Update borrow record
     borrowRecord.status = "borrowed";
     borrowRecord.borrowDate = Date.now();
     borrowRecord.dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // Set due date to 1 week later
@@ -78,20 +90,34 @@ const confirmBorrow = async (req, res) => {
 
     await borrowRecord.save();
 
-    res.status(200).json({ message: "Borrow request confirmed", borrowRecord });
+    // Decrease book availability
+    book.copiesAvailable -= 1;
+    book.salesCount += 1;
+    await book.save();
+
+    res
+      .status(200)
+      .json({ message: "Borrow request confirmed", borrowRecord, book });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
+    console.log(error.message);
   }
 };
 
 // 📌 Return a Book
 const returnBook = async (req, res) => {
   try {
-    const { borrowId } = req.body;
+    const { borrowId, bookId } = req.body;
 
     const borrowRecord = await Borrow.findById(borrowId);
     if (!borrowRecord) {
       return res.status(404).json({ message: "Borrow record not found" });
+    }
+
+    // Find book record
+    const book = await Books.findById({ _id: bookId });
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
     }
 
     if (borrowRecord.status === "returned") {
@@ -102,6 +128,10 @@ const returnBook = async (req, res) => {
     borrowRecord.returnDate = Date.now();
 
     await borrowRecord.save();
+
+    // Decrease book availability
+    book.copiesAvailable += 1;
+    await book.save();
 
     res.status(200).json({
       message: "Book returned successfully",

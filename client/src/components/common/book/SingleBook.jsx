@@ -151,7 +151,7 @@ const SingleBook = ({ averageRating }) => {
                   </p>
                 )}
                 <p>
-                  <strong>Readers:</strong> {book.salesCount || "Undefine"}
+                  <strong>Readers:</strong> {book.salesCount || 0}
                 </p>
               </div>
 

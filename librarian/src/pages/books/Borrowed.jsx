@@ -33,13 +33,13 @@ const Borrowed = () => {
     getData();
   }, []);
 
-  const handleReturn = async (borrowId) => {
+  const handleReturn = async ({ borrowId, bookId }) => {
     const token = localStorage.getItem("librarianToken");
     try {
       setReturningBook(borrowId);
       await axios.put(
         `${borrowApiUrl}/return`,
-        { borrowId },
+        { borrowId, bookId },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -149,7 +149,12 @@ const Borrowed = () => {
                   <div className="mt-4">
                     <button
                       disabled={returningBook === book._id}
-                      onClick={() => handleReturn(book._id)}
+                      onClick={() =>
+                        handleReturn({
+                          borrowId: book._id,
+                          bookId: book.bookId,
+                        })
+                      }
                       className={`text-white px-4 py-2 rounded-sm transition duration-300 flex items-center justify-center min-w-[100px]
                         ${
                           returningBook === book._id
