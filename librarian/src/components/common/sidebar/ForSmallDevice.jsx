@@ -8,6 +8,7 @@ import {
   Users,
   GraduationCap,
   LogOut,
+  UserX,
 } from "lucide-react";
 
 const ForSmallDevice = () => {
@@ -44,6 +45,11 @@ const ForSmallDevice = () => {
         <NavIcon
           to="/users"
           icon={<Users size={20} />}
+          currentPath={location.pathname}
+        />
+        <NavIcon
+          to="/unverified-users"
+          icon={<UserX size={20} />}
           currentPath={location.pathname}
         />
         <NavIcon

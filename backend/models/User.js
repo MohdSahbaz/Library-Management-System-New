@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    enum: ["unverified", "verified"],
+    default: "unverified",
+  },
   dateOfJoin: {
     type: Date,
     default: Date.now,

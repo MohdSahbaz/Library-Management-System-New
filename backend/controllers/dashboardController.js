@@ -10,6 +10,9 @@ const getDashboardDetail = async (req, res) => {
     const totalBorrowed = await Borrow.countDocuments({ status: "borrowed" });
     const totalOverdue = await Borrow.countDocuments({ status: "overdue" });
     const totalUsers = await User.countDocuments();
+    const totalUnverifiedUsers = await User.countDocuments({
+      status: "unverified",
+    });
     const totalLibrarians = await Librarian.countDocuments();
 
     res.status(200).json({
@@ -19,6 +22,7 @@ const getDashboardDetail = async (req, res) => {
       totalOverdue,
       totalUsers,
       totalLibrarians,
+      totalUnverifiedUsers,
     });
   } catch (error) {
     console.error("Error fetching dashboard details:", error);

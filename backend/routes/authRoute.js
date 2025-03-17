@@ -9,6 +9,8 @@ const {
   getUserProfileForLibrarian,
   deleteUser,
   searchUsers,
+  verifyUser,
+  getUnverifiedUsers,
 } = require("../controllers/userController");
 const { default: protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -20,7 +22,9 @@ router.put("/update-profile", protect, updateProfile);
 router.put("/reset-password", updatePassword);
 router.get("/allusers", protect, getUsers);
 router.get("/get-user", protect, getUserProfileForLibrarian);
-router.delete("/delete-user/:userId", protect, deleteUser);
+router.delete("/delete-user/:userId", deleteUser);
 router.get("/search", searchUsers);
+router.get("/verifyuser", verifyUser);
+router.get("/unverified", getUnverifiedUsers);
 
 module.exports = router;

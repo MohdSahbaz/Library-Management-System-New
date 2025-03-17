@@ -8,6 +8,7 @@ import {
   Library,
   LucideHourglass,
   Users,
+  UserX,
 } from "lucide-react";
 import Loader from "../../components/common/loader/Loader";
 
@@ -94,10 +95,18 @@ const Dashboard = () => {
           <Card
             icon={<Users size={20} />}
             title={"Total Users"}
-            total={dashboardDetail?.totalUsers || "N/A"}
+            total={dashboardDetail?.totalUsers || 0}
             to={"/users"}
             bgCol={"bg-purple-700"}
             bgColHov={"hover:bg-purple-800"}
+          />
+          <Card
+            icon={<UserX size={20} />}
+            title={"Unverified Users"}
+            total={dashboardDetail?.totalUnverifiedUsers || 0}
+            to={"/unverified-users"}
+            bgCol={"bg-pink-700"}
+            bgColHov={"hover:bg-pink-800"}
           />
         </div>
 

@@ -68,6 +68,13 @@ const signIn = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // Check if user is verified
+    if (user.status !== "verified") {
+      return res.status(403).json({
+        message: "Your account is not verified. Please contact the librarian.",
+      });
+    }
+
     const isPassowrdValid = await matchPassword(password, user.password);
 
     if (!isPassowrdValid) {
@@ -261,6 +268,41 @@ const searchUsers = async (req, res) => {
   }
 };
 
+const verifyUser = async (req, res) => {
+  const { userId } = req.query;
+
+  try {
+    // Find the user by ID and update status to "verified"
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { status: "verified" },
+      { new: true } // Return updated user
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User verified successfully", user });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getUnverifiedUsers = async (req, res) => {
+  try {
+    const unverifiedUsers = await User.find({ status: "unverified" });
+
+    if (unverifiedUsers.length === 0) {
+      return res.status(404).json({ message: "No unverified users found" });
+    }
+
+    res.json(unverifiedUsers);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -271,4 +313,6 @@ module.exports = {
   getUserProfileForLibrarian,
   deleteUser,
   searchUsers,
+  verifyUser,
+  getUnverifiedUsers,
 };

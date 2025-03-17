@@ -30,6 +30,7 @@ import UpdateBook from "./pages/books/UpdateBook";
 import AddLibrarian from "./pages/librarian/AddLibrarian";
 import EditLibrarian from "./pages/librarian/EditLibrarian";
 import UserSearchResults from "./pages/users/UserSearchResults";
+import Unverified from "./pages/users/Unverified";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
           { path: "overdue", element: <Overdue /> },
           { path: "users", element: <UsersList /> },
           { path: "user/:userName", element: <User /> },
+          { path: "unverified-users", element: <Unverified /> },
           { path: "search-user", element: <UserSearchResults /> },
           { path: "librarian", element: <LibrariansList /> },
           { path: "new-librarian", element: <AddLibrarian /> },

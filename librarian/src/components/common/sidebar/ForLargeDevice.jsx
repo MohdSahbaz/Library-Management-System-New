@@ -8,6 +8,7 @@ import {
   Users,
   LogOut,
   GraduationCap,
+  UserX,
 } from "lucide-react";
 import "../../../styles/scroll.css";
 
@@ -51,6 +52,12 @@ const ForLargeDevice = () => {
           to="/users"
           icon={<Users size={20} />}
           label="Users"
+          currentPath={location.pathname}
+        />
+        <NavItem
+          to="/unverified-users"
+          icon={<UserX size={20} />}
+          label="Unverified"
           currentPath={location.pathname}
         />
         <NavItem
