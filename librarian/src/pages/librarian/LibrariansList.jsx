@@ -13,6 +13,7 @@ const LibrariansList = () => {
   const [loading, setLoading] = useState(true);
   const [selectedLibrarian, setSelectedLibrarian] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const LibrariansList = () => {
   }, []);
 
   const handleDelete = async () => {
+    setMessage(null);
     if (selectedLibrarian) {
       try {
         await axios.delete(
@@ -51,7 +53,8 @@ const LibrariansList = () => {
         );
         setIsModalOpen(false);
       } catch (error) {
-        console.error("Error deleting librarian:", error);
+        setMessage(error.response?.data?.message);
+        console.log(error.response?.data?.message);
       }
     }
   };
@@ -100,14 +103,16 @@ const LibrariansList = () => {
                       {librarian.name}
                     </td>
                     <td className="border border-gray-700 px-1 py-2">
-                      {/* {librarian.phoneNumber || "N/A"} */} 9999999999
+                      {librarian.phoneNumber || 0}
                     </td>
                     <td className="border border-gray-700 px-1 py-2">
                       <div className="flex justify-center items-center gap-4">
                         <FaEdit
                           className="text-blue-500 cursor-pointer text-lg"
                           onClick={() =>
-                            navigate(`/edit-librarian/${librarian._id}`)
+                            navigate("/update-librarian", {
+                              state: { librarianId: librarian._id },
+                            })
                           }
                         />
                         <div className="h-5 w-px bg-gray-500"></div>
@@ -132,7 +137,7 @@ const LibrariansList = () => {
         )}
         <div
           className="fixed md:bottom-10 bottom-24 md:right-10 right-5"
-          onClick={() => navigate("/add-librarian")}
+          onClick={() => navigate("/new-librarian")}
         >
           <FaPlus
             size={40}
@@ -146,6 +151,8 @@ const LibrariansList = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleDelete}
+        message={message}
+        setMessage={setMessage}
       />
     </>
   );

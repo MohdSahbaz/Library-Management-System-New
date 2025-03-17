@@ -35,7 +35,6 @@ const SignUp = () => {
     setError(null);
     setIsSendingOtp(true);
     setCanSendOtp(false);
-    setTimeLeft(120); // 2 minutes countdown
 
     try {
       const response = await axios.post(`${otpApiUrl}/sendotp`, {
@@ -49,6 +48,7 @@ const SignUp = () => {
         "Failed to send OTP. Please try again.";
       setOtpError(errorMessage);
       setCanSendOtp(true); // Allow retry if error occurs
+      setTimeLeft(120); // 2 minutes countdown
     } finally {
       setIsSendingOtp(false);
     }

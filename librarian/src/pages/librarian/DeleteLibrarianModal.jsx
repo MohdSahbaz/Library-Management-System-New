@@ -1,6 +1,12 @@
 import React from "react";
 
-const DeleteLibrarianModal = ({ isOpen, onClose, onConfirm }) => {
+const DeleteLibrarianModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  message,
+  setMessage,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -20,7 +26,10 @@ const DeleteLibrarianModal = ({ isOpen, onClose, onConfirm }) => {
 
         <div className="mt-6 flex justify-end space-x-3">
           <button
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              setMessage(null);
+            }}
             className="px-4 py-2 text-gray-300 bg-gray-700 hover:bg-gray-600 rounded-sm"
           >
             Cancel
@@ -32,6 +41,7 @@ const DeleteLibrarianModal = ({ isOpen, onClose, onConfirm }) => {
             Delete
           </button>
         </div>
+        <p className="text-red-600 font-bold">{message}</p>
       </div>
     </div>
   );

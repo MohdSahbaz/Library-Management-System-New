@@ -27,6 +27,8 @@ import { SearchBookProvider } from "./context/SearchBookContext";
 import SingleBook from "./components/common/SingleBook";
 import User from "./pages/users/User";
 import UpdateBook from "./pages/books/UpdateBook";
+import AddLibrarian from "./pages/librarian/AddLibrarian";
+import EditLibrarian from "./pages/librarian/EditLibrarian";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,8 @@ const router = createBrowserRouter([
           { path: "users", element: <UsersList /> },
           { path: "user/:userName", element: <User /> },
           { path: "librarian", element: <LibrariansList /> },
+          { path: "new-librarian", element: <AddLibrarian /> },
+          { path: "update-librarian", element: <EditLibrarian /> },
           { path: "logout", element: <Logout /> },
         ],
       },
