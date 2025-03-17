@@ -238,6 +238,29 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const searchUsers = async (req, res) => {
+  try {
+    const { query } = req.query;
+
+    if (!query) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+
+    // Perform a case-insensitive search using regex
+    const users = await User.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { email: { $regex: query, $options: "i" } },
+        { phoneNumber: { $regex: query, $options: "i" } },
+      ],
+    }).select("_id name email phoneNumber city imageUrl");
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -247,4 +270,5 @@ module.exports = {
   updatePassword,
   getUserProfileForLibrarian,
   deleteUser,
+  searchUsers,
 };

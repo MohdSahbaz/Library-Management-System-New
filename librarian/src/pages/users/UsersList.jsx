@@ -5,6 +5,7 @@ const userApiUrl = import.meta.env.VITE_API_URL_USER;
 import userImage from "/profileimage.webp";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/common/loader/Loader";
+import UserSearchInput from "./UserSearchInput";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -42,6 +43,7 @@ const UsersList = () => {
   return (
     <>
       <Header pageName={"Users"} />
+      <UserSearchInput />
       <div className="md:p-6 p-1 fade-in min-h-[calc(100vh-74px)]">
         <h2 className="text-xl font-bold mb-4">Users</h2>
         {users.length > 0 ? (
