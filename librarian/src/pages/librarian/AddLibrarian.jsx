@@ -65,30 +65,12 @@ const AddLibrarian = () => {
     setMessage("");
 
     try {
-      const response = await fetch(`${librarianApiUrl}/librarian`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      await axios.post(`${librarianApiUrl}/signup`, formData);
 
-      const data = await response.json();
-      if (response.ok) {
-        setMessage("Librarian added successfully!");
-        setTimeout(() => navigate("/librarian"), 2000); // Redirect after 2 seconds
-
-        setFormData({
-          name: "",
-          email: "",
-          phoneNumber: "",
-          password: "",
-          otp: "",
-        });
-        setShowOtpInput(false);
-      } else {
-        setMessage(data.message || "Failed to add librarian");
-      }
+      alert("Librarian added successfully!");
+      navigate("/librarian");
     } catch (error) {
-      setMessage("An error occurred");
+      setMessage(error.response?.data?.message || "Failed to add librarian");
     } finally {
       setLoading(false);
     }
@@ -97,7 +79,7 @@ const AddLibrarian = () => {
   return (
     <>
       <Header pageName={"Add Librarian"} />
-      <div className="flex justify-center items-center min-h-[calc(100vh-170px)] bg-gray-900">
+      <div className="flex justify-center items-center mt-4 bg-gray-900">
         <div className="bg-gray-800 p-6 rounded-sm shadow-lg w-full max-w-md">
           <h2 className="text-white text-2xl mb-4 text-center">
             Add Librarian

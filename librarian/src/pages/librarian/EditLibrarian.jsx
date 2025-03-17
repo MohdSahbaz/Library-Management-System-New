@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 
 const librarianApiUrl = import.meta.env.VITE_API_URL_LIBRARIAN;
 const otpApiUrl = import.meta.env.VITE_API_URL_OTP;
 
 const EditLibrarian = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { librarianId } = location.state;
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const EditLibrarian = () => {
         const response = await axios.get(
           `${librarianApiUrl}/librarian/${librarianId}`
         );
-        setFormData(response.data);
+        setFormData({ ...response.data, password: "" });
       } catch (error) {
         console.error("Error fetching librarian:", error);
       }
@@ -51,7 +52,7 @@ const EditLibrarian = () => {
     setCanSendOtp(false);
 
     try {
-      const response = await axios.post(`${otpApiUrl}/send-update-otp`, {
+      const response = await axios.post(`${otpApiUrl}/sendupdateotp`, {
         email: formData.email,
       });
       setOtpError(response?.data?.message);
@@ -86,11 +87,13 @@ const EditLibrarian = () => {
       }
 
       const response = await axios.put(
-        `${librarianApiUrl}/${librarianId}`,
+        `${librarianApiUrl}/librarian/${librarianId}`,
         payload
       );
 
       setMessage(response.data.message || "Librarian updated successfully!");
+      alert("Librarian updated successfully!");
+      navigate("/librarian");
     } catch (error) {
       setMessage("Error updating librarian.");
     } finally {

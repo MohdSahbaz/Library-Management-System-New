@@ -117,46 +117,6 @@ const deleteLibrarian = async (req, res) => {
   }
 };
 
-const addLibrarian = async (req, res) => {
-  try {
-    const { name, email, password, phoneNumber, otp } = req.body;
-
-    if (!name || !email || !password || !phoneNumber || !otp) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const existingLibrarian = await Librarian.findOne({ email });
-    if (existingLibrarian) {
-      return res.status(400).json({ message: "Librarian already exists" });
-    }
-
-    const otpUser = await Otp.findOne({ email });
-    if (!otpUser || otpUser.otp !== otp) {
-      return res
-        .status(400)
-        .json({ message: "OTP has expired or is invalid." });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newLibrarian = new Librarian({
-      name,
-      email,
-      password: hashedPassword,
-      phoneNumber,
-    });
-
-    await newLibrarian.save();
-    await Otp.deleteMany({ email });
-
-    res.status(201).json({ message: "Librarian added successfully" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: error.message });
-  }
-};
-
 const updateLibrarian = async (req, res) => {
   try {
     const { id } = req.params;
@@ -215,7 +175,7 @@ const getLibrarianById = async (req, res) => {
     const { id } = req.params;
 
     // Find the librarian by ID
-    const librarian = await Librarian.findById(id).select();
+    const librarian = await Librarian.findById(id).select("-password");
 
     if (!librarian) {
       return res.status(404).json({ message: "Librarian not found" });
@@ -232,7 +192,6 @@ module.exports = {
   signUp,
   getLibrarians,
   deleteLibrarian,
-  addLibrarian,
   updateLibrarian,
   getLibrarianById,
 };
