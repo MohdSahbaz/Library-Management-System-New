@@ -14,6 +14,7 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const overdueRoutes = require("./routes/activityRoutes");
 const librarianRoutes = require("./routes/librarianRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const paymentRoutes = require("./routes/paymentRoutes.js");
 
 const calculateFine = require("./cronsJob/calculateFine");
 const removeUnconfirmedBorrows = require("./cronsJob/removePendingBook");
@@ -47,6 +48,7 @@ app.use("/api/borrow", borrowRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/activity", overdueRoutes);
+app.use("/api/paypal", paymentRoutes);
 
 // Librarian Routes
 app.use("/api/librarian", librarianRoutes);

@@ -86,7 +86,7 @@ const getUserBorroedBooks = async (req, res) => {
     // Find unreturned books for this user
     const unreturnedBooks = await Borrow.find({
       userId: userId, // Filter by user
-      status: { $in: ["pending", "borrowed"] }, // Only pending or unreturned
+      status: { $in: ["pending", "borrowed", "overdue"] }, // Only pending or unreturned
     })
       .populate("bookId", "title imageUrl _id") // Get book title & imageUrl
       .select("borrowDate dueDate status bookId") // Select required fields
@@ -120,7 +120,7 @@ const getUserBorroedBooksForLibrarian = async (req, res) => {
     // Find unreturned books for this user
     const unreturnedBooks = await Borrow.find({
       userId: userId, // Filter by user
-      status: { $in: ["pending", "borrowed"] }, // Only pending or unreturned
+      status: { $in: ["pending", "borrowed", "overdue"] }, // Only pending or unreturned
     })
       .populate("bookId", "title imageUrl _id") // Get book title & imageUrl
       .select("borrowDate dueDate status bookId") // Select required fields

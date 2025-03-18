@@ -53,10 +53,19 @@ const BorrowedBookList = ({ books, loader, heading }) => {
                   className={`text-sm font-semibold mt-2 ${
                     book.status === "pending"
                       ? "text-yellow-600"
+                      : book.status === "borrowed"
+                      ? "text-blue-600"
                       : "text-red-600"
                   }`}
                 >
-                  Status: {book.status === "pending" ? "Pending" : "Borrowed"}
+                  Status:{" "}
+                  {book.status === "pending"
+                    ? "Pending"
+                    : book.status == "borrowed"
+                    ? "Borrowed"
+                    : book.status == "overdue"
+                    ? "Overdue"
+                    : "Not Define"}
                 </p>
               </div>
             </div>

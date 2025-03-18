@@ -13,7 +13,7 @@ const Unverified = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(`${userApiUrl}/unverified`);
-        setUsers(response.data);
+        setUsers(response.data.users);
       } catch (error) {
         console.error("Error fetching users:", error);
       } finally {

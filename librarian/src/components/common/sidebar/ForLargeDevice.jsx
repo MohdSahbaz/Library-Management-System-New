@@ -70,6 +70,9 @@ const ForLargeDevice = () => {
           to="/logout"
           icon={<LogOut size={20} />}
           label="Logout"
+          onClick={() => {
+            localStorage.removeItem("librarianToken");
+          }}
           currentPath={location.pathname}
         />
       </nav>
@@ -77,9 +80,10 @@ const ForLargeDevice = () => {
   );
 };
 
-const NavItem = ({ to, icon, label, currentPath }) => (
+const NavItem = ({ to, icon, label, currentPath, onClick }) => (
   <Link
     to={to}
+    onClick={onClick}
     className={`flex items-center gap-3 px-4 py-2 rounded-sm transition-all duration-300 ${
       currentPath === to
         ? "bg-gradient-to-r from-gray-100 via-gray-300 to-gray-200 text-black border border-gray-400 font-bold shadow-lg hover:from-gray-200 hover:via-gray-400 hover:to-gray-300"

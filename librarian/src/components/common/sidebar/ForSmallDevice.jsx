@@ -59,6 +59,9 @@ const ForSmallDevice = () => {
         />
         <NavIcon
           to="/logout"
+          onClick={() => {
+            localStorage.removeItem("librarianToken");
+          }}
           icon={<LogOut size={20} />}
           currentPath={location.pathname}
         />
@@ -68,9 +71,10 @@ const ForSmallDevice = () => {
 };
 
 // Reusable Navigation Icon Component
-const NavIcon = ({ to, icon, currentPath }) => (
+const NavIcon = ({ to, icon, currentPath, onClick }) => (
   <Link
     to={to}
+    onClick={onClick}
     className={`flex justify-center items-center p-2 rounded-sm transition-all duration-300 ${
       currentPath === to
         ? "bg-gradient-to-t from-gray-100 via-gray-300 to-gray-200 text-black border border-gray-400 font-bold shadow-lg hover:from-gray-200 hover:via-gray-400 hover:to-gray-300"

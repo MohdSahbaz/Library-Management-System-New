@@ -291,13 +291,14 @@ const verifyUser = async (req, res) => {
 
 const getUnverifiedUsers = async (req, res) => {
   try {
-    const unverifiedUsers = await User.find({ status: "unverified" });
+    const unverifiedUsers = await User.find({ status: "unverified" }).select(
+      "-password"
+    );
 
-    if (unverifiedUsers.length === 0) {
-      return res.status(404).json({ message: "No unverified users found" });
-    }
-
-    res.json(unverifiedUsers);
+    return res.status(200).json({
+      message: "Unverified users retrieved",
+      users: unverifiedUsers || [],
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
