@@ -8,8 +8,6 @@ const BookList = ({ books, loader, heading }) => {
   const [payLoader, setPayLoader] = useState(false);
   const navigate = useNavigate();
 
-  console.log(books);
-
   // Calculate total fine amount
   const totalFine = books?.reduce((sum, book) => sum + (book.fine || 0), 0);
 
