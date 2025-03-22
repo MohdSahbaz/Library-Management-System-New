@@ -31,11 +31,16 @@ import AddLibrarian from "./pages/librarian/AddLibrarian";
 import EditLibrarian from "./pages/librarian/EditLibrarian";
 import UserSearchResults from "./pages/users/UserSearchResults";
 import Unverified from "./pages/users/Unverified";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "/",

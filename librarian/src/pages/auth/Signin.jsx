@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../components/animations/animations.css";
 import Header from "../../components/common/Header";
@@ -107,6 +107,15 @@ const SignIn = () => {
               "Access the Library"
             )}
           </button>
+          <div className="mt-2">
+            <Link
+              to="/reset-password"
+              className="text-gray-400 hover:text-white transition duration-200 underline"
+            >
+              Oops! Forgot Your Password?
+            </Link>
+          </div>
+
           {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
       </form>

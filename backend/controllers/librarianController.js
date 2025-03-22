@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const Otp = require("../models/Otp");
 const generateToken = require("../utils/generateToken");
 const matchPassword = require("../utils/matchPassword");
-const { countDocuments } = require("../models/User");
 
 const signIn = async (req, res) => {
   const { email, password } = req.body;
@@ -187,6 +186,30 @@ const getLibrarianById = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    if (!email || !otp || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const storedOtp = await Otp.findOne({ email, otp });
+    if (!storedOtp || storedOtp.expiresAt < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await Librarian.findOneAndUpdate({ email }, { password: hashedPassword });
+
+    await Otp.deleteOne({ email });
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   signIn,
   signUp,
@@ -194,4 +217,5 @@ module.exports = {
   deleteLibrarian,
   updateLibrarian,
   getLibrarianById,
+  resetPassword,
 };

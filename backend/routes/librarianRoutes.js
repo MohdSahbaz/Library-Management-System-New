@@ -6,6 +6,7 @@ const {
   deleteLibrarian,
   updateLibrarian,
   getLibrarianById,
+  resetPassword,
 } = require("../controllers/librarianController");
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.get("/alllibrarians", getLibrarians);
 router.put("/librarian/:id", updateLibrarian);
 router.delete("/librarian/:id", deleteLibrarian);
 router.get("/librarian/:id", getLibrarianById);
+router.post("/resetpassword", resetPassword);
 
 module.exports = router;

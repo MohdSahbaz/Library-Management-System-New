@@ -137,4 +137,51 @@ const sendLibrarianOTP = async (req, res) => {
   }
 };
 
-module.exports = { sendOTP, sendUpdateOTP, sendLibrarianOTP };
+const sendLibrarianPasswordOTP = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) return res.status(400).json({ message: "Email is required" });
+
+  try {
+    // Check if librarian already exists
+    const existingLibrarian = await Librarian.findOne({ email });
+    if (!existingLibrarian)
+      return res.status(400).json({ message: "Invalid email" });
+
+    // Remove any existing OTPs for this email
+    await Otp.deleteMany({ email });
+
+    // Generate a new OTP
+    const otpCode = generateOTP();
+
+    // Save OTP in the database
+    await Otp.create({ email, otp: otpCode });
+
+    // Send OTP via email
+    const emailResponse = await sendMail(
+      email,
+      "Your OTP Code for Librarian Password Reset",
+      otpEmailTemplateForLibrarian(otpCode, { reason: "Reset Password" })
+    );
+
+    if (!emailResponse.success) {
+      return res
+        .status(500)
+        .json({ message: "Failed to send OTP. Try again." });
+    }
+
+    res.status(200).json({ message: "OTP sent successfully" });
+  } catch (error) {
+    console.error("Error sending OTP:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong. Please try again." });
+  }
+};
+
+module.exports = {
+  sendOTP,
+  sendUpdateOTP,
+  sendLibrarianOTP,
+  sendLibrarianPasswordOTP,
+};

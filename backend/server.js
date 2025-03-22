@@ -17,7 +17,6 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const paymentRoutes = require("./routes/paymentRoutes.js");
 
 const calculateFine = require("./cronsJob/calculateFine");
-const removeUnconfirmedBorrows = require("./cronsJob/removePendingBook");
 
 const app = express();
 
