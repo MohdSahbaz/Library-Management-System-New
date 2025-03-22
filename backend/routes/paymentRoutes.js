@@ -14,8 +14,6 @@ router.post("/create-checkout-session", async (req, res) => {
       customerAddress,
     } = req.body;
 
-    console.log(req.body);
-
     if (!customerName || !customerEmail || !customerAddress) {
       return res
         .status(400)
