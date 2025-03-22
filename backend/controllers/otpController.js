@@ -161,7 +161,7 @@ const sendLibrarianPasswordOTP = async (req, res) => {
     const emailResponse = await sendMail(
       email,
       "Your OTP Code for Librarian Password Reset",
-      otpEmailTemplateForLibrarian(otpCode, { reason: "Reset Password" })
+      otpEmailTemplateForLibrarian(otpCode, "Reset Password")
     );
 
     if (!emailResponse.success) {
