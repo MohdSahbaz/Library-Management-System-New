@@ -6,9 +6,9 @@ const calculateFine = async () => {
   try {
     const now = new Date();
 
-    // Find all overdue books that are not returned
+    // Find all books that are overdue (either still "borrowed" or already marked as "overdue")
     const overdueBorrows = await Borrow.find({
-      status: "borrowed",
+      status: { $in: ["borrowed", "overdue"] },
       dueDate: { $lt: now }, // Due date is in the past
     });
 
@@ -19,7 +19,7 @@ const calculateFine = async () => {
       );
 
       if (overdueDays > 0) {
-        borrow.status = "overdue"; // Mark as overdue
+        borrow.status = "overdue"; // Ensure it's marked as overdue
         borrow.fine = overdueDays * DAILY_FINE_AMOUNT; // Fine increases daily
         await borrow.save();
       }

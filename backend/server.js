@@ -27,12 +27,6 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Run cleanup every 30 minutes to remove unconfirmed borrows
-cron.schedule("*/30 * * * *", () => {
-  console.log("Checking and removing unconfirmed borrow requests...");
-  removeUnconfirmedBorrows();
-});
-
 // Run fine calculation every day at midnight
 cron.schedule("0 0 * * *", () => {
   console.log("Running fine calculation...");
