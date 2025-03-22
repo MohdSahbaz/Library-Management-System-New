@@ -12,7 +12,9 @@ const getUserOverdueBooks = async (req, res) => {
     const overdueRecords = await Borrow.find({
       userId,
       status: "overdue",
-    }).populate("bookId");
+    })
+      .populate("bookId")
+      .populate("userId", "name email _id");
 
     // Merge book details directly into overdueBooks array
     const overdueBooks = overdueRecords.map((record) => ({
@@ -28,6 +30,10 @@ const getUserOverdueBooks = async (req, res) => {
       dueDate: record.dueDate,
       status: record.status,
       fine: record.fine,
+      userName: record.userId.name,
+      userEmail: record.userId.email,
+      userAddress: "India",
+      userId: record.userId._id,
     }));
 
     // Calculate total fine

@@ -48,7 +48,7 @@ app.use("/api/borrow", borrowRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/activity", overdueRoutes);
-app.use("/api/paypal", paymentRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // Librarian Routes
 app.use("/api/librarian", librarianRoutes);

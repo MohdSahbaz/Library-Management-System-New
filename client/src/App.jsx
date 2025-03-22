@@ -15,6 +15,7 @@ import AuthPage from "./pages/auth/AuthPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import UpdateProfile from "./pages/auth/UpdateProfile";
 import ResetPassword from "./pages/auth/ResetPassword";
+import PaymentSuccess from "./pages/profile/activity/overdue/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "payment-success",
+        element: <PaymentSuccess />,
       },
       {
         path: "edit-profile",

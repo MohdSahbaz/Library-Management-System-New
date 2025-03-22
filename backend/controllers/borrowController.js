@@ -287,6 +287,43 @@ const clearOverdue = async (req, res) => {
   }
 };
 
+const clearOverdueOnline = async (req, res) => {
+  try {
+    const { userId, bookId } = req.body;
+
+    if (!userId || !bookId) {
+      return res
+        .status(400)
+        .json({ message: "User ID and Book ID are required" });
+    }
+
+    // Find the specific overdue borrow record
+    const overdueRecord = await Borrow.findOne({
+      userId,
+      bookId,
+      status: "overdue",
+    });
+
+    if (!overdueRecord) {
+      return res
+        .status(404)
+        .json({ message: "No overdue record found for this book and user" });
+    }
+
+    // Update the borrow record: change status to "borrowed" and reset fine
+    overdueRecord.status = "borrowed";
+    overdueRecord.fine = 0;
+
+    await overdueRecord.save();
+
+    res
+      .status(200)
+      .json({ message: "Overdue book cleared successfully", overdueRecord });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   borrowBook,
   confirmBorrow,
@@ -296,4 +333,5 @@ module.exports = {
   getOverdueBooks,
   cancelBorrow,
   clearOverdue,
+  clearOverdueOnline,
 };
