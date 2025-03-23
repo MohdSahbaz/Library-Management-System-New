@@ -10,6 +10,9 @@ const booksSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    downloadUrl: {
+      type: String,
+    },
     author: {
       type: String,
       required: true,

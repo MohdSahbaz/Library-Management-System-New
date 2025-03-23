@@ -141,8 +141,15 @@ const deleteBook = async (req, res) => {
 
 const addBook = async (req, res) => {
   try {
-    const { imageUrl, title, author, description, genre, copiesAvailable } =
-      req.body;
+    const {
+      imageUrl,
+      title,
+      author,
+      downloadUrl,
+      description,
+      genre,
+      copiesAvailable,
+    } = req.body;
 
     if (!title || !author || !imageUrl) {
       return res
@@ -154,6 +161,7 @@ const addBook = async (req, res) => {
       imageUrl,
       title,
       author,
+      downloadUrl,
       description,
       genre,
       copiesAvailable: copiesAvailable || 1, // Default to 1 if not provided

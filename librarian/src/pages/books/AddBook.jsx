@@ -9,6 +9,7 @@ const AddBook = () => {
     imageUrl: "",
     title: "",
     author: "",
+    downloadUrl: "",
     description: "",
     genre: "",
     copiesAvailable: 1,
@@ -32,6 +33,7 @@ const AddBook = () => {
         imageUrl: "",
         title: "",
         author: "",
+        downloadUrl: "",
         description: "",
         genre: "",
         copiesAvailable: 1,
@@ -111,6 +113,24 @@ const AddBook = () => {
               value={book.author}
               onChange={handleChange}
               required
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="downloadUrl"
+              className="block text-gray-400 font-medium mb-1"
+            >
+              Download URL
+            </label>
+            <input
+              type="text"
+              id="downloadUrl"
+              name="downloadUrl"
+              placeholder="Enter donwload url"
+              value={book.downloadUrl}
+              onChange={handleChange}
               className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>

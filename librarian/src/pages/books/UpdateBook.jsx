@@ -14,6 +14,7 @@ const UpdateBook = () => {
     imageUrl: "",
     title: "",
     author: "",
+    downloadUrl: "",
     description: "",
     genre: "",
     copiesAvailable: 1,
@@ -107,6 +108,20 @@ const UpdateBook = () => {
               value={book.author}
               onChange={handleChange}
               required
+              className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-300 font-semibold">
+              Download URL:
+            </label>
+            <input
+              type="text"
+              name="downloadUrl"
+              placeholder="Download URL"
+              value={book.downloadUrl}
+              onChange={handleChange}
               className="w-full p-2 border border-gray-700 bg-gray-800 text-gray-300 rounded-sm"
             />
           </div>
