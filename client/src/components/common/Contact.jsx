@@ -18,12 +18,14 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const Contact = () => {
   const formRef = useRef();
   const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
 
   const sendEmail = (e) => {
+    setSending(true);
     e.preventDefault();
     emailjs
       .sendForm(
@@ -35,9 +37,15 @@ const Contact = () => {
       .then(
         () => {
           setMessage("Message sent successfully!");
+          // Ensuring form reset
+          if (formRef.current) {
+            formRef.current.reset(); // Clears the input fields
+          }
+          setSending(false);
         },
         (error) => {
-          setMessage("Failed to send message." + error);
+          setMessage("Failed to send message.");
+          setSending(false);
         }
       );
   };
@@ -113,9 +121,10 @@ const Contact = () => {
             ></textarea>
             <button
               type="submit"
+              disabled={sending}
               className="bg-emerald-700 text-white py-2 rounded-sm hover:bg-emerald-900 transition"
             >
-              Send Message
+              {sending ? "Sending..." : "Send Message"}
             </button>
             {message && (
               <div
