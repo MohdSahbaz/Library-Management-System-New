@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -9,11 +9,38 @@ import {
   FaBook,
 } from "react-icons/fa";
 import "../animations/animations.css";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const Contact = () => {
+  const formRef = useRef();
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          setMessage("Message sent successfully!");
+        },
+        (error) => {
+          setMessage("Failed to send message." + error);
+        }
+      );
+  };
 
   return (
     <div className="min-h-[calc(100vh-56px)] bg-emerald-50 flex flex-col items-center py-10 px-4 fade-in">
@@ -58,22 +85,29 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <form className="flex flex-col space-y-4">
+          <form
+            ref={formRef}
+            onSubmit={sendEmail}
+            className="flex flex-col space-y-4"
+          >
             <input
               type="text"
               placeholder="Your Name"
+              name="name"
               className="border border-gray-300 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
             <input
               type="email"
               placeholder="Your Email"
+              name="email"
               className="border border-gray-300 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
             <textarea
               rows="4"
               placeholder="Your Message"
+              name="message"
               className="border border-gray-300 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             ></textarea>
@@ -83,6 +117,17 @@ const Contact = () => {
             >
               Send Message
             </button>
+            {message && (
+              <div
+                className={`mt-4 text-center font-semibold ${
+                  message.includes("success")
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {message}
+              </div>
+            )}
           </form>
         </div>
       </div>
