@@ -199,6 +199,7 @@ const ReviewAndRating = ({ bookId }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
+            {reviewError && <p className="text-red-500">{reviewError}</p>}
             <button
               onClick={submitReview}
               disabled={loadingReview}

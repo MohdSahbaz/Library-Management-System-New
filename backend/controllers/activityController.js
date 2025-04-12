@@ -157,7 +157,7 @@ const getUserHistoryBooks = async (req, res) => {
     // Find all borrow records for the user
     const historyRecords = await Borrow.find({ userId })
       .populate("bookId", "title imageUrl _id") // populate only the title and imageUrl of the book
-      .select("borrowDate dueDate status bookId")
+      .select("borrowDate dueDate returnDate status bookId")
       .lean();
 
     // Format the records to match the unreturned response format
@@ -167,6 +167,7 @@ const getUserHistoryBooks = async (req, res) => {
       imageUrl: record.bookId.imageUrl,
       borrowDate: record.borrowDate,
       dueDate: record.dueDate,
+      returnDate: record.returnDate,
       status: record.status,
     }));
 
@@ -188,7 +189,7 @@ const getUserHistoryBooksForLibrarian = async (req, res) => {
     // Find all borrow records for the user
     const historyRecords = await Borrow.find({ userId })
       .populate("bookId", "title imageUrl _id") // populate only the title and imageUrl of the book
-      .select("borrowDate dueDate status bookId")
+      .select("borrowDate dueDate returnDate status bookId")
       .lean();
 
     // Format the records to match the unreturned response format
@@ -198,6 +199,7 @@ const getUserHistoryBooksForLibrarian = async (req, res) => {
       imageUrl: record.bookId.imageUrl,
       borrowDate: record.borrowDate,
       dueDate: record.dueDate,
+      returnDate: record.returnDate,
       status: record.status,
     }));
 

@@ -12,8 +12,8 @@ const PaymentSuccess = () => {
   console.log(userId);
   console.log(bookId);
 
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const clearOverdueFine = async () => {
@@ -30,7 +30,7 @@ const PaymentSuccess = () => {
 
         setMessage("Overdue fine cleared successfully.");
       } catch (err) {
-        setError("Error clearing overdue fine. Please try again.");
+        // setError("Error clearing overdue fine. Please try again.");
       }
     };
 
@@ -47,10 +47,10 @@ const PaymentSuccess = () => {
       {error && <p className="text-red-500 mt-2">{error}</p>}
 
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/profile")}
         className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
       >
-        BACK TO HOME
+        BACK TO PROFILE
       </button>
     </div>
   );

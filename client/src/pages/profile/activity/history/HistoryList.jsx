@@ -45,10 +45,20 @@ const BookList = ({ books, loader, heading }) => {
                   <strong>Borrowed:</strong>{" "}
                   {new Date(book.borrowDate).toLocaleDateString("en-GB")}
                 </p>
-                <p className="text-red-500 text-sm">
-                  <strong>Due:</strong>{" "}
-                  {new Date(book.dueDate).toLocaleDateString("en-GB")}
-                </p>
+
+                {book.returnDate ? (
+                  <p className="text-red-500 text-sm">
+                    <strong>Return:</strong>{" "}
+                    {new Date(book.returnDate).toLocaleDateString("en-GB")}
+                  </p>
+                ) : (
+                  book.dueDate && (
+                    <p className="text-red-500 text-sm">
+                      <strong>Due:</strong>{" "}
+                      {new Date(book.dueDate).toLocaleDateString("en-GB")}
+                    </p>
+                  )
+                )}
                 <p
                   className={`text-sm font-semibold mt-2 ${
                     book.status === "pending"
