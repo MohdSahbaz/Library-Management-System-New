@@ -48,7 +48,7 @@ const BookList = ({ books, loader, heading }) => {
                   </td>
                   <td className="pl-4 py-3">{book.genre || "Unknown Genre"}</td>
                   <td className="pl-4 py-3 hidden md:table-cell text-gray-500">
-                    {book.salesCount || "Unknown"}
+                    {book.salesCount || 0}
                   </td>
                 </tr>
               ))

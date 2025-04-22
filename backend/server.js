@@ -33,6 +33,12 @@ cron.schedule("0 0 * * *", () => {
   calculateFine();
 });
 
+// // Run fine calculation every minute
+// cron.schedule("* * * * *", () => {
+//   console.log("Running fine calculation...");
+//   calculateFine();
+// });
+
 // Common and User Routes
 app.use("/api/books", booksRoutes);
 app.use("/api/user", authRoutes);
