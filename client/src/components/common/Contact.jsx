@@ -71,22 +71,35 @@ const Contact = () => {
                 India
               </p>
               <p className="flex items-center text-gray-700">
-                <FaPhone className="text-emerald-700 mr-2" /> +913 456 7890
+                <FaPhone className="text-emerald-700 mr-2" /> +913 630 8474
               </p>
               <p className="flex items-center text-gray-700">
-                <FaEnvelope className="text-emerald-700 mr-2" /> contact@lms.com
+                <FaEnvelope className="text-emerald-700 mr-2" />{" "}
+                sahbaz@gmail.com
               </p>
             </div>
 
             {/* Social Media */}
             <div className="mt-4 flex space-x-4">
-              <a href="#" className="text-emerald-700 hover:text-emerald-900">
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                className="text-emerald-700 hover:text-emerald-900"
+              >
                 <FaFacebookF size={24} />
               </a>
-              <a href="#" className="text-emerald-700 hover:text-emerald-900">
+              <a
+                href="https://www.twitter.com/"
+                target="_blank"
+                className="text-emerald-700 hover:text-emerald-900"
+              >
                 <FaTwitter size={24} />
               </a>
-              <a href="#" className="text-emerald-700 hover:text-emerald-900">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                className="text-emerald-700 hover:text-emerald-900"
+              >
                 <FaInstagram size={24} />
               </a>
             </div>

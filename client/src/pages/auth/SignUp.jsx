@@ -93,9 +93,11 @@ const SignUp = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
+          pattern="^[A-Za-z\s]+$"
           className="w-full px-4 py-2 border rounded-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/[0.5] bg-transparent border-emerald-800 placeholder:text-emerald-800/[0.5]"
           placeholder="Enter your full name"
           required
+          title="Only letters and spaces are allowed"
         />
       </div>
 
